@@ -3,12 +3,17 @@ package controller;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import model.Course;
 import model.Question;
 import model.Quiz;
+import model.User;
+import view.Main;
 
 public class CoordinatorDashboardController {
+
+    private Label welcomeLabel;
 
     @FXML
     private ListView<Course> courseList;
@@ -18,6 +23,9 @@ public class CoordinatorDashboardController {
     private ListView<Question> questionList;
 
     public void setup() {
+
+        // welcomeLabel.setText("Welkom " + User.getGebruikersNaam() + ", selecteer eerst een cursus.");
+
         courseList.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Course>() {
                     @Override
