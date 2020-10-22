@@ -1,6 +1,6 @@
 package controller;
-
 import javafx.application.Application;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -23,11 +23,11 @@ public class WelcomeController {
     welcomeLabel.setText("Welkom Student, maak een keuze uit het menu:");
 
         MenuItem item1 = new MenuItem("In- en uitschrijven cursus.");
-        //item1.setOnAction(event -> Main.getSceneManager().showStudentSignInOutScene());
+        item1.setOnAction(event -> Main.getSceneManager().showStudentSignInOutScene());
         //taskMenuButton.getItems().add(item1);
 
         MenuItem item2 = new MenuItem("Quiz selecteren.");
-        //item2.setOnAction(event -> Main.getSceneManager().showSelectQuizForStudent());
+        item2.setOnAction(event -> Main.getSceneManager().showSelectQuizForStudent());
         //taskMenuButton.getItems().add(item2);
 
         MenuItem item3 = new MenuItem("Quiz invullen.");
@@ -36,9 +36,7 @@ public class WelcomeController {
 
 
 
-
     }//setup
-
     public void doLogout(ActionEvent event) {
         System.exit(0);
     }
