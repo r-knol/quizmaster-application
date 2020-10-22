@@ -1,2 +1,4 @@
-package database.mysql;public class QuestionDAO {
+package database.mysql;
+
+public class QuestionDAO {
 }
