@@ -10,7 +10,9 @@ public class LoginController {
     @FXML
     private TextField passwordField;
 
-    public void doLogin() {}
+    public void doLogin() {
+
+    }
 
     public void doQuit() {}
 }

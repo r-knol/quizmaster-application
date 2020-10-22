@@ -2,12 +2,12 @@ package controller;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import model.Question;
-import model.Quiz;
+import model.User;
 import view.Main;
 
 public class WelcomeController {
@@ -17,29 +17,20 @@ public class WelcomeController {
     @FXML
     private MenuButton taskMenuButton;
 
-    public void setup() {
-    // Peter van den Bol
-    // De volgende regel past de tekst uit de view (fxml) aan.
-    welcomeLabel.setText("Welkom Student, maak een keuze uit het menu:");
+    public void setup(User user) {
+        welcomeLabel.setText("Welkom " + user.getRolNaam() + ", kies een taak uit het menu.");
 
-        MenuItem item1 = new MenuItem("In- en uitschrijven cursus.");
-        //item1.setOnAction(event -> Main.getSceneManager().showStudentSignInOutScene());
-        //taskMenuButton.getItems().add(item1);
+        MenuItem item = new MenuItem("Door naar dashboard");
+        item.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Main.getSceneManager().showCoordinatorDashboard();
+            }
+        });
+        taskMenuButton.getItems().add(item);
+    }
 
-        MenuItem item2 = new MenuItem("Quiz selecteren.");
-        //item2.setOnAction(event -> Main.getSceneManager().showSelectQuizForStudent());
-        //taskMenuButton.getItems().add(item2);
-
-        MenuItem item3 = new MenuItem("Quiz invullen.");
-        //item3.setOnAction(event -> Main.getSceneManager().showFillOutQuiz());
-        //taskMenuButton.getItems().add(item3);
-
-
-
-
-    }//setup
-
-    public void doLogout(ActionEvent event) {
+    public void doLogout(ActionEvent exit) {
         System.exit(0);
     }
 }
