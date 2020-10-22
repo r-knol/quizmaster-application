@@ -5,9 +5,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import model.User;
 import view.Main;
+
 public class LoginController {
+
     private UserDAO userDAO;
     private DBAccess dBaccess;
+
     public LoginController() {
         this.dBaccess = Main.getDBaccess();
         this.userDAO = new UserDAO(dBaccess);
