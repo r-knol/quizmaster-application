@@ -64,9 +64,9 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
                 String role = resultSet.getString("rolNaam");
                 String password = resultSet.getString("wachtwoord");
                 result = new User(id, role, name, password);
-                result.setGebruikerID(id);
+                result.setRolNaam(role);
             } else {
-                System.out.println("Gebruiker met dit gebruikersID bestaat niet");
+                System.out.println("Gebruiker bestaat niet");
             }
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
