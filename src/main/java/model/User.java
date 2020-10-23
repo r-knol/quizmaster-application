@@ -1,5 +1,8 @@
 package model;
-// gemaakt door Richard
+
+/**
+ * @author Richard Knol
+ */
 public class User {
 
     private static int aantalUsers = 0;

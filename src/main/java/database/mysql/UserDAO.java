@@ -4,14 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-// gemaakt door Richard
-
+/**
+ * @author Richard Knol
+ */
 public class UserDAO extends AbstractDAO implements GenericDAO<User> {
-
     public UserDAO(DBAccess dbAccess) {
         super(dbAccess);
     }
-
     @Override
     public ArrayList<User> getAll() {
         String sql = "Select * FROM gebruiker";
@@ -19,19 +18,19 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
         try {
             setupPreparedStatement(sql);
             ResultSet resultSet = executeSelectStatement();
-            // User user;
+            User user;
             while (resultSet.next()) {
-                resultSet.getString("rolNaam");
-                resultSet.getString("gebruikersNaam");
-                resultSet.getString("Wachtwoord");
-                //user = new User(id, rolNaam, naam, wachtwoord);
-                //result.add(user);
+                int id = resultSet.getInt("gebruikersID");
+                String role = resultSet.getString("rolNaam");
+                String name = resultSet.getString("gebruikersNaam");
+                String password = resultSet.getString("Wachtwoord");
+                user = new User(id, role, name, password);
+                result.add(user);
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         } return result;
     }
-
     @Override
     public User getOneById(int id) {
         String sql = "Select * FROM gebruiker WHERE gebruikerID = ?";
@@ -41,10 +40,11 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = executeSelectStatement();
             if (resultSet.next()) {
-                resultSet.getString("gebruikersNaam");
-                resultSet.getString("wachtwoord");
-                // result = new User(naam, wachtwoord);
-                // result.setGebruikerID(id);
+                String name = resultSet.getString("gebruikersNaam");
+                String role = resultSet.getString("rolNaam");
+                String password = resultSet.getString("wachtwoord");
+                result = new User(id, role, name, password);
+                result.setGebruikerID(id);
             } else {
                 System.out.println("Gebruiker met dit gebruikerID bestaat niet");
             }
@@ -52,7 +52,26 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
             System.out.println("SQL error: " + e.getMessage());
         } return result;
     }
-
+    public User getOneByName(String name) {
+        String sql = "Select * FROM gebruiker WHERE gebruikersNaam = ?";
+        User result = null;
+        try {
+            setupPreparedStatement(sql);
+            preparedStatement.setString(3, name);
+            ResultSet resultSet = executeSelectStatement();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("gebruikersID");
+                String role = resultSet.getString("rolNaam");
+                String password = resultSet.getString("wachtwoord");
+                result = new User(id, role, name, password);
+                result.setGebruikerID(id);
+            } else {
+                System.out.println("Gebruiker met dit gebruikersID bestaat niet");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        } return result;
+    }
     @Override
     public void storeOne(User user) {
         String sql = "Insert into gebruiker(GebruikerID, rolNaam, naam, wachtwoord) values(?,?,?,?) ;";
