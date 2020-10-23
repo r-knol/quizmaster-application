@@ -57,7 +57,7 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
         User result = null;
         try {
             setupPreparedStatement(sql);
-            preparedStatement.setString(3, name);
+            preparedStatement.setString(1, name);
             ResultSet resultSet = executeSelectStatement();
             if (resultSet.next()) {
                 int id = resultSet.getInt("gebruikersID");
@@ -66,7 +66,7 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
                 result = new User(id, role, name, password);
                 result.setGebruikerID(id);
             } else {
-                System.out.println("Gebruiker met dit gebruikersID bestaat niet");
+                System.out.println("Gebruiker met deze naam bestaat niet");
             }
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
