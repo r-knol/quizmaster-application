@@ -19,7 +19,7 @@ public class WelcomeController {
 
     public void setup() {
         // De volgende regel past de tekst uit de view (fxml) aan.
-        welcomeLabel.setText("Welkom Student, maak een keuze uit het menu:");
+        welcomeLabel.setText("Welkom " + Main.getUser().getNaam() + " , je bent nu ingelogd als " + Main.getUser().getRolNaam());
 
         MenuItem item1 = new MenuItem("In- en uitschrijven cursus.");
         //item1.setOnAction(event -> Main.getSceneManager().showStudentSignInOutScene());
