@@ -49,14 +49,28 @@ public class DBAccess {
      * Close database connection
      */
     public void closeConnection() {
-        try {
-            connection.close();
-        } catch (Exception connectionFout) {
-            System.err.println(connectionFout.getMessage());
+        if (connection != null) { // Check toegevoegd door Wendy in overleg met Michael
+            try {
+                connection.close();
+                System.out.println("Connection closed");
+            } catch (Exception connectionFout) {
+                System.err.println(connectionFout.getMessage());
+            }
         }
     }
 
-    public Connection getConnection()  {
+    public Connection getConnection() {
+        if (connection == null) {
+            this.openConnection();
+        }
+        try {
+            if (connection.isClosed()) {
+                this.openConnection();
+            }
+        }
+        catch (SQLException sqlFout) {
+            System.out.println("connection fout");
+        }
         return connection;
     }
 }

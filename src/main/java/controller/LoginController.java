@@ -3,10 +3,10 @@ package controller;
 import database.mysql.DBAccess;
 import database.mysql.UserDAO;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import model.User;
 import view.Main;
-
 
 /**
  * @author Richard Knol, Wendy Ellens
@@ -26,14 +26,21 @@ public class LoginController {
     private TextField passwordField;
 
     public void doLogin() {
-        User user = userDAO.getOneByName(nameTextField.getText()); // TODO er gaat helaas iets mis in de methode getOneByName, maar wat?
-        if (passwordField.getText().equals(user.getWachtwoord())) {
+        Main.setUser(userDAO.getOneByName(nameTextField.getText()));
+        if (Main.getUser() == null) {
+            return;
+        }
+        if (passwordField.getText().equals(Main.getUser().getWachtwoord())) {
             Main.getSceneManager().showWelcomeScene();
-            // TODO rolnaam meegeven aan welkomstscherm.
+        } else {
+            Alert foutmelding = new Alert(Alert.AlertType.WARNING);
+            foutmelding.setContentText("Het wachtwoord is onjuist");
+            foutmelding.show();
         }
-        else {
-            System.out.println("Het wachtwoord is onjuist.");
-        }
-        // if (user.getRolNaam().equals("student")) TODO gebruiken in welkomstscherm
+    }
+
+    public void doQuit() {
+        dBaccess.closeConnection();
+        System.exit(0);
     }
 }
