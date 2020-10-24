@@ -18,25 +18,22 @@ public class WelcomeController {
     private MenuButton taskMenuButton;
 
     public void setup() {
-    // Peter van den Bol
-    // De volgende regel past de tekst uit de view (fxml) aan.
-    welcomeLabel.setText("Welkom Student, maak een keuze uit het menu:");
+        // De volgende regel past de tekst uit de view (fxml) aan.
+        welcomeLabel.setText("Welkom Student, maak een keuze uit het menu:");
 
         MenuItem item1 = new MenuItem("In- en uitschrijven cursus.");
-        item1.setOnAction(event -> Main.getSceneManager().showStudentSignInOutScene());
-        //taskMenuButton.getItems().add(item1);
+        //item1.setOnAction(event -> Main.getSceneManager().showStudentSignInOutScene());
+        taskMenuButton.getItems().add(item1);
 
         MenuItem item2 = new MenuItem("Quiz selecteren.");
-        item2.setOnAction(event -> Main.getSceneManager().showSelectQuizForStudent());
-        //taskMenuButton.getItems().add(item2);
+        //item2.setOnAction(event -> Main.getSceneManager().showSelectQuizForStudent());
+        taskMenuButton.getItems().add(item2);
 
         MenuItem item3 = new MenuItem("Quiz invullen.");
         //item3.setOnAction(event -> Main.getSceneManager().showFillOutQuiz());
-        //taskMenuButton.getItems().add(item3);
+        taskMenuButton.getItems().add(item3);
+    }
 
-
-
-    }//setup
     public void doLogout(ActionEvent event) {
         System.exit(0);
     }
