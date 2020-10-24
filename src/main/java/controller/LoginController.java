@@ -26,11 +26,11 @@ public class LoginController {
     private TextField passwordField;
 
     public void doLogin() {
-        User user = userDAO.getOneByName(nameTextField.getText());
-        if (user == null) {
+        Main.setUser(userDAO.getOneByName(nameTextField.getText()));
+        if (Main.getUser() == null) {
             return;
         }
-        if (passwordField.getText().equals(user.getWachtwoord())) {
+        if (passwordField.getText().equals(Main.getUser().getWachtwoord())) {
             Main.getSceneManager().showWelcomeScene();
         } else {
             Alert foutmelding = new Alert(Alert.AlertType.WARNING);
@@ -41,7 +41,6 @@ public class LoginController {
 
     public void doQuit() {
         dBaccess.closeConnection();
-        System.out.println("Connection closed");
         System.exit(0);
     }
 }
