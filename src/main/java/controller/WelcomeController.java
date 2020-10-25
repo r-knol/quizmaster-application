@@ -1,4 +1,6 @@
 package controller;
+import database.mysql.DBAccess;
+import database.mysql.UserDAO;
 import javafx.application.Application;
 
 import javafx.event.ActionEvent;
@@ -16,7 +18,11 @@ import view.Main;
 
 public class WelcomeController {
 
-    private Quiz quiz;
+    private DBAccess dBaccess;
+
+    public WelcomeController() {
+        this.dBaccess = Main.getDBaccess();
+    }
 
     @FXML
     private Label welcomeLabel;
@@ -25,45 +31,49 @@ public class WelcomeController {
 
     public void setup() {
         // De volgende regel past de tekst uit de view (fxml) aan gebruiker die is ingelogd aan.
-        welcomeLabel.setText("Welkom " + Main.getUser().getNaam() + " , je bent nu ingelogd als " + Main.getUser().getRolNaam());
+        welcomeLabel.setText("Welkom " + Main.getUser().getNaam() + ",\nje bent ingelogd als " + Main.getUser().getRolNaam());
 
         // Per ingelogde gebruiker krijg je een welkomscherm die hoort bij de rol van de gebruiker.
         switch (Main.getUser().getRolNaam()) {
 
             case "student" :
 
-                MenuItem item1 = new MenuItem("In- en uitschrijven cursus.");
+                MenuItem item1 = new MenuItem("In- en uitschrijven cursus");
                 item1.setOnAction(event -> Main.getSceneManager().showStudentSignInOutScene());
                 taskMenuButton.getItems().add(item1);
 
-                MenuItem item2 = new MenuItem("Quiz selecteren.");
+                MenuItem item2 = new MenuItem("Quiz selecteren");
                 item2.setOnAction(event -> Main.getSceneManager().showSelectQuizForStudent());
                 taskMenuButton.getItems().add(item2);
-
-                MenuItem item3 = new MenuItem("Quiz invullen.");
-                item3.setOnAction(event -> Main.getSceneManager().showFillOutQuiz(quiz));
-                taskMenuButton.getItems().add(item3);
                 break;
 
             case "coordinator" :
 
-                MenuItem item4 = new MenuItem("Ga door naar Dashboard.");
-                item4.setOnAction(event -> Main.getSceneManager().showCoordinatorDashboard());
+                MenuItem item3 = new MenuItem("Ga naar Dashboard");
+                item3.setOnAction(event -> Main.getSceneManager().showCoordinatorDashboard());
+                taskMenuButton.getItems().add(item3);
+
+                MenuItem item4 = new MenuItem("Ga naar Quizbeheer");
+                item4.setOnAction(event -> Main.getSceneManager().showManageQuizScene());
                 taskMenuButton.getItems().add(item4);
+
+                MenuItem item5 = new MenuItem("Ga naar Vragenbeheer.");
+                item5.setOnAction(event -> Main.getSceneManager().showManageQuestionsScene());
+                taskMenuButton.getItems().add(item5);
                 break;
 
             case "administrator" :
 
-                MenuItem item5 = new MenuItem("Ga door naar Cursusbeheer");
-                item5.setOnAction(event -> Main.getSceneManager().showManageCoursesScene());
-                taskMenuButton.getItems().add(item5);
+                MenuItem item6 = new MenuItem("Ga naar Cursusbeheer");
+                item6.setOnAction(event -> Main.getSceneManager().showManageCoursesScene());
+                taskMenuButton.getItems().add(item6);
                 break;
 
             case "technisch beheerder" :
 
-                MenuItem item6 = new MenuItem("Ga naar Gebruikersbeheer.");
-                item6.setOnAction(event -> Main.getSceneManager().showManageUserScene());
-                taskMenuButton.getItems().add(item6);
+                MenuItem item7 = new MenuItem("Ga naar Gebruikersbeheer");
+                item7.setOnAction(event -> Main.getSceneManager().showManageUserScene());
+                taskMenuButton.getItems().add(item7);
                 break;
         }
 
@@ -93,6 +103,7 @@ public class WelcomeController {
     }
     // uitloggen
     public void doLogout(ActionEvent event) {
-        System.exit(0);
+        dBaccess.closeConnection();
+        Main.getSceneManager().showLoginScene();
     }
 }
