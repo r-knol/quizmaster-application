@@ -76,30 +76,6 @@ public class WelcomeController {
                 taskMenuButton.getItems().add(item7);
                 break;
         }
-
-        /*if (Main.getUser().getRolNaam().equals("student")) {
-            MenuItem item1 = new MenuItem("In- en uitschrijven cursus.");
-            item1.setOnAction(event -> Main.getSceneManager().showStudentSignInOutScene());
-            taskMenuButton.getItems().add(item1);
-            MenuItem item2 = new MenuItem("Quiz selecteren.");
-            item2.setOnAction(event -> Main.getSceneManager().showSelectQuizForStudent());
-            taskMenuButton.getItems().add(item2);
-            MenuItem item3 = new MenuItem("Quiz invullen.");
-            item3.setOnAction(event -> Main.getSceneManager().showFillOutQuiz(quiz));
-            taskMenuButton.getItems().add(item3);
-        } else if (Main.getUser().getRolNaam().equals("coordinator")) {
-            MenuItem item = new MenuItem("Ga door naar Dashboard.");
-            item.setOnAction(event -> Main.getSceneManager().showCoordinatorDashboard());
-            taskMenuButton.getItems().add(item);
-        } else if (Main.getUser().getRolNaam().equals("administrator")) {
-            MenuItem item = new MenuItem("Ga door naar Cursusbeheer");
-            item.setOnAction(event -> Main.getSceneManager().showManageCoursesScene());
-            taskMenuButton.getItems().add(item);
-        } else {
-            MenuItem item = new MenuItem("Ga naar Gebruikersbeheer.");
-            item.setOnAction(event -> Main.getSceneManager().showManageUserScene());
-            taskMenuButton.getItems().add(item);
-        }*/
     }
     // uitloggen
     public void doLogout(ActionEvent event) {
