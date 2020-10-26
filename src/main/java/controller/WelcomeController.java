@@ -79,7 +79,6 @@ public class WelcomeController {
     }
     // uitloggen
     public void doLogout(ActionEvent event) {
-        dBaccess.closeConnection();
         Main.getSceneManager().showLoginScene();
     }
 }

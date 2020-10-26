@@ -26,16 +26,14 @@ public class LoginController {
     private TextField passwordField;
 
     public void doLogin() {
-        Main.setUser(userDAO.getOneByName(nameTextField.getText()));
+        Main.setUser(userDAO.getOneByNameAndPassword(nameTextField.getText(),passwordField.getText()));
         if (Main.getUser() == null) {
-            return;
-        }
-        if (passwordField.getText().equals(Main.getUser().getWachtwoord())) {
-            Main.getSceneManager().showWelcomeScene();
-        } else {
             Alert foutmelding = new Alert(Alert.AlertType.WARNING);
-            foutmelding.setContentText("Het wachtwoord is onjuist");
+            foutmelding.setContentText("Deze combinatie van gebruikersnaam en wachtwoord is onbekend.");
             foutmelding.show();
+        }
+        else {
+            Main.getSceneManager().showWelcomeScene();
         }
     }
 

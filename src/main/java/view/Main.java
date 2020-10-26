@@ -9,8 +9,9 @@ public class Main extends Application {
 
     private static SceneManager sceneManager = null;
     private static Stage primaryStage = null;
-    private static DBAccess db = null;         // alvast toegevoegd door Richard
-    private static User user;
+    private static DBAccess db = null; // Toegevoegd door Richard om DB connectie te leggen
+    private static User user; // Toegevoegd door Wendy om de gegevens van de gebruiker die inlogt overal beschikbaar te
+    // hebben
 
     public static void main(String[] args) {
         launch(args);
@@ -43,7 +44,7 @@ public class Main extends Application {
         Main.user = user;
     }
 
-    // Toegevoegd door Richard om DB connectie te leggen.
+    // Toegevoegd door Richard om DB connectie te leggen
     public static DBAccess getDBaccess() {
         if (db == null) {
             db = new DBAccess("quizmaster","userQuizmaster", "userQuizmasterPW");

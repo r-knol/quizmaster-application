@@ -57,24 +57,21 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
         } return result;
     }
 
-    public User getOneByName(String name) {
-        String sql = "Select * FROM gebruiker WHERE gebruikersNaam = ?";
+    public User getOneByNameAndPassword(String name, String password) {
+        String sql = "Select * FROM gebruiker WHERE gebruikersNaam = ? AND wachtwoord = ?";
         User result = null;
         try {
             setupPreparedStatement(sql);
             preparedStatement.setString(1, name);
+            preparedStatement.setString(2, password);
             ResultSet resultSet = executeSelectStatement();
             if (resultSet.next()) {
                 int id = resultSet.getInt("gebruikersID");
                 String role = resultSet.getString("rolNaam");
-                String password = resultSet.getString("wachtwoord");
                 result = new User(id, role, name, password);
                 result.setGebruikerID(id);
-            } else {
-                Alert foutmelding = new Alert(Alert.AlertType.WARNING);
-                foutmelding.setContentText("Gebruiker met deze naam bestaat niet");
-                foutmelding.show();
-            }
+            } // Als de combinatie gebruikersnaam-wachtwoord bestaat, wordt de gebruiker terug gegeven, anders een leeg
+            // object.
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         } return result;
