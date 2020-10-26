@@ -3,24 +3,29 @@ package model;
 /**
  * @author Richard Knol
  */
+
 public class User {
+
     private static int aantalUsers = 0;
     private int gebruikerID;
     private String rolNaam;
     private String naam;
     private String wachtwoord;
+
     public User(String rolNaam, String naam, String wachtwoord) {
         this.gebruikerID = ++aantalUsers;
         this.rolNaam = rolNaam;
         this.naam = naam;
         this.wachtwoord = wachtwoord;
     }
+
     public User(int gebruikerID, String rolNaam, String naam, String wachtwoord) {
         this.gebruikerID = gebruikerID;
         this.rolNaam = rolNaam;
         this.naam = naam;
         this.wachtwoord = wachtwoord;
     }
+
     public int getGebruikerID() {
         return gebruikerID;
     }

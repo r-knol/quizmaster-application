@@ -11,6 +11,7 @@ import view.Main;
 /**
  * @author Richard Knol, Wendy Ellens
  */
+
 public class LoginController {
     private UserDAO userDAO;
     private DBAccess dBaccess;
