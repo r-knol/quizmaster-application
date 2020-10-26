@@ -30,10 +30,11 @@ public class WelcomeController {
     private MenuButton taskMenuButton;
 
     public void setup() {
-        // De volgende regel past de tekst uit de view (fxml) aan gebruiker die is ingelogd aan.
-        welcomeLabel.setText("Welkom " + Main.getUser().getNaam() + ",\nje bent ingelogd als " + Main.getUser().getRolNaam());
+        // De volgende regel past de tekst uit de view (fxml) aan gebruiker die is ingelogd aan
+        welcomeLabel.setText("Welkom " + Main.getUser().getVoornaam() + ", je bent ingelogd als " +
+                Main.getUser().getRolNaam());
 
-        // Per ingelogde gebruiker krijg je een welkomscherm die hoort bij de rol van de gebruiker.
+        // Per ingelogde gebruiker krijg je een welkomscherm die hoort bij de rol van de gebruiker
         switch (Main.getUser().getRolNaam()) {
 
             case "student" :
@@ -77,8 +78,9 @@ public class WelcomeController {
                 break;
         }
     }
-    // uitloggen
+
     public void doLogout(ActionEvent event) {
         Main.getSceneManager().showLoginScene();
     }
+
 }
