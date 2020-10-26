@@ -57,7 +57,7 @@ public class WelcomeController {
                 item4.setOnAction(event -> Main.getSceneManager().showManageQuizScene());
                 taskMenuButton.getItems().add(item4);
 
-                MenuItem item5 = new MenuItem("Ga naar Vragenbeheer.");
+                MenuItem item5 = new MenuItem("Ga naar Vragenbeheer");
                 item5.setOnAction(event -> Main.getSceneManager().showManageQuestionsScene());
                 taskMenuButton.getItems().add(item5);
                 break;
