@@ -26,8 +26,9 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
                 int id = resultSet.getInt("gebruikersID");
                 String role = resultSet.getString("rolNaam");
                 String userName = resultSet.getString("gebruikersNaam");
+                String firstName = resultSet.getString("voornaam");
                 String password = resultSet.getString("Wachtwoord");
-                user = new User(id, role, userName, password);
+                user = new User(id, role, userName, firstName, password);
                 result.add(user);
             }
         } catch (SQLException e) {
@@ -46,8 +47,9 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
             if (resultSet.next()) {
                 String userName = resultSet.getString("gebruikersNaam");
                 String role = resultSet.getString("rolNaam");
+                String firstName = resultSet.getString("voornaam");
                 String password = resultSet.getString("wachtwoord");
-                result = new User(id, role, userName, password);
+                result = new User(id, role, userName, firstName, password);
                 result.setGebruikerID(id);
             } else {
                 System.out.println("Gebruiker met dit gebruikerID bestaat niet");
@@ -68,7 +70,8 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
             if (resultSet.next()) {
                 int id = resultSet.getInt("gebruikersID");
                 String role = resultSet.getString("rolNaam");
-                result = new User(id, role, userName, password);
+                String firstName = resultSet.getString("voornaam");
+                result = new User(id, role, userName, firstName, password);
                 result.setGebruikerID(id);
             }   /* Als de combinatie gebruikersnaam-wachtwoord bestaat, wordt de gebruiker terug gegeven,
                 anders een leeg object.*/

@@ -14,17 +14,19 @@ public class User {
     private String achternaam;
     private String wachtwoord;
 
-    public User(String rolNaam, String gebruikersNaam, String wachtwoord) {
+    public User(String rolNaam, String gebruikersNaam, String voornaam, String wachtwoord) {
         this.gebruikerID = ++aantalUsers;
         this.rolNaam = rolNaam;
         this.gebruikersNaam = gebruikersNaam;
+        this.voornaam = voornaam;
         this.wachtwoord = wachtwoord;
     }
 
-    public User(int gebruikerID, String rolNaam, String gebruikersNaam, String wachtwoord) {
+    public User(int gebruikerID, String rolNaam, String gebruikersNaam, String voornaam, String wachtwoord) {
         this.gebruikerID = gebruikerID;
         this.rolNaam = rolNaam;
         this.gebruikersNaam = gebruikersNaam;
+        this.voornaam = voornaam;
         this.wachtwoord = wachtwoord;
     }
 

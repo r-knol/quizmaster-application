@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserDAOTest {
 
-    private final User actual = new User(1, "student", "rwknol", "leeg");
+    private final User actual = new User("student", "rwknol", "Richard", "hoi");
 
     @org.junit.jupiter.api.Test
     void getAll() {
