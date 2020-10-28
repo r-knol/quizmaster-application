@@ -1,12 +1,11 @@
 package database.mysql;
-import javafx.scene.control.Alert;
 import model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- * @author Richard Knol
+ * @author Richard Knol, Wendy Ellens
  */
 
 public class UserDAO extends AbstractDAO implements GenericDAO<User> {
@@ -25,9 +24,12 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
             while (resultSet.next()) {
                 int id = resultSet.getInt("gebruikersID");
                 String role = resultSet.getString("rolNaam");
-                String name = resultSet.getString("gebruikersNaam");
-                String password = resultSet.getString("Wachtwoord");
-                user = new User(id, role, name, password);
+                String userName = resultSet.getString("gebruikersNaam");
+                String password = resultSet.getString("wachtwoord");
+                String firstName = resultSet.getString("voornaam");
+                String preposition = resultSet.getString("tussenvoegsel");
+                String lastName = resultSet.getString("achternaam");
+                user = new User(id, role, userName, password, firstName, preposition, lastName);
                 result.add(user);
             }
         } catch (SQLException e) {
@@ -44,11 +46,13 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = executeSelectStatement();
             if (resultSet.next()) {
-                String name = resultSet.getString("gebruikersNaam");
                 String role = resultSet.getString("rolNaam");
+                String userName = resultSet.getString("gebruikersNaam");
                 String password = resultSet.getString("wachtwoord");
-                result = new User(id, role, name, password);
-                result.setGebruikerID(id);
+                String firstName = resultSet.getString("voornaam");
+                String preposition = resultSet.getString("tussenvoegsel");
+                String lastName = resultSet.getString("achternaam");
+                result = new User(id, role, userName, password, firstName, preposition, lastName);
             } else {
                 System.out.println("Gebruiker met dit gebruikerID bestaat niet");
             }
@@ -57,24 +61,47 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
         } return result;
     }
 
-    public User getOneByName(String name) {
-        String sql = "Select * FROM gebruiker WHERE gebruikersNaam = ?";
+    public User getOneByUsername(String userName) {
+        String sql = "Select * FROM gebruiker WHERE gebruikersNaam = ? AND wachtwoord = ?";
         User result = null;
         try {
             setupPreparedStatement(sql);
-            preparedStatement.setString(1, name);
+            preparedStatement.setString(1, userName);
             ResultSet resultSet = executeSelectStatement();
             if (resultSet.next()) {
                 int id = resultSet.getInt("gebruikersID");
                 String role = resultSet.getString("rolNaam");
                 String password = resultSet.getString("wachtwoord");
-                result = new User(id, role, name, password);
-                result.setGebruikerID(id);
-            } else {
-                Alert foutmelding = new Alert(Alert.AlertType.WARNING);
-                foutmelding.setContentText("Gebruiker met deze naam bestaat niet");
-                foutmelding.show();
+                String firstName = resultSet.getString("voornaam");
+                String preposition = resultSet.getString("tussenvoegsel");
+                String lastName = resultSet.getString("achternaam");
+                result = new User(id, role, userName, password, firstName, preposition, lastName);
             }
+            else {
+                System.out.println("Gebruiker met deze gebruikersnaam bestaat niet");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        } return result;
+    }
+
+    public User getOneByUsernameAndPassword(String userName, String password) {
+        String sql = "Select * FROM gebruiker WHERE gebruikersNaam = ? AND wachtwoord = ?";
+        User result = null;
+        try {
+            setupPreparedStatement(sql);
+            preparedStatement.setString(1, userName);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = executeSelectStatement();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("gebruikersID");
+                String role = resultSet.getString("rolNaam");
+                String firstName = resultSet.getString("voornaam");
+                String preposition = resultSet.getString("tussenvoegsel");
+                String lastName = resultSet.getString("achternaam");
+                result = new User(id, role, userName, password, firstName, preposition, lastName);
+            }   /* Als de combinatie gebruikersnaam-wachtwoord bestaat, wordt de gebruiker terug gegeven,
+                anders een leeg object.*/
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         } return result;
@@ -82,13 +109,16 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
 
     @Override
     public void storeOne(User user) {
-        String sql = "Insert into gebruiker(GebruikerID, rolNaam, naam, wachtwoord) values(?,?,?,?) ;";
+        String sql = "Insert into gebruiker(GebruikerID, rolNaam, gebruikersNaam, wachtwoord, voornaam, tussenvoegsel, achternaam) values(?,?,?,?,?,?,?) ;";
         try {
             setupPreparedStatement(sql);
             preparedStatement.setInt(1, user.getGebruikerID());
-            preparedStatement.setString(2, user.getRolNaam());
-            preparedStatement.setString(3, user.getNaam());
+            preparedStatement.setString(2, user.getRol());
+            preparedStatement.setString(3, user.getGebruikersnaam());
             preparedStatement.setString(4, user.getWachtwoord());
+            preparedStatement.setString(5, user.getVoornaam());
+            preparedStatement.setString(6, user.getTussenvoegsels());
+            preparedStatement.setString(7, user.getAchternaam());
             executeManipulateStatement();
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());

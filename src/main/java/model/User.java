@@ -1,50 +1,111 @@
 package model;
 
+import database.mysql.UserDAO;
+import view.Main;
+
 /**
- * @author Richard Knol
+ * @author Richard Knol, Wendy Ellens
  */
+
 public class User {
+
+    private final static int WACHTWOORD_LENGTE = 6;
 
     private static int aantalUsers = 0;
     private int gebruikerID;
-    private String rolNaam;
-    private String naam;
+    private String rol;
+    private String gebruikersnaam;
     private String wachtwoord;
+    private String voornaam;
+    private String tussenvoegsels;
+    private String achternaam;
 
-    public User(String rolNaam, String naam, String wachtwoord) {
+    // GebruikerID, gebruikersnaam en wachtwoord worden automatisch gegenereerd.
+    public User(String rol, String voornaam, String tussenvoegsels, String achternaam) {
         this.gebruikerID = ++aantalUsers;
-        this.rolNaam = rolNaam;
-        this.naam = naam;
-        this.wachtwoord = wachtwoord;
+        this.rol = rol;
+        this.voornaam = voornaam;
+        this.tussenvoegsels = tussenvoegsels;
+        this.achternaam = achternaam;
+
+        // Gebruikersnaam genereren, indien deze al bestaat een '1' toevoegen (of '2' of '3' ... als dat nodig is).
+        // TODO: testen. Zal worden gedaan in de CreateUpdateUserController.
+        this.gebruikersnaam = voornaam.charAt(0) + achternaam;
+        int gebruikersnaam_suffix = 1;
+        UserDAO userDAO = new UserDAO(Main.getDBaccess());
+        while (!(userDAO.getOneByUsername(gebruikersnaam) == null)) {
+            gebruikersnaam += gebruikersnaam_suffix;
+            gebruikersnaam_suffix++;
+        }
+
+        this.wachtwoord = genereerWachtwoord();
     }
-    public User(int gebruikerID, String rolNaam, String naam, String wachtwoord) {
+
+    public User(int gebruikerID, String rol, String gebruikersnaam, String wachtwoord, String voornaam, String tussenvoegsels, String achternaam) {
         this.gebruikerID = gebruikerID;
-        this.rolNaam = rolNaam;
-        this.naam = naam;
+        this.rol = rol;
+        this.gebruikersnaam = gebruikersnaam;
         this.wachtwoord = wachtwoord;
+        this.voornaam = voornaam;
+        this.tussenvoegsels = tussenvoegsels;
+        this.achternaam = achternaam;
     }
+
+    public static String genereerWachtwoord() {
+        final String karakters
+                = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:\'\",<.>/?";
+        StringBuilder wachtwoord = new StringBuilder();
+
+        // Een willekeurig karakter kiezen uit karakters en dit zo vaak herhalen als het wachtwoord lang moet zijn
+        for (int i = 0; i < WACHTWOORD_LENGTE; i++) {
+            int randomIndex = (int) (Math.random() * karakters.length());
+            wachtwoord.append(karakters.charAt(randomIndex));
+        }
+
+        return wachtwoord.toString();
+    }
+
     public int getGebruikerID() {
         return gebruikerID;
     }
-    public void setGebruikerID(int gebruikerID) {
-        this.gebruikerID = gebruikerID;
+
+    public String getRol() {
+        return rol;
     }
-    public String getRolNaam() {
-        return rolNaam;
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
-    public void setRolNaam(String rolNaam) {
-        this.rolNaam = rolNaam;
+
+    public String getGebruikersnaam() {
+        return gebruikersnaam;
     }
-    public String getNaam() {
-        return naam;
-    }
-    public void setNaam(String naam) {
-        this.naam = naam;
-    }
+
     public String getWachtwoord() {
         return wachtwoord;
     }
-    public void setWachtwoord(String wachtwoord) {
-        this.wachtwoord = wachtwoord;
+
+    public String getVoornaam() {
+        return voornaam;
     }
+    public void setVoornaam(String voornaam) {
+        this.voornaam = voornaam;
+    }
+
+    public String getTussenvoegsels() {
+        return tussenvoegsels;
+    }
+
+    public void setTussenvoegsels(String tussenvoegsels) {
+        this.tussenvoegsels = tussenvoegsels;
+    }
+
+    public String getAchternaam() {
+        return achternaam;
+    }
+
+    public void setAchternaam(String achternaam) {
+        this.achternaam = achternaam;
+    }
+
 }

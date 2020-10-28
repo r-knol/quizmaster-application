@@ -1,19 +1,15 @@
 package controller;
 import database.mysql.DBAccess;
-import database.mysql.UserDAO;
-import javafx.application.Application;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import model.Question;
-import model.Quiz;
 import view.Main;
 
-/*
-    @author Olaf van der Kaaij
+/**
+ * @author Olaf van der Kaaij
  */
 
 public class WelcomeController {
@@ -30,11 +26,12 @@ public class WelcomeController {
     private MenuButton taskMenuButton;
 
     public void setup() {
-        // De volgende regel past de tekst uit de view (fxml) aan gebruiker die is ingelogd aan.
-        welcomeLabel.setText("Welkom " + Main.getUser().getNaam() + ",\nje bent ingelogd als " + Main.getUser().getRolNaam());
+        // Welkomsttekst aanpassen aan de gebruiker die is ingelogd
+        welcomeLabel.setText("Welkom " + Main.getUser().getVoornaam() + ", je bent ingelogd als " +
+                Main.getUser().getRol());
 
-        // Per ingelogde gebruiker krijg je een welkomscherm die hoort bij de rol van de gebruiker.
-        switch (Main.getUser().getRolNaam()) {
+        // Taken tonen die horen bij de rol van de ingelogde gebruiker
+        switch (Main.getUser().getRol()) {
 
             case "student" :
 
@@ -57,7 +54,7 @@ public class WelcomeController {
                 item4.setOnAction(event -> Main.getSceneManager().showManageQuizScene());
                 taskMenuButton.getItems().add(item4);
 
-                MenuItem item5 = new MenuItem("Ga naar Vragenbeheer.");
+                MenuItem item5 = new MenuItem("Ga naar Vragenbeheer");
                 item5.setOnAction(event -> Main.getSceneManager().showManageQuestionsScene());
                 taskMenuButton.getItems().add(item5);
                 break;
@@ -77,9 +74,9 @@ public class WelcomeController {
                 break;
         }
     }
-    // uitloggen
+
     public void doLogout(ActionEvent event) {
-        dBaccess.closeConnection();
         Main.getSceneManager().showLoginScene();
     }
+
 }
