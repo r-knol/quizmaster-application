@@ -6,17 +6,11 @@ package model;
 
 public class Quiz {
 
-    private static int aantalQuizzes = 0;
-    private static int aantalCursussen = 0;
     private int quizID;
-    private int cursusID;
+    private Course cursusID;
     private int succesDefinitie;
 
-    public Quiz () {
-        this(++aantalQuizzes, ++ aantalCursussen, 0);
-    }
-
-    public Quiz (int quizID, int cursusID, int succesDefinitie) {
+    public Quiz (int quizID, Course cursusID, int succesDefinitie) {
         this.quizID = quizID;
         this.cursusID = cursusID;
         this.succesDefinitie = succesDefinitie;
@@ -30,11 +24,11 @@ public class Quiz {
         this.quizID = quizID;
     }
 
-    public int getCursusID() {
+    public Course getCursusID() {
         return cursusID;
     }
 
-    public void setCursusID(int cursusID) {
+    public void setCursusID(Course cursusID) {
         this.cursusID = cursusID;
     }
 

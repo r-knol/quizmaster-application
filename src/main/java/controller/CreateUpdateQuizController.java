@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.Quiz;
+import model.User;
 import view.Main;
 
 public class CreateUpdateQuizController {
@@ -15,6 +16,7 @@ public class CreateUpdateQuizController {
     private QuizDAO quizDAO;
     private DBAccess dbAccess;
     private Quiz quiz;
+    private User user;
 
     @FXML
     private Label titleLabel;
@@ -62,7 +64,7 @@ public class CreateUpdateQuizController {
         succesDefinitieTextField.setText(String.valueOf(quiz.getSuccesDefinitie()));
     }
 
-    public void doMenu(ActionEvent actionEvent) {
+    public void doMenu(ActionEvent event) {
         dbAccess.closeConnection();
         System.out.println("Connection closed");
         Main.getSceneManager().showWelcomeScene();
