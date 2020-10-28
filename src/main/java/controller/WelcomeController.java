@@ -14,8 +14,6 @@ import view.Main;
 
 public class WelcomeController {
 
-    public WelcomeController() {}
-
     @FXML
     private Label welcomeLabel;
     @FXML

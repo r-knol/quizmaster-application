@@ -13,8 +13,6 @@ import view.Main;
 
 public class LoginController {
 
-    public LoginController() {}
-
     @FXML
     private TextField nameTextField;
     @FXML
