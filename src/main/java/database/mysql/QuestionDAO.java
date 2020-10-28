@@ -1,7 +1,10 @@
 package database.mysql;
 
+/**
+ * @author Olaf van der Kaaij
+ */
+
 import model.Question;
-import model.Quiz;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +21,6 @@ public class QuestionDAO extends  AbstractDAO implements  GenericDAO<Question> {
         String sql = "SELECT * FROM Vraag";
         ArrayList<Question> result = new ArrayList<>();
         Question tussenResultaat;
-        QuizDAO quizDAO = new QuizDAO(dbAccess);
         try {
             setupPreparedStatement(sql);
             ResultSet resultSet = executeSelectStatement();
