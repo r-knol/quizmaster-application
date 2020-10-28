@@ -30,6 +30,10 @@ public class User {
         this.wachtwoord = wachtwoord;
     }
 
+    public User(String voornaam) {
+        this.voornaam = voornaam;
+    }
+
     public int getGebruikerID() {
         return gebruikerID;
     }
@@ -78,4 +82,10 @@ public class User {
         this.achternaam = achternaam;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "gebruikersNaam='" + gebruikersNaam + '\'' +
+                '}';
+    }
 }

@@ -27,7 +27,9 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
                 String role = resultSet.getString("rolNaam");
                 String userName = resultSet.getString("gebruikersNaam");
                 String firstName = resultSet.getString("voornaam");
-                String password = resultSet.getString("Wachtwoord");
+                String password = resultSet.getString("wachtwoord");
+                String middleName = resultSet.getString("tussenvoegsel");
+                String lastName = resultSet.getString("achternaam");
                 user = new User(id, role, userName, firstName, password);
                 result.add(user);
             }
