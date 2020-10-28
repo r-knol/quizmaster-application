@@ -14,11 +14,7 @@ import view.Main;
 
 public class WelcomeController {
 
-    private DBAccess dBaccess;
-
-    public WelcomeController() {
-        this.dBaccess = Main.getDBaccess();
-    }
+    public WelcomeController() {}
 
     @FXML
     private Label welcomeLabel;
