@@ -62,7 +62,7 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
     }
 
     public User getOneByUsername(String userName) {
-        String sql = "Select * FROM gebruiker WHERE gebruikersNaam = ? AND wachtwoord = ?";
+        String sql = "Select * FROM gebruiker WHERE gebruikersNaam = ?"; //todo: wachtwoord weggehaald, niet nodig, anders SQL error
         User result = null;
         try {
             setupPreparedStatement(sql);
@@ -76,10 +76,7 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
                 String preposition = resultSet.getString("tussenvoegsel");
                 String lastName = resultSet.getString("achternaam");
                 result = new User(id, role, userName, password, firstName, preposition, lastName);
-            }
-            else {
-                System.out.println("Gebruiker met deze gebruikersnaam bestaat niet");
-            }
+            } //todo: error message weggehaald zodat hij bij aanmaken nieuwe gebruiker niet die waarschuwing geeft
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         } return result;
@@ -109,19 +106,39 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
 
     @Override
     public void storeOne(User user) {
-        String sql = "Insert into gebruiker(GebruikerID, rolNaam, gebruikersNaam, wachtwoord, voornaam, tussenvoegsel, achternaam) values(?,?,?,?,?,?,?) ;";
+        String sql = "Insert into gebruiker(rolNaam, gebruikersNaam, wachtwoord, " +
+                "voornaam, tussenvoegsel, achternaam) values(?,?,?,?,?,?) ;";
         try {
-            setupPreparedStatement(sql);
-            preparedStatement.setInt(1, user.getGebruikerID());
-            preparedStatement.setString(2, user.getRol());
-            preparedStatement.setString(3, user.getGebruikersnaam());
-            preparedStatement.setString(4, user.getWachtwoord());
-            preparedStatement.setString(5, user.getVoornaam());
-            preparedStatement.setString(6, user.getTussenvoegsels());
-            preparedStatement.setString(7, user.getAchternaam());
-            executeManipulateStatement();
+            setupPreparedStatementWithKey(sql);
+            preparedStatement.setString(1, user.getRol());
+            preparedStatement.setString(2, user.getGebruikersnaam());
+            preparedStatement.setString(3, user.getWachtwoord());
+            preparedStatement.setString(4, user.getVoornaam());
+            preparedStatement.setString(5, user.getTussenvoegsels());
+            preparedStatement.setString(6, user.getAchternaam());
+            int key = executeInsertStatementWithKey();
+            user.setGebruikerID(key);
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
+        }
+    }
+
+    public void updateOne(User user) {
+        String sql = "Update quizmaster.gebruiker SET rolNaam = ?, gebruikersNaam = ?, " +
+                "wachtwoord = ?, voornaam = ?, tussenvoegsel = ?, achternaam = ? " +
+                "where gebruikersID = ?;";
+        try {
+            setupPreparedStatement(sql);
+            preparedStatement.setString(1, user.getRol());
+            preparedStatement.setString(2, user.getGebruikersnaam());
+            preparedStatement.setString(3, user.getWachtwoord());
+            preparedStatement.setString(4, user.getVoornaam());
+            preparedStatement.setString(5, user.getTussenvoegsels());
+            preparedStatement.setString(6, user.getAchternaam());
+            preparedStatement.setInt(7, user.getGebruikerID());
+            executeManipulateStatement();
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
         }
     }
 }

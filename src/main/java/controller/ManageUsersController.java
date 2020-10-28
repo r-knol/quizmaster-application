@@ -3,6 +3,8 @@ package controller;
 import database.mysql.DBAccess;
 import database.mysql.UserDAO;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 import model.User;
@@ -23,17 +25,14 @@ public class ManageUsersController {
         this.dbAccess = Main.getDBaccess();
     }
 
-    // TODO: lijst met records uit mysql zichtbaar maken in ListView pane.
+    // Alle gebruikers (met gebruikersnaam) in ListView userList laten zien
     public void setup() {
         this.userDAO = new UserDAO(dbAccess);
         List<User> allUsers = userDAO.getAll();
         for (User u : allUsers) {
             userList.getItems().add(u);
         }
-        userList.getSelectionModel().selectFirst();
-
-
-        // tostring methode in user
+        userList.getSelectionModel().selectFirst(); // selecteert de eerste gebruiker op de lijst
     }
 
     public void doMenu() {
@@ -41,10 +40,16 @@ public class ManageUsersController {
     }
 
     public void doCreateUser() {
-        Main.getSceneManager().showCreateUpdateUserScene(Main.getUser());
+        Main.getSceneManager().showCreateUpdateUserScene(null); // pakt lege user
     }
 
-    public void doUpdateUser() {}
+    public void doUpdateUser() {
+        User user = userList.getSelectionModel().getSelectedItem(); // pakt geselecteerde item
+        Main.getSceneManager().showCreateUpdateUserScene(user);
+    }
 
-    public void doDeleteUser() {}
+    public void doDeleteUser() {
+
+
+    }
 }
