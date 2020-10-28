@@ -41,7 +41,7 @@ public class QuizDAO extends AbstractDAO implements  GenericDAO<Quiz> {
     }
 
     public Quiz getOneById(int quizID) {
-        String sql = "Select * FROM gebruiker WHERE quizID = ?";
+        String sql = "Select * FROM quiz WHERE quizID = ?";
         Quiz result = null;
         CourseDAO courseDAO = new CourseDAO(dbAccess);
         try {
