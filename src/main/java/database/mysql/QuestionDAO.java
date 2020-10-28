@@ -25,7 +25,7 @@ public class QuestionDAO extends  AbstractDAO implements  GenericDAO<Question> {
             Question question;
             while (resultSet.next()) {
                 int vraagID = resultSet.getInt("vraagID");
-                Quiz quizID = quizDAO.getOneById(resultSet.getInt("quizID"));
+                int quizID = resultSet.getInt("quizID");
                 String quizVraag = resultSet.getString("vraag");
                 String juistAntwoord = resultSet.getString("antwoord1");
                 String foutAntwoord1 = resultSet.getString("antwoord2");
@@ -52,13 +52,13 @@ public class QuestionDAO extends  AbstractDAO implements  GenericDAO<Question> {
             preparedStatement.setInt(1, vraagID);
             ResultSet resultSet = executeSelectStatement();
             if (resultSet.next()) {
-                Quiz quiz = quizDAO.getOneById(resultSet.getInt("quizID"));
+                int quizID = resultSet.getInt("quizID");
                 String quizVraag = resultSet.getString("vraag");
                 String juistAntwoord = resultSet.getString("antwoord1");
                 String foutAntwoord1 = resultSet.getString("antwoord2");
                 String foutAntwoord2 = resultSet.getString("antwoord3");
                 String foutAntwoord3 = resultSet.getString("antwoord4");
-                result = new Question(quiz, quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
+                result = new Question(quizID, quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
                 result.setVraagID(vraagID);
             } else {
                 System.out.println("Vraag met dit vraagID bestaat niet.");
@@ -75,7 +75,7 @@ public class QuestionDAO extends  AbstractDAO implements  GenericDAO<Question> {
         try {
             setupPreparedStatementWithKey(sql);
             ResultSet resultSet = executeSelectStatement();
-            preparedStatement.setInt(1, quizDAO.getOneById(resultSet.getInt("quizID")));
+            preparedStatement.setInt(1, question.getQuizID());
             preparedStatement.setString(2, question.getQuizVraag());
             preparedStatement.setString(3, question.getJuistAntwoord());
             preparedStatement.setString(4, question.getFoutAntwoord1());

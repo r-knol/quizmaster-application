@@ -7,15 +7,15 @@ package model;
 public class Quiz {
 
     private int quizID;
-    private Course cursusID;
+    private int cursusID;
     private String quizNaam;
     private int succesDefinitie;
 
-    public Quiz (Course cursusID, String quizNaam, int succesDefinitie) {
+    public Quiz (int cursusID, String quizNaam, int succesDefinitie) {
         this(0, cursusID, quizNaam, succesDefinitie);
     }
 
-    public Quiz (int quizID, Course cursusID, String quizNaam, int succesDefinitie) {
+    public Quiz (int quizID, int cursusID, String quizNaam, int succesDefinitie) {
         this.quizID = quizID;
         this.cursusID = cursusID;
         this.quizNaam = quizNaam;
@@ -30,11 +30,11 @@ public class Quiz {
         this.quizID = quizID;
     }
 
-    public Course getCursusID() {
+    public int getCursusID() {
         return cursusID;
     }
 
-    public void setCursusID(Course cursusID) {
+    public void setCursusID(int cursusID) {
         this.cursusID = cursusID;
     }
 

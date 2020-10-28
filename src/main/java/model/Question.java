@@ -7,19 +7,19 @@ package model;
 public class Question {
 
     private int vraagID;
-    private Quiz quizID;
+    private int quizID;
     private String quizVraag;
     private String juistAntwoord;
     private String foutAntwoord1;
     private String foutAntwoord2;
     private String foutAntwoord3;
 
-    public Question (Quiz quizID, String quizVraag, String juistAntwoord,
+    public Question (int quizID, String quizVraag, String juistAntwoord,
                      String foutAntwoord1, String foutAntwoord2, String foutAntwoord3) {
         this(0, quizID, quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
     }
 
-    public Question (int vraagID, Quiz quizID, String quizVraag, String juistAntwoord,
+    public Question (int vraagID, int quizID, String quizVraag, String juistAntwoord,
                      String foutAntwoord1, String foutAntwoord2, String foutAntwoord3) {
         this.vraagID = vraagID;
         this.quizID = quizID;
@@ -38,11 +38,11 @@ public class Question {
         this.vraagID = vraagID;
     }
 
-    public Quiz getQuizID() {
+    public int getQuizID() {
         return quizID;
     }
 
-    public void setQuizID(Quiz quizID) {
+    public void setQuizID(int quizID) {
         this.quizID = quizID;
     }
 

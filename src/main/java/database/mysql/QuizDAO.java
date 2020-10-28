@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class QuizDAO extends AbstractDAO implements  GenericDAO<Quiz> {
+public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
 
     public QuizDAO(DBAccess dbAccess) {
         super(dbAccess);
@@ -27,10 +27,10 @@ public class QuizDAO extends AbstractDAO implements  GenericDAO<Quiz> {
             ResultSet resultSet = executeSelectStatement();
             while (resultSet.next()) {
                 int quizID = resultSet.getInt("quizID");
-                Course course = courseDAO.getOneById(resultSet.getInt("cursusID"));
+                int cursusID = resultSet.getInt("cursusID");
                 String quizNaam = resultSet.getString("quizNaam");
                 int succesDefinitie = resultSet.getInt("succesDefinitie");
-                tussenResultaat = new Quiz(quizID, course, quizNaam, succesDefinitie);
+                tussenResultaat = new Quiz(quizID, cursusID, quizNaam, succesDefinitie);
                 result.add(tussenResultaat);
             }
             if (result.isEmpty()) {
@@ -44,16 +44,15 @@ public class QuizDAO extends AbstractDAO implements  GenericDAO<Quiz> {
     public Quiz getOneById(int quizID) {
         String sql = "Select * FROM quiz WHERE quizID = ?";
         Quiz result = null;
-        CourseDAO courseDAO = new CourseDAO(dbAccess);
         try {
             setupPreparedStatement(sql);
             preparedStatement.setInt(1, quizID);
             ResultSet resultSet = executeSelectStatement();
             if (resultSet.next()) {
-                Course course = courseDAO.getOneById(resultSet.getInt("CursusID"));
+                int cursusID = resultSet.getInt("CursusID");
                 String quizNaam = resultSet.getString("quizNaam");
                 int succesDefinitie = resultSet.getInt("succesDefinitie");
-                result = new Quiz(course, quizNaam, succesDefinitie);
+                result = new Quiz(cursusID, quizNaam, succesDefinitie);
                 result.setQuizID(quizID);
             } else {
                 System.out.println("Quiz met dit quizID bestaat niet");
