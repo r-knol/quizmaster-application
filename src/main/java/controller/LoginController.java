@@ -5,7 +5,6 @@ import database.mysql.UserDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import model.User;
 import view.Main;
 
 /**
@@ -13,13 +12,16 @@ import view.Main;
  */
 
 public class LoginController {
-    private UserDAO userDAO;
     private DBAccess dBaccess;
+    private UserDAO userDAO;
 
     public LoginController() {
         this.dBaccess = Main.getDBaccess();
         this.userDAO = new UserDAO(dBaccess);
     }
+
+    // TODO: bovenstaande regels (vanaf private DBAccess) kunnen volgens mij (Wendy) vervangen worden door:
+    // private static final UserDAO USER_DAO = new UserDAO(Main.getDBaccess());
 
     @FXML
     private TextField nameTextField;
@@ -27,13 +29,15 @@ public class LoginController {
     private TextField passwordField;
 
     public void doLogin() {
-        Main.setUser(userDAO.getOneByNameAndPassword(nameTextField.getText(),passwordField.getText()));
-        if (Main.getUser() == null) {
+        // De gegevens van de inloggende gebruiker opzoeken in de database
+        Main.setUser(userDAO.getOneByUsernameAndPassword(nameTextField.getText(),passwordField.getText()));
+        // Controleren of de gebruikersnaam en het wachtwoord juist zijn
+        if (Main.getUser() == null) { // Indien onjuist: gebruiker waarschuwen en op inlogpagina blijven
             Alert foutmelding = new Alert(Alert.AlertType.WARNING);
             foutmelding.setContentText("Deze combinatie van gebruikersnaam en wachtwoord is onbekend.");
             foutmelding.show();
         }
-        else {
+        else { // Indien juist: doorgaan naar het welkomstscherm
             Main.getSceneManager().showWelcomeScene();
         }
     }

@@ -1,7 +1,6 @@
 package database.mysql;
 
 import model.User;
-import org.junit.jupiter.api.Assertions;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,8 +18,8 @@ class UserDAOTest {
 
     @org.junit.jupiter.api.Test
     void getOneByNameAndPassword() {
-        assertEquals(actual.getNaam(), "rwknol");
-        assertEquals(actual.getRolNaam(), "student");
+        assertEquals(actual.getVoornaam(), "rwknol");
+        assertEquals(actual.getRol(), "student");
     }
 
     @org.junit.jupiter.api.Test
