@@ -8,11 +8,13 @@ public class Quiz {
 
     private int quizID;
     private Course cursusID;
+    private String quizNaam;
     private int succesDefinitie;
 
-    public Quiz (int quizID, Course cursusID, int succesDefinitie) {
+    public Quiz (int quizID, Course cursusID, String quizNaam, int succesDefinitie) {
         this.quizID = quizID;
         this.cursusID = cursusID;
+        this.quizNaam = quizNaam;
         this.succesDefinitie = succesDefinitie;
     }
 
@@ -30,6 +32,14 @@ public class Quiz {
 
     public void setCursusID(Course cursusID) {
         this.cursusID = cursusID;
+    }
+
+    public String getQuizNaam() {
+        return quizNaam;
+    }
+
+    public void setQuizNaam(String quizNaam) {
+        this.quizNaam = quizNaam;
     }
 
     public int getSuccesDefinitie() {
