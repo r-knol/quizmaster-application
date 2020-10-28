@@ -11,6 +11,10 @@ public class Quiz {
     private String quizNaam;
     private int succesDefinitie;
 
+    public Quiz (Course cursusID, String quizNaam, int succesDefinitie) {
+        this(0, cursusID, quizNaam, succesDefinitie);
+    }
+
     public Quiz (int quizID, Course cursusID, String quizNaam, int succesDefinitie) {
         this.quizID = quizID;
         this.cursusID = cursusID;

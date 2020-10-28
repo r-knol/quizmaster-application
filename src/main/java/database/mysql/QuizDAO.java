@@ -53,7 +53,7 @@ public class QuizDAO extends AbstractDAO implements  GenericDAO<Quiz> {
                 Course course = courseDAO.getOneById(resultSet.getInt("CursusID"));
                 String quizNaam = resultSet.getString("quizNaam");
                 int succesDefinitie = resultSet.getInt("succesDefinitie");
-                result = new Quiz(quizID, course, quizNaam, succesDefinitie);
+                result = new Quiz(course, quizNaam, succesDefinitie);
                 result.setQuizID(quizID);
             } else {
                 System.out.println("Quiz met dit quizID bestaat niet");
