@@ -4,11 +4,13 @@ package model;
  * @author Richard Knol
  */
 public class User {
+
     private static int aantalUsers = 0;
     private int gebruikerID;
     private String rolNaam;
     private String naam;
     private String wachtwoord;
+
     public User(String rolNaam, String naam, String wachtwoord) {
         this.gebruikerID = ++aantalUsers;
         this.rolNaam = rolNaam;
