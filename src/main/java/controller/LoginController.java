@@ -12,16 +12,6 @@ import view.Main;
  */
 
 public class LoginController {
-    private DBAccess dBaccess;
-    private UserDAO userDAO;
-
-    public LoginController() {
-        this.dBaccess = Main.getDBaccess();
-        this.userDAO = new UserDAO(dBaccess);
-    }
-
-    // TODO: bovenstaande regels (vanaf private DBAccess) kunnen volgens mij (Wendy) vervangen worden door:
-    // private static final UserDAO USER_DAO = new UserDAO(Main.getDBaccess());
 
     @FXML
     private TextField nameTextField;
@@ -29,8 +19,11 @@ public class LoginController {
     private TextField passwordField;
 
     public void doLogin() {
+        UserDAO userDAO = new UserDAO(Main.getDBaccess());
+
         // De gegevens van de inloggende gebruiker opzoeken in de database
         Main.setUser(userDAO.getOneByUsernameAndPassword(nameTextField.getText(),passwordField.getText()));
+
         // Controleren of de gebruikersnaam en het wachtwoord juist zijn
         if (Main.getUser() == null) { // Indien onjuist: gebruiker waarschuwen en op inlogpagina blijven
             Alert foutmelding = new Alert(Alert.AlertType.WARNING);
@@ -43,7 +36,7 @@ public class LoginController {
     }
 
     public void doQuit() {
-        dBaccess.closeConnection();
+        Main.getDBaccess().closeConnection();
         System.exit(0);
     }
 }
