@@ -33,13 +33,20 @@ public class User {
     // GebruikerID, gebruikersnaam en wachtwoord worden automatisch gegenereerd.
     public User(String rol, String voornaam, String tussenvoegsels, String achternaam) {
         this(0, rol, "", "", voornaam, tussenvoegsels, achternaam);
-        // Gebruikersnaam genereren o.b.v. eerste letter voornaam en achternaam en suffix 1
-        // (of 2, 3, ... als de gebruikersnaam al bestaat)
         // TODO: testen. Zal worden gedaan in de CreateUpdateUserController en als Unittest.
-        int gebruikersnaam_suffix = 1;
-        gebruikersnaam = voornaam.charAt(0) + achternaam + gebruikersnaam_suffix;
         UserDAO userDAO = new UserDAO(Main.getDBaccess());
-        while (!(userDAO.getOneByUsername(gebruikersnaam) == null)) { // Zolang de gebruikersnaam al bestaat doe:
+        int gebruikersnaam_suffix = 1;
+
+        // Gebruikersnaam genereren o.b.v. eerste letter voornaam en achternaam
+        gebruikersnaam = voornaam.charAt(0) + achternaam;
+
+        // Suffix 1 toevoegen als de gebruikersnaam al bestaat
+        if (!(userDAO.getOneByUsername(gebruikersnaam) == null)) {
+            gebruikersnaam += gebruikersnaam_suffix;
+        }
+
+        // Suffix verhogen zolang als nodig is om een nieuwe gebruikersnaam te creeren
+        while (!(userDAO.getOneByUsername(gebruikersnaam) == null)) {
             gebruikersnaam_suffix++; // Suffix ophogen
             gebruikersnaam = gebruikersnaam.substring(0, gebruikersnaam.length() - 1); // Oude suffix verwijderen
             gebruikersnaam += gebruikersnaam_suffix; // Nieuwe suffix toevoegen

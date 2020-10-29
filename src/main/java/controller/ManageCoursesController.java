@@ -41,7 +41,7 @@ public class ManageCoursesController {
     public void doDeleteCourse() {
         CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
         Course course = courseList.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Cursus verwijderd");
         alert.show();
         courseDAO.deleteOne(course);

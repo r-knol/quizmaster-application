@@ -38,10 +38,11 @@ public class ManageUsersController {
     public void doDeleteUser() {
         UserDAO userDAO = new UserDAO(Main.getDBaccess());
         User user = userList.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Gebruiker verwijderd");
         alert.show();
         userDAO.deleteOne(user);
+        // Lijst met gebruikers verversen
         userList.getItems().clear();
         setupCode();
     }
