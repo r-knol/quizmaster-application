@@ -10,20 +10,12 @@ import javafx.scene.control.TextField;
 import model.User;
 import view.Main;
 
-/** @ Author Richard Knol
+/** @author Richard Knol
  */
 
 public class CreateUpdateUserController {
 
-    private UserDAO userDAO;
-    private DBAccess dbAccess;
     private User user;
-
-    public CreateUpdateUserController() {
-        super();
-        this.dbAccess = Main.getDBaccess();
-        this.userDAO = new UserDAO(dbAccess);
-    }
 
     @FXML
     Label titleLabel;
@@ -44,10 +36,10 @@ public class CreateUpdateUserController {
     @FXML
     private Button submitButton;
 
-    // Huidige gebruiker aanmaken (this.user) en data weergeven uit MySQL
+    // Huidige gebruiker aanmaken (this.user) en huidige data uit database weergeven als gebruiker al bestaat
     public void setup(User user) {
+        this.user = user;
         if (user == null) {
-            this.user = user;
             titleLabel.setText("Nieuwe gebruiker");
             GebruikersID.setText("");
             Rol.setText("");
@@ -58,7 +50,6 @@ public class CreateUpdateUserController {
             Achternaam.setText("");
             submitButton.setText("Nieuw");
         } else {
-            this.user = user;
             GebruikersID.setText(String.valueOf(user.getGebruikerID()));
             Rol.setText(user.getRol());
             Gebruikersnaam.setText(user.getGebruikersnaam());
@@ -71,10 +62,9 @@ public class CreateUpdateUserController {
     }
 
     public void doCreateUpdateUser() {
-        // Wijzigen van een bestaande gebruiker met de updateOne methode
-        if (user != null) {
+        UserDAO userDAO = new UserDAO(Main.getDBaccess());
+        if (user != null) { // Wijzigen van een bestaande gebruiker
             user.setRol(Rol.getText());
-            Wachtwoord.getText();
             user.setVoornaam(Voornaam.getText());
             user.setTussenvoegsels(Tussenvoegsel.getText());
             user.setAchternaam(Achternaam.getText());
@@ -82,7 +72,9 @@ public class CreateUpdateUserController {
             Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
             gewijzigd.setContentText("Gebruiker gewijzigd");
             gewijzigd.show();
-        } else { // Gebruiker aanmaken
+            user = null;
+        }
+        else { // Nieuwe gebruiker aanmaken
             user = new User(Rol.getText(), Voornaam.getText(), Tussenvoegsel.getText(), Achternaam.getText());
             userDAO.storeOne(user);
             Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);

@@ -1,8 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-            prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="416.0"
+            prefWidth="619.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.CreateUpdateCourseController">
+    <children>
+        <Label fx:id="titleLabel" layoutX="258.0" layoutY="80.0" text="Wijzig gebruiker">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <GridPane layoutX="109.0" layoutY="160.0" prefHeight="90.0" prefWidth="341.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="148.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="193.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="CursusID" GridPane.halignment="RIGHT">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin></Label>
+                <Label text="Cursusnaam" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin></Label>
+                <Label text="CoordinatorID" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin></Label>
+                <TextField fx:id="cursusID" disable="true" GridPane.columnIndex="1" />
+                <TextField fx:id="cursusnaam" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="coordinatorID" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            </children>
+        </GridPane>
+        <Button fx:id="submitButton" layoutX="256.0" layoutY="270.0" mnemonicParsing="false"
+                onAction="#doCreateUpdateCourse" text="Wijzig" />
+        <Button layoutX="402.0" layoutY="270.0" mnemonicParsing="false" onAction="#doMenu" text="Menu" />
+    </children>
 </AnchorPane>

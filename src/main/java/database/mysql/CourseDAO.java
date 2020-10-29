@@ -17,7 +17,7 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
     }
 
     @Override
-    public ArrayList getAll() {
+    public ArrayList<Course> getAll() {
         String sql = "Select * FROM Cursus";
         ArrayList<Course> result = new ArrayList<>();
         try {
@@ -28,6 +28,26 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
                 int cursusID = resultSet.getInt("cursusID");
                 String cursusNaam = resultSet.getString("cursusNaam");
                 int coordinatorID = resultSet.getInt("coordinatorID");
+                course = new Course(cursusID, cursusNaam, coordinatorID);
+                result.add(course);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return result;
+    }
+
+    public ArrayList<Course> getAllByCoordinatorID(int coordinatorID) {
+        String sql = "Select * FROM Cursus Where coordinatorID = ?";
+        ArrayList<Course> result = new ArrayList<>();
+        try {
+            setupPreparedStatement(sql);
+            preparedStatement.setInt(1, coordinatorID);
+            ResultSet resultSet = executeSelectStatement();
+            Course course;
+            while (resultSet.next()) {
+                int cursusID = resultSet.getInt("cursusID");
+                String cursusNaam = resultSet.getString("cursusNaam");
                 course = new Course(cursusID, cursusNaam, coordinatorID);
                 result.add(course);
             }
@@ -88,8 +108,15 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
     }
 
     @Override
-    public void deleteOne(Course type) {
-
+    public void deleteOne(Course course) {
+        String sql = "DELETE FROM Cursus WHERE cursusID = ?";
+        try {
+            setupPreparedStatement(sql);
+            preparedStatement.setInt(1, course.getCursusID());
+            executeManipulateStatement();
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
     }
 
 }

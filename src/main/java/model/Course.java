@@ -32,7 +32,21 @@ public class Course {
         return cursusNaam;
     }
 
+    public void setCursusNaam(String cursusNaam) {
+        this.cursusNaam = cursusNaam;
+    }
+
     public int getCoordinatorID() {
         return coordinatorID;
     }
+
+    public void setCoordinatorID(int coordinatorID) {
+        this.coordinatorID = coordinatorID;
+    }
+
+    @Override
+    public String toString() {
+        return cursusNaam;
+    }
+
 }
