@@ -28,6 +28,9 @@ public class CreateUpdateQuizController {
     private TextField cursusIDTextField;
 
     @FXML
+    private TextField quizNaamTextField;
+
+    @FXML
     private TextField succesDefinitieTextField;
 
 
@@ -61,13 +64,8 @@ public class CreateUpdateQuizController {
         titleLabel.setText("Wijzig quiz");
         quizIDTextfield.setText(String.valueOf(quiz.getQuizID()));
         cursusIDTextField.setText(String.valueOf(quiz.getCursusID()));
+        quizNaamTextField.setText(quiz.getQuizNaam());
         succesDefinitieTextField.setText(String.valueOf(quiz.getSuccesDefinitie()));
-    }
-
-    public void doMenu(ActionEvent event) {
-        dbAccess.closeConnection();
-        System.out.println("Connection closed");
-        Main.getSceneManager().showWelcomeScene();
     }
 
     public void doCreateUpdateQuiz() {
@@ -75,6 +73,7 @@ public class CreateUpdateQuizController {
         boolean correcteInvoer = true;
         String id1 = quizIDTextfield.getText();
         String id2 = cursusIDTextField.getText();
+        String quizNaam = quizNaamTextField.getText();
         String sDefinitie = succesDefinitieTextField.getText();
 
         if (id1.isEmpty()) {
@@ -90,7 +89,12 @@ public class CreateUpdateQuizController {
             int quizID = Integer.parseInt(id1);
             int cursusID = Integer.parseInt(id2);
             int succesdefinitie = Integer.parseInt(sDefinitie);
-            quiz = new Quiz (quizID, cursusID, succesdefinitie);
+            quiz = new Quiz (quizID, cursusID, quizNaam, succesdefinitie);
         }
+    }
+
+    @FXML
+    public void doMenu(ActionEvent event) {
+        Main.getSceneManager().showWelcomeScene();
     }
 }

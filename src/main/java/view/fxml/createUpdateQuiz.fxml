@@ -36,7 +36,12 @@
                         <Insets right="5.0" />
                     </GridPane.margin>
                 </Label>
-                <Label text="Succes Definitie" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                <Label text="Naam Quiz" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label text="Succes Definitie" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                     <GridPane.margin>
                         <Insets right="5.0" />
                     </GridPane.margin>
@@ -44,8 +49,8 @@
 
                 <TextField fx:id="quizIDTextfield" GridPane.columnIndex="1" />
                 <TextField fx:id="cursusIDTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="succesDefinitieTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
+                <TextField fx:id="quizNaamTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="succesDefinitieTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             </children>
         </GridPane>
         <Button fx:id="saveButton" layoutX="276.0" layoutY="304.0" mnemonicParsing="false" onAction="#doStore" text="Save" />
