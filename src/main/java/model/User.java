@@ -10,6 +10,7 @@ import view.Main;
 public class User {
 
     private final static int WACHTWOORD_LENGTE = 6;
+
     private int gebruikerID;
     private String rol;
     private String gebruikersnaam;
@@ -17,7 +18,8 @@ public class User {
     private String voornaam;
     private String tussenvoegsels;
     private String achternaam;
-    public User(int gebruikerID, String rol, String gebruikersnaam, String wachtwoord, String voornaam, String tussenvoegsels, String achternaam) {
+    public User(int gebruikerID, String rol, String gebruikersnaam, String wachtwoord,
+                String voornaam, String tussenvoegsels, String achternaam) {
         this.gebruikerID = gebruikerID;
         this.rol = rol;
         this.gebruikersnaam = gebruikersnaam;
@@ -26,6 +28,7 @@ public class User {
         this.tussenvoegsels = tussenvoegsels;
         this.achternaam = achternaam;
     }
+
     // GebruikerID, gebruikersnaam en wachtwoord worden automatisch gegenereerd.
     public User(String rol, String voornaam, String tussenvoegsels, String achternaam) {
         this(0, rol, "", "", voornaam, tussenvoegsels, achternaam);
@@ -51,7 +54,6 @@ public class User {
             int randomIndex = (int) (Math.random() * tekens.length());
             wachtwoord.append(tekens.charAt(randomIndex));
         }
-
         return wachtwoord.toString();
     }
 
@@ -64,6 +66,10 @@ public class User {
 
     public int getGebruikerID() {
         return gebruikerID;
+    }
+
+    public void setGebruikerID(int gebruikerID) {
+        this.gebruikerID = gebruikerID;
     }
 
     public String getRol() {
@@ -105,4 +111,8 @@ public class User {
         this.achternaam = achternaam;
     }
 
+    @Override
+    public String toString() {
+        return gebruikersnaam; //todo: evt. mooiere toString voor ListView in manageUsers
+    }
 }
