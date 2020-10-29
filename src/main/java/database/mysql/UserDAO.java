@@ -141,4 +141,9 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
             System.out.println("SQL error " + e.getMessage());
         }
     }
+
+    @Override
+    public void updateOne(User type) {
+
+    }
 }

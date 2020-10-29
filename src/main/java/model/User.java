@@ -44,20 +44,25 @@ public class User {
             gebruikersnaam = gebruikersnaam.substring(0, gebruikersnaam.length() - 1); // Oude suffix verwijderen
             gebruikersnaam += gebruikersnaam_suffix; // Nieuwe suffix toevoegen
         }
-        wachtwoord = genereerWachtwoord();
+        wachtwoord = genereerWachtwoord(WACHTWOORD_LENGTE);
     }
 
-    public static String genereerWachtwoord() { //todo: versimpelen wachtwoord?
-        final String karakters
-                = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:\'\",<.>/?";
+    public static String genereerWachtwoord(int lengte, String tekens) {
         StringBuilder wachtwoord = new StringBuilder();
 
         // Een willekeurig karakter kiezen uit karakters en dit zo vaak herhalen als het wachtwoord lang moet zijn
-        for (int i = 0; i < WACHTWOORD_LENGTE; i++) {
-            int randomIndex = (int) (Math.random() * karakters.length());
-            wachtwoord.append(karakters.charAt(randomIndex));
+        for (int i = 0; i < lengte; i++) {
+            int randomIndex = (int) (Math.random() * tekens.length());
+            wachtwoord.append(tekens.charAt(randomIndex));
         }
         return wachtwoord.toString();
+    }
+
+    // TODO: testen. Zal worden gedaan in de CreateUpdateUserController en als Unittest.
+    public static String genereerWachtwoord(int lengte) {
+        final String tekens
+                = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:\'\",<.>/?";
+        return genereerWachtwoord(lengte, tekens);
     }
 
     public int getGebruikerID() {
