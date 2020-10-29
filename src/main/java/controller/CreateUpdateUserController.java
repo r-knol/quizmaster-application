@@ -39,26 +39,7 @@ public class CreateUpdateUserController {
     // Huidige gebruiker aanmaken (this.user) en huidige data uit database weergeven als gebruiker al bestaat
     public void setup(User user) {
         this.user = user;
-        if (user == null) {
-            titleLabel.setText("Nieuwe gebruiker");
-            GebruikersID.setText("");
-            Rol.setText("");
-            Gebruikersnaam.setText("");
-            Wachtwoord.setText("");
-            Voornaam.setText("");
-            Tussenvoegsel.setText("");
-            Achternaam.setText("");
-            submitButton.setText("Nieuw");
-        } else {
-            GebruikersID.setText(String.valueOf(user.getGebruikerID()));
-            Rol.setText(user.getRol());
-            Gebruikersnaam.setText(user.getGebruikersnaam());
-            Wachtwoord.setText(user.getWachtwoord());
-            Voornaam.setText(user.getVoornaam());
-            Tussenvoegsel.setText(user.getTussenvoegsels());
-            Achternaam.setText(user.getAchternaam());
-            submitButton.setText("Wijzig");
-        }
+        setupCode();
     }
 
     public void doCreateUpdateUser() {
@@ -72,7 +53,6 @@ public class CreateUpdateUserController {
             Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
             gewijzigd.setContentText("Gebruiker gewijzigd");
             gewijzigd.show();
-            user = null;
         }
         else { // Nieuwe gebruiker aanmaken
             user = new User(Rol.getText(), Voornaam.getText(), Tussenvoegsel.getText(), Achternaam.getText());
@@ -80,6 +60,7 @@ public class CreateUpdateUserController {
             Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
             aangemaakt.setContentText("Gebruiker aangemaakt");
             aangemaakt.show();
+            setupCode(); // Gegenereerde ID, gebruikersnaam en wachtwoord tonen
         }
     }
 
@@ -88,4 +69,27 @@ public class CreateUpdateUserController {
         Main.getSceneManager().showManageUserScene();
     }
 
+    public void setupCode() {
+        if (user == null) {
+            titleLabel.setText("Nieuwe gebruiker");
+            GebruikersID.setText("");
+            Rol.setText("");
+            Gebruikersnaam.setText("");
+            Wachtwoord.setText("");
+            Voornaam.setText("");
+            Tussenvoegsel.setText("");
+            Achternaam.setText("");
+            submitButton.setText("Nieuw");
+        } else {
+            titleLabel.setText("Wijzig gebruiker");
+            GebruikersID.setText(String.valueOf(user.getGebruikerID()));
+            Rol.setText(user.getRol());
+            Gebruikersnaam.setText(user.getGebruikersnaam());
+            Wachtwoord.setText(user.getWachtwoord());
+            Voornaam.setText(user.getVoornaam());
+            Tussenvoegsel.setText(user.getTussenvoegsels());
+            Achternaam.setText(user.getAchternaam());
+            submitButton.setText("Wijzig");
+        }
+    }
 }

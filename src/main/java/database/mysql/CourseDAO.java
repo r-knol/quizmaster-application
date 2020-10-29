@@ -83,7 +83,7 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
     public void storeOne(Course course) {
         String sql = "Insert into Cursus(cursusnaam, coordinatorID) values(?,?) ;";
         try {
-            setupPreparedStatement(sql);
+            setupPreparedStatementWithKey(sql);
             preparedStatement.setString(1, course.getCursusNaam());
             preparedStatement.setInt(2, course.getCoordinatorID());
             int key = executeInsertStatementWithKey();
