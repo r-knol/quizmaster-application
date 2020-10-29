@@ -1,9 +1,12 @@
 package controller;
 
 import database.mysql.CourseDAO;
+import database.mysql.UserDAO;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import model.Course;
+import model.User;
 import view.Main;
 
 import java.util.List;
@@ -17,14 +20,9 @@ public class ManageCoursesController {
     @FXML
     ListView<Course> courseList;
 
-    // Alle courses in ListView userList laten zien
+    // Alle cursussen voor de ingelogde coördinator laten zien
     public void setup() {
-        CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
-        List<Course> allCourses = courseDAO.getAllByCoordinatorID(Main.getUser().getGebruikerID());
-        for (Course course : allCourses) {
-            courseList.getItems().add(course);
-        }
-        courseList.getSelectionModel().selectFirst(); // selecteert de eerste cursus op de lijst
+        setupCode();
     }
 
     public void doMenu() {
@@ -43,7 +41,20 @@ public class ManageCoursesController {
     public void doDeleteCourse() {
         CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
         Course course = courseList.getSelectionModel().getSelectedItem();
-        // TODO waarschuwing: weet je het zeker? Zo ja:
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Cursus verwijderd");
+        alert.show();
         courseDAO.deleteOne(course);
+        courseList.getItems().clear();
+        setupCode();
+    }
+
+    public void setupCode() {
+        CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
+        List<Course> allCourses = courseDAO.getAll();
+        for (Course course : allCourses) {
+            courseList.getItems().add(course);
+        }
+        courseList.getSelectionModel().selectFirst(); // selecteert de eerste cursus op de lijst
     }
 }

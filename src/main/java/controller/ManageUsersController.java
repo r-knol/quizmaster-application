@@ -19,8 +19,8 @@ public class ManageUsersController {
 
     // Alle courses in ListView userList laten zien
     public void setup() {
-        UserDAO userDAO = new UserDAO(Main.getDBaccess());
-        setupCode();    }
+        setupCode();
+    }
 
     public void doMenu() {
         Main.getSceneManager().showWelcomeScene();
