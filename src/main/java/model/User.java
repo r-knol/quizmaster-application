@@ -18,7 +18,6 @@ public class User {
     private String voornaam;
     private String tussenvoegsels;
     private String achternaam;
-
     public User(int gebruikerID, String rol, String gebruikersnaam, String wachtwoord,
                 String voornaam, String tussenvoegsels, String achternaam) {
         this.gebruikerID = gebruikerID;

@@ -10,6 +10,9 @@ import javafx.scene.control.TextField;
 import model.User;
 import view.Main;
 
+/** @ Author Richard Knol
+ */
+
 public class CreateUpdateUserController {
 
     private UserDAO userDAO;

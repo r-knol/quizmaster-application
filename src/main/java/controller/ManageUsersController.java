@@ -1,10 +1,11 @@
 package controller;
 
+/** @ Author Richard Knol
+ */
+
 import database.mysql.DBAccess;
 import database.mysql.UserDAO;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 import model.User;
