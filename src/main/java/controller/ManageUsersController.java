@@ -1,9 +1,5 @@
 package controller;
 
-/** @ Author Richard Knol
- */
-
-import database.mysql.DBAccess;
 import database.mysql.UserDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -13,22 +9,17 @@ import view.Main;
 
 import java.util.List;
 
-public class ManageUsersController {
+/** @author Richard Knol
+ */
 
-    private UserDAO userDAO;
-    private DBAccess dbAccess;
+public class ManageUsersController {
 
     @FXML
     ListView<User> userList;
 
-    public ManageUsersController() {
-        super();
-        this.dbAccess = Main.getDBaccess();
-    }
-
-    // Alle gebruikers (met gebruikersnaam) in ListView userList laten zien
+    // Alle courses in ListView userList laten zien
     public void setup() {
-        this.userDAO = new UserDAO(dbAccess);
+        UserDAO userDAO = new UserDAO(Main.getDBaccess());
         List<User> allUsers = userDAO.getAll();
         for (User u : allUsers) {
             userList.getItems().add(u);
