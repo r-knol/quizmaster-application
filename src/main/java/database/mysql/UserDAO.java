@@ -142,8 +142,4 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
         }
     }
 
-    @Override
-    public void updateOne(User type) {
-
-    }
 }
