@@ -166,4 +166,15 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
         }
     }
 
+    public void deleteOne(User user) {
+        String sql = "DELETE FROM quizmaster.gebruiker WHERE gebruikersID = ?";
+        try {
+            setupPreparedStatement(sql);
+            preparedStatement.setInt(1, user.getGebruikerID());
+            executeManipulateStatement();
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+    }
+
 }

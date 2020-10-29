@@ -2,8 +2,8 @@ package controller;
 
 import database.mysql.UserDAO;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
-
 import model.User;
 import view.Main;
 
@@ -20,12 +20,7 @@ public class ManageUsersController {
     // Alle courses in ListView userList laten zien
     public void setup() {
         UserDAO userDAO = new UserDAO(Main.getDBaccess());
-        List<User> allUsers = userDAO.getAll();
-        for (User u : allUsers) {
-            userList.getItems().add(u);
-        }
-        userList.getSelectionModel().selectFirst(); // selecteert de eerste gebruiker op de lijst
-    }
+        setupCode();    }
 
     public void doMenu() {
         Main.getSceneManager().showWelcomeScene();
@@ -41,7 +36,22 @@ public class ManageUsersController {
     }
 
     public void doDeleteUser() {
+        UserDAO userDAO = new UserDAO(Main.getDBaccess());
+        User user = userList.getSelectionModel().getSelectedItem();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Gebruiker verwijderd");
+        alert.show();
+        userDAO.deleteOne(user);
+        userList.getItems().clear();
+        setupCode();
+    }
 
-
+    public void setupCode() {
+        UserDAO userDAO = new UserDAO(Main.getDBaccess());
+        List<User> allUsers = userDAO.getAll();
+        for (User u : allUsers) {
+            userList.getItems().add(u);
+        }
+        userList.getSelectionModel().selectFirst(); // selecteert de eerste gebruiker op de lijst
     }
 }
