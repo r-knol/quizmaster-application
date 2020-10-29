@@ -73,7 +73,8 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
         }
     }
 
-    public void updateCustomer(Course course) {
+    @Override
+    public void updateOne(Course course) {
         String sql = "Update Cursus Set cursusNaam = ?, coordinatorID = ? Where cursusID = ?;";
         try {
             setupPreparedStatement(sql);
