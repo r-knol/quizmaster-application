@@ -77,7 +77,7 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
         }
     }
 
-    public void updateQuiz (Quiz quiz) {
+    public void updateOne (Quiz quiz) {
         String sql = "UPDATE Quiz SET cursusID = ?, quizNaam = ?, succesDefinitie = ? WHERE quizID = ?;";
         try {
             setupPreparedStatement(sql);

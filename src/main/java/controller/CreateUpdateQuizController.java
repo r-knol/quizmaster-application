@@ -52,7 +52,7 @@ public class CreateUpdateQuizController {
             } else {
                 int quizID = Integer.parseInt(quizIDTextfield.getText());
                 quiz.setQuizID(quizID);
-                quizDAO.updateQuiz(quiz);
+                quizDAO.updateOne(quiz);
                 Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
                 gewijzigd.setContentText("Quiz gewijzigd");
                 gewijzigd.show();

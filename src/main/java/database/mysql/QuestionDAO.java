@@ -90,7 +90,7 @@ public class QuestionDAO extends  AbstractDAO implements  GenericDAO<Question> {
         }
     }
 
-    public void updateQuestion (Question question) {
+    public void updateOne (Question question) {
         String sql = "UPDATE Vraag SET vraag = ?, antwoord1 = ?, antwoord2 = ?, antwoord3 = ?, antwoord4 = ? WHERE vraagID = ? AND quizID = ?;";
         try {
             setupPreparedStatement(sql);
