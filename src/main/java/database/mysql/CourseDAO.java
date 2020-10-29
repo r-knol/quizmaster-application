@@ -87,4 +87,9 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
         }
     }
 
+    @Override
+    public void deleteOne(Course type) {
+
+    }
+
 }
