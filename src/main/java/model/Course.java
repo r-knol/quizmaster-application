@@ -17,8 +17,7 @@ public class Course {
     }
 
     public Course(String cursusNaam, int coordinatorID) {
-        this.cursusNaam = cursusNaam;
-        this.coordinatorID = coordinatorID;
+        this(0, cursusNaam, coordinatorID);
     }
 
     public int getCursusID() {
