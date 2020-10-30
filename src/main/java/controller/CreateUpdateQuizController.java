@@ -1,7 +1,9 @@
 package controller;
 
+import database.mysql.CourseDAO;
 import database.mysql.DBAccess;
 import database.mysql.QuizDAO;
+import database.mysql.UserDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import model.Course;
@@ -14,9 +16,11 @@ import java.util.ArrayList;
 
 public class CreateUpdateQuizController {
 
+    private Quiz quiz;
+    private Course course;
+
     private QuizDAO quizDAO;
     private DBAccess dbAccess;
-    private Quiz quiz;
 
     @FXML
     private Label titleLabel;
@@ -25,7 +29,10 @@ public class CreateUpdateQuizController {
     private TextField quizIDTextfield;
 
     @FXML
-    private MenuButton cursusTaskMenuButton;
+    private TextField cursusIDTextField;
+
+   /* @FXML
+    private MenuButton cursusTaskMenuButton;*/
 
     @FXML
     private TextField quizNaamTextField;
@@ -70,6 +77,9 @@ public class CreateUpdateQuizController {
         }
     }
 
+
+
+
    /* @FXML
     public void doStore(ActionEvent actionEvent) {
         doCreateUpdateQuiz();
@@ -94,6 +104,9 @@ public class CreateUpdateQuizController {
 
 
     public void doCreateUpdateQuiz () {
+        CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
+        QuizDAO quizeDAO = new QuizDAO(Main.getDBaccess());
+        int givenCursusID = Integer.parseInt(.getText());
         // wijzigen van een bestaande quiz met updateOne()
         if (quiz != null) {
             //quiz.setQuizID(Integer.parseInt(quizIDTextfield.getText()));
@@ -114,6 +127,37 @@ public class CreateUpdateQuizController {
         }
 
         }
+
+        /*public void doCreateUpdateCourse() {
+        CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
+        CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
+        int givenCoordinatorID = Integer.parseInt(coordinatorID.getText());
+        // Controleren of het opgegeven ID bij een coordinator hoort, anders foutmelding geven
+        if (userDAO.getOneById(givenCoordinatorID).getRol().equals("coordinator")) {
+            if (course == null) { // Nieuwe cursus aanmaken
+                course = new Course(cursusnaam.getText(), givenCoordinatorID);
+                course = new Course(cursusnaam.getText(), Integer.parseInt(coordinatorID.getText()));
+                courseDAO.storeOne(course);
+                Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
+                aangemaakt.setContentText("Cursus aangemaakt");
+                aangemaakt.show();
+                setupCode(); // Gegenereerde ID tonen
+            } else { // Wijzigen van een bestaande cursus
+                course.setCursusNaam(cursusnaam.getText());
+                course.setCoordinatorID(Integer.parseInt(coordinatorID.getText()));
+                courseDAO.updateOne(course);
+                Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
+                gewijzigd.setContentText("Cursus gewijzigd");
+                gewijzigd.show();
+            }
+        }
+        else{
+            Alert foutmelding = new Alert(Alert.AlertType.WARNING);
+            foutmelding.setContentText("Gebruiker met dit ID is geen coordinator. " +
+                    "Geef het ID van de vakcoordinator.");
+            foutmelding.show();
+        }
+    }*/
 
 
 
