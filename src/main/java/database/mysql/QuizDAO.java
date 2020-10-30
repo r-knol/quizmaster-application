@@ -30,10 +30,10 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
             ResultSet resultSet = executeSelectStatement();
             while (resultSet.next()) {
                 int quizID = resultSet.getInt("quizID");
-                int cursusID = resultSet.getInt("cursusID");
+                Course course = courseDAO.getOneById(resultSet.getInt("cursusID"));
                 String quizNaam = resultSet.getString("quizNaam");
                 int succesDefinitie = resultSet.getInt("succesDefinitie");
-                tussenResultaat = new Quiz(quizID, cursusID, quizNaam, succesDefinitie);
+                tussenResultaat = new Quiz(quizID, course, quizNaam, succesDefinitie);
                 result.add(tussenResultaat);
             }
             if (result.isEmpty()) {
@@ -55,10 +55,10 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
             Quiz quiz;
             if (resultSet.next()) {
                 int quizID = resultSet.getInt("quizID");
-                int cursusID = resultSet.getInt("cursusID");
+                Course course = courseDAO.getOneById(resultSet.getInt("cursusID"));
                 String quizNaam = resultSet.getString("quizNaam");
                 int sDefinitie = resultSet.getInt("succesDefinitie");
-                quiz = new Quiz(quizID, cursusID, quizNaam, sDefinitie);
+                quiz = new Quiz(quizID, course, quizNaam, sDefinitie);
                 result.add(quiz);
             } else {
                 System.out.println("Cursus met dit cursusID bestaat niet");
@@ -77,10 +77,10 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
             preparedStatement.setInt(1, quizID);
             ResultSet resultSet = executeSelectStatement();
             if (resultSet.next()) {
-                int cursusID = resultSet.getInt("cursusID");
+                Course course = courseDAO.getOneById(resultSet.getInt("cursusID"));
                 String quizNaam = resultSet.getString("quizNaam");
                 int succesDefinitie = resultSet.getInt("succesDefinitie");
-                result = new Quiz(quizID, cursusID, quizNaam, succesDefinitie);
+                result = new Quiz(quizID, course, quizNaam, succesDefinitie);
             } else {
                 System.out.println("Quiz met dit quizID bestaat niet");
             }
@@ -98,7 +98,7 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
             //ResultSet resultSet = executeSelectStatement();
             setupPreparedStatementWithKey(sql);
             //Course course = courseDAO.getOneById(resultSet.getInt("cursusID"));
-            preparedStatement.setInt(1, quiz.getCursusID());
+            preparedStatement.setInt(1, quiz.getCourse().getCursusID());
             //System.out.println(quiz.getCourse().getCursusID());
             preparedStatement.setString(2,quiz.getQuizNaam());
             preparedStatement.setInt(3, quiz.getSuccesDefinitie());

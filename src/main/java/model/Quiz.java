@@ -7,24 +7,27 @@ package model;
 public class Quiz {
 
     private int quizID;
-    private int cursusID;
-
-    public int getCursusID() {
-        return cursusID;
-    }
-
     private Course course;
+
+
+
+
     private String quizNaam;
     private int succesDefinitie;
 
-    public Quiz (int cursusID, String quizNaam, int succesDefinitie) {
-        this(0, cursusID, quizNaam, succesDefinitie);
+    public Quiz() {
+        this(0,new Course(), "",0);
+    }
+
+
+    public Quiz (Course course, String quizNaam, int succesDefinitie) {
+        this(0, course, quizNaam, succesDefinitie);
 
     }
 
-    public Quiz(int quizID, int cursusID, String quizNaam, int succesDefinitie) {
+    public Quiz(int quizID, Course course , String quizNaam, int succesDefinitie) {
         this.quizID = quizID;
-        this.cursusID = cursusID;
+        this.course = course;
         this.quizNaam = quizNaam;
         this.succesDefinitie = succesDefinitie;
     }

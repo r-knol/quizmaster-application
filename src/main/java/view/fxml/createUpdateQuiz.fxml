@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -35,7 +37,7 @@
                         <Insets right="5.0" />
                     </GridPane.margin>
                 </Label>
-            <Label text="CursusID" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Label text="Cursus Naam " GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                 <GridPane.margin>
                     <Insets right="5.0" />
                 </GridPane.margin>
@@ -52,9 +54,10 @@
                 </Label>
 
                 <TextField fx:id="quizIDTextfield" disable="true" editable="false" GridPane.columnIndex="1" />
+            <MenuButton fx:id="cursusTaskMenuButton" mnemonicParsing="false" popupSide="RIGHT" prefHeight="27.0" prefWidth="197.0" text="Kies een cursus" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            </MenuButton>
                 <TextField fx:id="quizNaamTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField fx:id="succesDefinitieTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="cursusIDTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             </children>
         </GridPane>
         <Button fx:id="submitButton" layoutX="276.0" layoutY="304.0" mnemonicParsing="false" onAction="#doCreateUpdateQuiz" text="Wijzig" />
