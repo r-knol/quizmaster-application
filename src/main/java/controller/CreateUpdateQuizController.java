@@ -2,21 +2,21 @@ package controller;
 
 import database.mysql.DBAccess;
 import database.mysql.QuizDAO;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import model.Course;
 import model.Quiz;
 import model.User;
 import view.Main;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class CreateUpdateQuizController {
 
     private QuizDAO quizDAO;
     private DBAccess dbAccess;
     private Quiz quiz;
-    private User user;
 
     @FXML
     private Label titleLabel;
@@ -25,7 +25,7 @@ public class CreateUpdateQuizController {
     private TextField quizIDTextfield;
 
     @FXML
-    private TextField cursusIDTextField;
+    private MenuButton cursusTaskMenuButton;
 
     @FXML
     private TextField quizNaamTextField;
@@ -33,13 +33,44 @@ public class CreateUpdateQuizController {
     @FXML
     private TextField succesDefinitieTextField;
 
+    @FXML
+    private Button submitButton;
+
 
     public CreateUpdateQuizController () {
         this.dbAccess = Main.getDBaccess();
         this.quizDAO = new QuizDAO(dbAccess);
     }
 
-    @FXML
+    //
+    public void setup(Quiz quiz) {
+        if (quiz == null) {
+            this.quiz = quiz;
+            titleLabel.setText("Nieuwe quiz");
+            quizIDTextfield.setText("");
+
+
+            //for (Course course : ) {
+
+            MenuItem item1 = new MenuItem("In- en uitschrijven cursus");
+            item1.setOnAction(event -> Main.getSceneManager().showStudentSignInOutScene());
+            cursusTaskMenuButton.getItems().add(item1);
+            //}
+
+            quizNaamTextField.setText("");
+            succesDefinitieTextField.setText("");
+            submitButton.setText("Nieuw");
+        } else {
+            this.quiz = quiz;
+            quizIDTextfield.setText(String.valueOf(quiz.getQuizID()));
+            cursusTaskMenuButton.setText(String.valueOf(quiz.getCourse().getCursusNaam()));
+            quizNaamTextField.setText(String.valueOf(quiz.getQuizNaam()));
+            succesDefinitieTextField.setText(String.valueOf(quiz.getSuccesDefinitie()));
+            submitButton.setText("Wijzig");
+        }
+    }
+
+   /* @FXML
     public void doStore(ActionEvent actionEvent) {
         doCreateUpdateQuiz();
         if (quiz != null) {
@@ -58,43 +89,36 @@ public class CreateUpdateQuizController {
                 gewijzigd.show();
             }
         }
-    }
+    }*/
 
-    public void setup(Quiz quiz) {
-        titleLabel.setText("Wijzig quiz");
-        quizIDTextfield.setText(String.valueOf(quiz.getQuizID()));
-        cursusIDTextField.setText(String.valueOf(quiz.getCursusID()));
-        quizNaamTextField.setText(quiz.getQuizNaam());
-        succesDefinitieTextField.setText(String.valueOf(quiz.getSuccesDefinitie()));
-    }
 
-    public void doCreateUpdateQuiz() {
-        StringBuilder warningText = new StringBuilder();
-        boolean correcteInvoer = true;
-        String id1 = quizIDTextfield.getText();
-        String id2 = cursusIDTextField.getText();
-        String quizNaam = quizNaamTextField.getText();
-        String sDefinitie = succesDefinitieTextField.getText();
 
-        if (id1.isEmpty()) {
-            warningText.append("Je moet een id voor de quiz invoeren\n");
-            correcteInvoer = false;
-        }
-        if (!correcteInvoer) {
-            Alert foutmelding = new Alert(Alert.AlertType.ERROR);
-            foutmelding.setContentText(warningText.toString());
-            foutmelding.show();
-            quiz = null;
+    public void doCreateUpdateQuiz () {
+        // wijzigen van een bestaande quiz met updateOne()
+        if (quiz != null) {
+            //quiz.setQuizID(Integer.parseInt(quizIDTextfield.getText()));
+            //quiz.setCursusID(Integer.parseInt(cursusIDTextField.getText()));
+            quiz.setQuizNaam(quizNaamTextField.getText());
+            quiz.setSuccesDefinitie(Integer.parseInt(succesDefinitieTextField.getText()));
+            quizDAO.updateOne(quiz);
+            Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
+            gewijzigd.setContentText("Quiz gewijzigd");
+            gewijzigd.show();
+        // quiz aanmaken
         } else {
-            int quizID = Integer.parseInt(id1);
-            int cursusID = Integer.parseInt(id2);
-            int succesdefinitie = Integer.parseInt(sDefinitie);
-            quiz = new Quiz (quizID, cursusID, quizNaam, succesdefinitie);
+            quiz = new Quiz(quizNaamTextField.getText(), Integer.parseInt(succesDefinitieTextField.getText()));
+            quizDAO.storeOne(quiz);
+            Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
+            aangemaakt.setContentText("Quiz aangemaakt");
+            aangemaakt.show();
         }
-    }
+
+        }
+
+
 
     @FXML
-    public void doMenu(ActionEvent event) {
-        Main.getSceneManager().showWelcomeScene();
+    public void doMenu() {
+        Main.getSceneManager().showManageQuizScene();
     }
 }

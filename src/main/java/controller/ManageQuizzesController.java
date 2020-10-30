@@ -2,14 +2,17 @@ package controller;
 
 import database.mysql.DBAccess;
 import database.mysql.QuizDAO;
+import database.mysql.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import model.Course;
 import model.Quiz;
 import view.Main;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Olaf van der Kaaij
@@ -19,39 +22,41 @@ public class ManageQuizzesController {
     private QuizDAO quizDAO;
     private DBAccess dbAccess;
 
+
+    Quiz quiz;
+
     @FXML
     ListView<Quiz> quizList;
 
     @FXML
     TextField warningText;
 
+    public ManageQuizzesController() {
+        super();
+        this.dbAccess = Main.getDBaccess();
+        this.quizDAO = new QuizDAO(dbAccess);
+    }
+
     public void setup() {
         this.quizDAO = new QuizDAO(dbAccess);
-        ArrayList<Quiz> allQuizzes = quizDAO.getAll();
+        List<Quiz> allQuizzes = quizDAO.getAll();
         for (Quiz quiz : allQuizzes) {
             quizList.getItems().add(quiz);
         }
         quizList.getSelectionModel().selectFirst();
     }
 
-    public void doMenu(ActionEvent actionEvent){
-        dbAccess.closeConnection();
-        System.out.println("Connection closed");
+    public void doMenu(){
         Main.getSceneManager().showWelcomeScene();
     }
 
-    public void doCreateQuiz(ActionEvent event){
-
+    public void doCreateQuiz(){
+        Main.getSceneManager().showCreateUpdateQuizScene(null);
     }
 
-    public void doUpdateQuiz(ActionEvent event){
+    public void doUpdateQuiz(){
         Quiz quiz = quizList.getSelectionModel().getSelectedItem();
-        if (quiz == null) {
-            warningText.setVisible(true);
-            warningText.setText("Je moet eerst een quiz kiezen");
-        } else {
-            Main.getSceneManager().showCreateUpdateQuizScene(quiz);
-        }
+        Main.getSceneManager().showCreateUpdateQuizScene(quiz);
     }
 
     public void doDeleteQuiz(){}

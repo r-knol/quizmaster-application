@@ -17,8 +17,11 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
         super(dbAccess);
     }
 
+
+
+
     public ArrayList<Quiz> getAll() {
-        String sql = "Select * FROM quiz";
+        String sql = "Select * FROM quizmaster.quiz";
         ArrayList<Quiz> result = new ArrayList<>();
         Quiz tussenResultaat = null;
         CourseDAO courseDAO = new CourseDAO(dbAccess);
@@ -27,10 +30,10 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
             ResultSet resultSet = executeSelectStatement();
             while (resultSet.next()) {
                 int quizID = resultSet.getInt("quizID");
-                int cursusID = resultSet.getInt("cursusID");
+                Course course = courseDAO.getOneById(resultSet.getInt("cursusID"));
                 String quizNaam = resultSet.getString("quizNaam");
                 int succesDefinitie = resultSet.getInt("succesDefinitie");
-                tussenResultaat = new Quiz(quizID, cursusID, quizNaam, succesDefinitie);
+                tussenResultaat = new Quiz(quizID, course, quizNaam, succesDefinitie);
                 result.add(tussenResultaat);
             }
             if (result.isEmpty()) {
@@ -41,19 +44,43 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
         } return result;
     }
 
+    public ArrayList<Quiz> getAllByCourseId(int id) {
+        String sql = "SELECT * FROM Quizmaster.quiz WHERE cursusID = ?";
+        ArrayList<Quiz> result = new ArrayList<>();
+        CourseDAO courseDAO = new CourseDAO(dbAccess);
+        try {
+            setupPreparedStatement(sql);
+            preparedStatement.setInt(2, id);
+            ResultSet resultSet = executeSelectStatement();
+            Quiz quiz;
+            if (resultSet.next()) {
+                int quizID = resultSet.getInt("quizID");
+                Course course = courseDAO.getOneById(resultSet.getInt("cursusID"));
+                String quizNaam = resultSet.getString("quizNaam");
+                int sDefinitie = resultSet.getInt("succesDefinitie");
+                quiz = new Quiz(quizID, course, quizNaam, sDefinitie);
+                result.add(quiz);
+            } else {
+                System.out.println("Cursus met dit cursusID bestaat niet");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error: " + e.getMessage());
+        } return result;
+    }
+
     public Quiz getOneById(int quizID) {
-        String sql = "Select * FROM quiz WHERE quizID = ?";
+        String sql = "Select * FROM quizmaster.quiz WHERE quizID = ?";
         Quiz result = null;
+        CourseDAO courseDAO = new CourseDAO(dbAccess);
         try {
             setupPreparedStatement(sql);
             preparedStatement.setInt(1, quizID);
             ResultSet resultSet = executeSelectStatement();
             if (resultSet.next()) {
-                int cursusID = resultSet.getInt("CursusID");
+                Course course = courseDAO.getOneById(resultSet.getInt("cursusID"));
                 String quizNaam = resultSet.getString("quizNaam");
                 int succesDefinitie = resultSet.getInt("succesDefinitie");
-                result = new Quiz(cursusID, quizNaam, succesDefinitie);
-                result.setQuizID(quizID);
+                result = new Quiz(quizID, course, quizNaam, succesDefinitie);
             } else {
                 System.out.println("Quiz met dit quizID bestaat niet");
             }
@@ -64,27 +91,31 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
 
     @Override
     public void storeOne(Quiz quiz) {
-        String sql = "Insert into quiz(curusID, quizNaam, succesDefinitie) values(?,?,?) ;";
+        String sql = "INSERT INTO quiz (cursusID, quiznaam, succesDefinitie) \n" +
+                "VALUES ((SELECT cursusID FROM Cursus WHERE cursusId = ?),?,?);";
+        CourseDAO courseDAO = new CourseDAO(dbAccess);
         try {
+            ResultSet resultSet = executeSelectStatement();
             setupPreparedStatementWithKey(sql);
-            preparedStatement.setInt(1, quiz.getCursusID());
-            preparedStatement.setString(2,quiz.getQuizNaam());
-            preparedStatement.setInt(3, quiz.getSuccesDefinitie());
+            Course course = courseDAO.getOneById(resultSet.getInt("cursusID"));
+            preparedStatement.setInt(1, quiz.getCourse().getCursusID());
+            System.out.println(quiz.getCourse().getCursusID());
+            preparedStatement.setString(1,quiz.getQuizNaam());
+            preparedStatement.setInt(2, quiz.getSuccesDefinitie());
             int quizID = executeInsertStatementWithKey();
             quiz.setQuizID(quizID);
-        } catch (SQLException e) {
+        }    catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
-        }
+            }
     }
 
     public void updateOne (Quiz quiz) {
-        String sql = "UPDATE Quiz SET cursusID = ?, quizNaam = ?, succesDefinitie = ? WHERE quizID = ?;";
+        String sql = "UPDATE quizmaster.quiz SET quizNaam = ?, succesDefinitie = ? WHERE quizID = ?;";
         try {
             setupPreparedStatement(sql);
-            preparedStatement.setInt(1, quiz.getQuizID());
-            preparedStatement.setInt(2, quiz.getCursusID());
-            preparedStatement.setString(3, quiz.getQuizNaam());
-            preparedStatement.setInt(4, quiz.getSuccesDefinitie());
+            preparedStatement.setString(1, quiz.getQuizNaam());
+            preparedStatement.setInt(2, quiz.getSuccesDefinitie());
+            preparedStatement.setInt(3, quiz.getQuizID());
             executeManipulateStatement();
         } catch (SQLException sqlException) {
             System.out.println("SQL error " + sqlException.getMessage());
