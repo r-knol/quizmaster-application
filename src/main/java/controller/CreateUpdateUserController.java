@@ -1,6 +1,5 @@
 package controller;
 
-import database.mysql.DBAccess;
 import database.mysql.UserDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
