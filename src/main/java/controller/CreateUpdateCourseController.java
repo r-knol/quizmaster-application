@@ -29,7 +29,7 @@ public class CreateUpdateCourseController {
     @FXML
     private Button submitButton;
 
-    // Huidige gebruiker aanmaken (this.user) en huidige data uit database weergeven als gebruiker al bestaat
+    // Huidige cursus opslaan en huidige data uit database weergeven als cursus al bestaat
     public void setup(Course course) {
         this.course = course;
         setupCode();
@@ -43,7 +43,7 @@ public class CreateUpdateCourseController {
         // Controleren of het opgegeven ID bij een coordinator hoort, anders foutmelding geven
         if (userDAO.getOneById(gegevenCoordinatorID).getRol().equals("coordinator")) {
             if (course == null) { // Nieuwe cursus aanmaken
-                course = new Course(gegevenCursusnaam, gegevenCoordinatorID);
+                course = new Course(gegevenCursusnaam, userDAO.getOneById(gegevenCoordinatorID));
                 courseDAO.storeOne(course);
                 Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
                 aangemaakt.setContentText("Cursus aangemaakt");
@@ -51,7 +51,7 @@ public class CreateUpdateCourseController {
                 setupCode(); // Gegenereerde ID tonen
             } else { // Wijzigen van een bestaande cursus
                 course.setCursusNaam(gegevenCursusnaam);
-                course.setCoordinatorID(gegevenCoordinatorID);
+                course.setCoordinator(userDAO.getOneById(gegevenCoordinatorID));
                 courseDAO.updateOne(course);
                 Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
                 gewijzigd.setContentText("Cursus gewijzigd");
@@ -82,7 +82,7 @@ public class CreateUpdateCourseController {
             titleLabel.setText("Wijzig cursus");
             cursusID.setText(String.valueOf(course.getCursusID()));
             cursusnaam.setText(course.getCursusNaam());
-            coordinatorID.setText(String.valueOf(course.getCoordinatorID()));
+            coordinatorID.setText(String.valueOf(course.getCoordinator().getGebruikerID()));
             submitButton.setText("Wijzig");
         }
     }

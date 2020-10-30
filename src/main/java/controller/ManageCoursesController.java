@@ -1,12 +1,10 @@
 package controller;
 
 import database.mysql.CourseDAO;
-import database.mysql.UserDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import model.Course;
-import model.User;
 import view.Main;
 
 import java.util.List;
@@ -20,7 +18,6 @@ public class ManageCoursesController {
     @FXML
     ListView<Course> courseList;
 
-    // Alle cursussen voor de ingelogde coördinator laten zien
     public void setup() {
         setupCode();
     }

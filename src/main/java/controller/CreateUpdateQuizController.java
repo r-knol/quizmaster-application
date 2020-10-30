@@ -19,15 +19,11 @@ public class CreateUpdateQuizController {
 
     private Quiz quiz;
     private Course course;
-    private QuizDAO quizDAO;
-    private DBAccess dbAccess;
 
     @FXML
     private Label titleLabel;
     @FXML
     private TextField quizIDTextfield;
-    @FXML
-    private TextField cursusIDTextField;
     @FXML
     private MenuButton cursusTaskMenuButton;
     @FXML
@@ -37,13 +33,8 @@ public class CreateUpdateQuizController {
     @FXML
     private Button submitButton;
 
-    public CreateUpdateQuizController() {
-        this.dbAccess = Main.getDBaccess();
-        this.quizDAO = new QuizDAO(dbAccess);
-    }
-
     public void setup(Quiz quiz) {
-        CourseDAO courseDAO = new CourseDAO(dbAccess);
+        CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
         List<Course> allCourses = courseDAO.getAll();
         MenuItem item = new MenuItem("Kies een cursus");
         for (Course course : allCourses) {
@@ -72,14 +63,15 @@ public class CreateUpdateQuizController {
     }
 
     public void doCreateUpdateQuiz() {
-        // Aanmaken van een quiz met updateOne()
+        QuizDAO quizDAO = new QuizDAO(Main.getDBaccess());
+        // Aanmaken van een quiz
         if (quiz == null) {
             quiz = new Quiz(course, quizNaamTextField.getText(), Integer.parseInt(succesDefinitieTextField.getText()));
             quizDAO.storeOne(quiz);
             Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
             aangemaakt.setContentText("Quiz aangemaakt");
             aangemaakt.show();
-            // quiz wijzigen
+        // Quiz wijzigen
         } else {
             quiz.setQuizNaam(quizNaamTextField.getText());
             quiz.setSuccesDefinitie(Integer.parseInt(succesDefinitieTextField.getText()));

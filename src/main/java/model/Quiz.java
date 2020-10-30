@@ -9,27 +9,23 @@ public class Quiz {
     private int quizID;
     private Course course;
 
-
-
-
     private String quizNaam;
     private int succesDefinitie;
-
-    public Quiz() {
-        this(0,new Course(), "",0);
-    }
-
-
-    public Quiz (Course course, String quizNaam, int succesDefinitie) {
-        this(0, course, quizNaam, succesDefinitie);
-
-    }
 
     public Quiz(int quizID, Course course , String quizNaam, int succesDefinitie) {
         this.quizID = quizID;
         this.course = course;
         this.quizNaam = quizNaam;
         this.succesDefinitie = succesDefinitie;
+    }
+
+    public Quiz (Course course, String quizNaam, int succesDefinitie) {
+        this(0, course, quizNaam, succesDefinitie);
+
+    }
+
+    public Quiz() {
+        this(new Course(), "",0);
     }
 
     public int getQuizID() {
@@ -48,10 +44,6 @@ public class Quiz {
         this.course = course;
     }
 
-    public void setCursusID(Course course) {
-        this.course = course;
-    }
-
     public String getQuizNaam() {
         return quizNaam;
     }
@@ -67,7 +59,6 @@ public class Quiz {
     public void setSuccesDefinitie(int succesDefinitie) {
         this.succesDefinitie = succesDefinitie;
     }
-
 
     public String toString() {
         return quizNaam;
