@@ -44,7 +44,7 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
         } return result;
     }
 
-    public ArrayList<Quiz> getAllByCourseId(int id) {
+    /*public ArrayList<Quiz> getAllByCourseId(int id) {
         String sql = "SELECT * FROM Quizmaster.quiz WHERE cursusID = ?";
         ArrayList<Quiz> result = new ArrayList<>();
         CourseDAO courseDAO = new CourseDAO(dbAccess);
@@ -66,7 +66,7 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         } return result;
-    }
+    }*/
 
     public Quiz getOneById(int quizID) {
         String sql = "Select * FROM quizmaster.quiz WHERE quizID = ?";
@@ -93,13 +93,10 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
     public void storeOne(Quiz quiz) {
         String sql = "INSERT INTO quiz (cursusID, quiznaam, succesDefinitie) \n" +
                 "VALUES (?,?,?);";
-        //CourseDAO courseDAO = new CourseDAO(dbAccess);
         try {
-            //ResultSet resultSet = executeSelectStatement();
+
             setupPreparedStatementWithKey(sql);
-            //Course course = courseDAO.getOneById(resultSet.getInt("cursusID"));
             preparedStatement.setInt(1, quiz.getCourse().getCursusID());
-            //System.out.println(quiz.getCourse().getCursusID());
             preparedStatement.setString(2,quiz.getQuizNaam());
             preparedStatement.setInt(3, quiz.getSuccesDefinitie());
             int key = executeInsertStatementWithKey();

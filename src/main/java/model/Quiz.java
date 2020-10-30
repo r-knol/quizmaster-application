@@ -8,10 +8,6 @@ public class Quiz {
 
     private int quizID;
     private Course course;
-
-
-
-
     private String quizNaam;
     private int succesDefinitie;
 
