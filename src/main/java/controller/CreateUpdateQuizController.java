@@ -11,35 +11,31 @@ import view.Main;
 
 import java.util.List;
 
+/**
+ * @author Olaf van der Kaaij
+ */
+
 public class CreateUpdateQuizController {
 
     private Quiz quiz;
     private Course course;
-
     private QuizDAO quizDAO;
     private DBAccess dbAccess;
 
     @FXML
     private Label titleLabel;
-
     @FXML
     private TextField quizIDTextfield;
-
     @FXML
     private TextField cursusIDTextField;
-
     @FXML
     private MenuButton cursusTaskMenuButton;
-
     @FXML
     private TextField quizNaamTextField;
-
     @FXML
     private TextField succesDefinitieTextField;
-
     @FXML
     private Button submitButton;
-
 
     public CreateUpdateQuizController() {
         this.dbAccess = Main.getDBaccess();
@@ -76,7 +72,7 @@ public class CreateUpdateQuizController {
     }
 
     public void doCreateUpdateQuiz() {
-        // Aanmaken van een quiz met updateOne()0
+        // Aanmaken van een quiz met updateOne()
         if (quiz == null) {
             quiz = new Quiz(course, quizNaamTextField.getText(), Integer.parseInt(succesDefinitieTextField.getText()));
             quizDAO.storeOne(quiz);

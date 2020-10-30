@@ -58,7 +58,7 @@ public class CreateUpdateCourseController {
                 gewijzigd.show();
             }
         }
-        else{
+        else {
             Alert foutmelding = new Alert(Alert.AlertType.WARNING);
             foutmelding.setContentText("Gebruiker met dit ID is geen coordinator. " +
                     "Geef het ID van de vakcoordinator.");
