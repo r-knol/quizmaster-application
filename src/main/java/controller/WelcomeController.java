@@ -1,6 +1,4 @@
 package controller;
-import database.mysql.DBAccess;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
