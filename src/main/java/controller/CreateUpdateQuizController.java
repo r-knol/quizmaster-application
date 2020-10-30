@@ -27,8 +27,6 @@ public class CreateUpdateQuizController {
     @FXML
     private TextField quizIDTextfield;
     @FXML
-    private TextField cursusIDTextField;
-    @FXML
     private MenuButton cursusTaskMenuButton;
     @FXML
     private TextField quizNaamTextField;
@@ -60,7 +58,7 @@ public class CreateUpdateQuizController {
             quizIDTextfield.setText("");
             quizNaamTextField.setText("");
             succesDefinitieTextField.setText("");
-            submitButton.setText("Nieuw");
+            submitButton.setText("Maak");
         } else {
             this.quiz = quiz;
             quizIDTextfield.setText(String.valueOf(quiz.getQuizID()));

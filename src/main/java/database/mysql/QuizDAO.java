@@ -94,7 +94,6 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
         String sql = "INSERT INTO quiz (cursusID, quiznaam, succesDefinitie) \n" +
                 "VALUES (?,?,?);";
         try {
-
             setupPreparedStatementWithKey(sql);
             preparedStatement.setInt(1, quiz.getCourse().getCursusID());
             preparedStatement.setString(2,quiz.getQuizNaam());

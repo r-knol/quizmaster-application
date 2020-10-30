@@ -21,7 +21,7 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question> {
     public ArrayList<Question> getAll() {
         String sql = "SELECT * FROM quizmaster.vraag";
         ArrayList<Question> result = new ArrayList<>();
-        Question tussenResultaat = null;
+        Question tussenResultaat;
         QuizDAO quizDAO = new QuizDAO(dbAccess);
         try {
             setupPreparedStatement(sql);
@@ -75,18 +75,18 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question> {
 
     @Override
     public void storeOne(Question question) {
-        String sql = "INSERT into Vraag(quizID, vraag, antwoord1, antwoord2, antwoord3, \n" +
-                "antwoord4) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT into Vraag(vraagID, quizID, vraag, antwoord1, antwoord2, antwoord3, \n" +
+                "antwoord4) VALUES (?,?,?,?,?,?,?)";
         try {
-            setupPreparedStatementWithKey(sql);
-            preparedStatement.setInt(1, question.getQuiz().getQuizID());
-            preparedStatement.setString(2, question.getQuizVraag());
-            preparedStatement.setString(3, question.getJuistAntwoord());
-            preparedStatement.setString(4, question.getFoutAntwoord1());
-            preparedStatement.setString(5, question.getFoutAntwoord2());
-            preparedStatement.setString(6, question.getFoutAntwoord3());
-            int key = executeInsertStatementWithKey();
-            question.setVraagID(key);
+            setupPreparedStatement(sql);
+            preparedStatement.setInt(1,question.getVraagID());
+            preparedStatement.setInt(2, question.getQuiz().getQuizID());
+            preparedStatement.setString(3, question.getQuizVraag());
+            preparedStatement.setString(4, question.getJuistAntwoord());
+            preparedStatement.setString(5, question.getFoutAntwoord1());
+            preparedStatement.setString(6, question.getFoutAntwoord2());
+            preparedStatement.setString(7, question.getFoutAntwoord3());
+            executeManipulateStatement();
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
         }
