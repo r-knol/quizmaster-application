@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.Course;
-import model.User;
 import view.Main;
 
 /**
@@ -39,20 +38,20 @@ public class CreateUpdateCourseController {
     public void doCreateUpdateCourse() {
         CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
         UserDAO userDAO = new UserDAO(Main.getDBaccess());
-        int givenCoordinatorID = Integer.parseInt(coordinatorID.getText());
+        int gegevenCoordinatorID = Integer.parseInt(coordinatorID.getText());
+        String gegevenCursusnaam = cursusnaam.getText();
         // Controleren of het opgegeven ID bij een coordinator hoort, anders foutmelding geven
-        if (userDAO.getOneById(givenCoordinatorID).getRol().equals("coordinator")) {
+        if (userDAO.getOneById(gegevenCoordinatorID).getRol().equals("coordinator")) {
             if (course == null) { // Nieuwe cursus aanmaken
-                course = new Course(cursusnaam.getText(), givenCoordinatorID);
-                course = new Course(cursusnaam.getText(), Integer.parseInt(coordinatorID.getText()));
+                course = new Course(gegevenCursusnaam, gegevenCoordinatorID);
                 courseDAO.storeOne(course);
                 Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
                 aangemaakt.setContentText("Cursus aangemaakt");
                 aangemaakt.show();
                 setupCode(); // Gegenereerde ID tonen
             } else { // Wijzigen van een bestaande cursus
-                course.setCursusNaam(cursusnaam.getText());
-                course.setCoordinatorID(Integer.parseInt(coordinatorID.getText()));
+                course.setCursusNaam(gegevenCursusnaam);
+                course.setCoordinatorID(gegevenCoordinatorID);
                 courseDAO.updateOne(course);
                 Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
                 gewijzigd.setContentText("Cursus gewijzigd");
@@ -80,7 +79,7 @@ public class CreateUpdateCourseController {
             coordinatorID.setText("");
             submitButton.setText("Nieuw");
         } else {
-            titleLabel.setText("Wijzig gebruiker");
+            titleLabel.setText("Wijzig cursus");
             cursusID.setText(String.valueOf(course.getCursusID()));
             cursusnaam.setText(course.getCursusNaam());
             coordinatorID.setText(String.valueOf(course.getCoordinatorID()));
