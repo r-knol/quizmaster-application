@@ -10,6 +10,10 @@ public class Course {
     private String cursusNaam;
     private int coordinatorID;
 
+    public Course () {
+        this(0, "", 0);
+    }
+
     public Course(int cursusID, String cursusNaam, int coordinatorID) {
         this.cursusID = cursusID;
         this.cursusNaam = cursusNaam;
