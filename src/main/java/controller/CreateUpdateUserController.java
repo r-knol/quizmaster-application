@@ -1,6 +1,5 @@
 package controller;
 
-import database.mysql.DBAccess;
 import database.mysql.UserDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -44,7 +43,15 @@ public class CreateUpdateUserController {
 
     public void doCreateUpdateUser() {
         UserDAO userDAO = new UserDAO(Main.getDBaccess());
-        if (user != null) { // Wijzigen van een bestaande gebruiker
+        if (user == null) { // Nieuwe gebruiker aanmaken
+            user = new User(Rol.getText(), Voornaam.getText(), Tussenvoegsel.getText(), Achternaam.getText());
+            userDAO.storeOne(user);
+            Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
+            aangemaakt.setContentText("Gebruiker aangemaakt");
+            aangemaakt.show();
+            setupCode(); // Gegenereerde ID, gebruikersnaam en wachtwoord tonen
+        }
+        else { // Wijzigen van een bestaande gebruiker
             user.setRol(Rol.getText());
             user.setVoornaam(Voornaam.getText());
             user.setTussenvoegsels(Tussenvoegsel.getText());
@@ -53,14 +60,6 @@ public class CreateUpdateUserController {
             Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
             gewijzigd.setContentText("Gebruiker gewijzigd");
             gewijzigd.show();
-        }
-        else { // Nieuwe gebruiker aanmaken
-            user = new User(Rol.getText(), Voornaam.getText(), Tussenvoegsel.getText(), Achternaam.getText());
-            userDAO.storeOne(user);
-            Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
-            aangemaakt.setContentText("Gebruiker aangemaakt");
-            aangemaakt.show();
-            setupCode(); // Gegenereerde ID, gebruikersnaam en wachtwoord tonen
         }
     }
 
