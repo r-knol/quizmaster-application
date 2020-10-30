@@ -1,10 +1,12 @@
 package controller;
 
+import database.mysql.CourseDAO;
 import database.mysql.DBAccess;
 import database.mysql.QuizDAO;
 import database.mysql.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import model.Course;
@@ -59,5 +61,18 @@ public class ManageQuizzesController {
         Main.getSceneManager().showCreateUpdateQuizScene(quiz);
     }
 
-    public void doDeleteQuiz(){}
+    public void doDeleteQuiz(){
+        QuizDAO quizDAO = new QuizDAO(Main.getDBaccess());
+        Quiz quiz = quizList.getSelectionModel().getSelectedItem();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Quiz verwijderd");
+        alert.show();
+        quizDAO.deleteOne(quiz);
+        quizList.getItems().clear();
+        List<Quiz> allQuizzes = quizDAO.getAll();
+        for (Quiz q : allQuizzes) {
+            quizList.getItems().add(q);
+        }
+        quizList.getSelectionModel().selectFirst();
+    }
 }

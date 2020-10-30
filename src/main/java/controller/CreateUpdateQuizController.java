@@ -55,13 +55,13 @@ public class CreateUpdateQuizController {
             this.quiz = quiz;
             titleLabel.setText("Nieuwe quiz");
             quizIDTextfield.setText("");
-
+            cursusIDTextField.setText("");
 
             //for (Course course : ) {
 
-            MenuItem item1 = new MenuItem("In- en uitschrijven cursus");
+            /*MenuItem item1 = new MenuItem("In- en uitschrijven cursus");
             item1.setOnAction(event -> Main.getSceneManager().showStudentSignInOutScene());
-            cursusTaskMenuButton.getItems().add(item1);
+            cursusTaskMenuButton.getItems().add(item1);*/
             //}
 
             quizNaamTextField.setText("");
@@ -70,7 +70,7 @@ public class CreateUpdateQuizController {
         } else {
             this.quiz = quiz;
             quizIDTextfield.setText(String.valueOf(quiz.getQuizID()));
-            cursusTaskMenuButton.setText(String.valueOf(quiz.getCourse().getCursusNaam()));
+            cursusIDTextField.setText(String.valueOf(quiz.getCursusID()));
             quizNaamTextField.setText(String.valueOf(quiz.getQuizNaam()));
             succesDefinitieTextField.setText(String.valueOf(quiz.getSuccesDefinitie()));
             submitButton.setText("Wijzig");
@@ -106,7 +106,7 @@ public class CreateUpdateQuizController {
     public void doCreateUpdateQuiz () {
         CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
         QuizDAO quizeDAO = new QuizDAO(Main.getDBaccess());
-        int givenCursusID = Integer.parseInt(.getText());
+        int givenCursusID = Integer.parseInt(cursusIDTextField.getText());
         // wijzigen van een bestaande quiz met updateOne()
         if (quiz != null) {
             //quiz.setQuizID(Integer.parseInt(quizIDTextfield.getText()));
@@ -119,7 +119,7 @@ public class CreateUpdateQuizController {
             gewijzigd.show();
         // quiz aanmaken
         } else {
-            quiz = new Quiz(quizNaamTextField.getText(), Integer.parseInt(succesDefinitieTextField.getText()));
+            quiz = new Quiz(givenCursusID, quizNaamTextField.getText(), Integer.parseInt(succesDefinitieTextField.getText()));
             quizDAO.storeOne(quiz);
             Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
             aangemaakt.setContentText("Quiz aangemaakt");

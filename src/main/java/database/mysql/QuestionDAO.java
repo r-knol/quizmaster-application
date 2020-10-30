@@ -4,6 +4,7 @@ package database.mysql;
  * @author Olaf van der Kaaij
  */
 
+import model.Course;
 import model.Question;
 
 import java.sql.ResultSet;
@@ -101,6 +102,18 @@ public class QuestionDAO extends  AbstractDAO implements  GenericDAO<Question> {
             preparedStatement.setString(5, question.getFoutAntwoord3());
             preparedStatement.setInt(6, question.getVraagID());
             preparedStatement.setInt(7, question.getQuizID());
+            executeManipulateStatement();
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteOne(Question question) {
+        String sql = "DELETE FROM Vraag WHERE vraagID = ?";
+        try {
+            setupPreparedStatement(sql);
+            preparedStatement.setInt(1, question.getVraagID());
             executeManipulateStatement();
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
