@@ -27,11 +27,11 @@ public class ManageCoursesController {
     }
 
     public void doCreateCourse() {
-        Main.getSceneManager().showCreateUpdateCourseScene(null); // pakt lege cursus
+        Main.getSceneManager().showCreateUpdateCourseScene(null); // geeft lege cursus mee
     }
 
     public void doUpdateCourse() {
-        Course course = courseList.getSelectionModel().getSelectedItem(); // pakt geselecteerde item
+        Course course = courseList.getSelectionModel().getSelectedItem(); // geeft te wijzigen cursus
         Main.getSceneManager().showCreateUpdateCourseScene(course);
     }
 

@@ -35,13 +35,15 @@ public class CreateUpdateQuizController {
 
     public void setup(Quiz quiz) {
         CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
+        // TODO Alleen cursusssen bij ingelogde coordinator
         List<Course> allCourses = courseDAO.getAll();
-        MenuItem item = new MenuItem("Kies een cursus");
+        MenuItem item = new MenuItem("Kies een cursus"); // TODO kan weg?
         for (Course course : allCourses) {
-            item = new MenuItem(course.getCursusNaam());
+            item = new MenuItem(course.getCursusNaam() + " (" + course.getCursusID() + ')');
             item.setOnAction(event -> {
                 this.course = course;
-                cursusTaskMenuButton.setText(course.getCursusNaam());
+                // TODO testen
+                cursusTaskMenuButton.setText(course.getCursusNaam() + " (" + course.getCursusID() + ')');
             });
             cursusTaskMenuButton.getItems().add(item);
         }
@@ -52,11 +54,12 @@ public class CreateUpdateQuizController {
             quizNaamTextField.setText("");
             succesDefinitieTextField.setText("");
             submitButton.setText("Nieuw");
-        } else {
+        }
+        else {
             this.quiz = quiz;
             quizIDTextfield.setText(String.valueOf(quiz.getQuizID()));
-            cursusTaskMenuButton.setText(String.valueOf(quiz.getCourse().getCursusNaam()));
-            quizNaamTextField.setText(String.valueOf(quiz.getQuizNaam()));
+            cursusTaskMenuButton.setText(course.getCursusNaam());
+            quizNaamTextField.setText(quiz.getQuizNaam());
             succesDefinitieTextField.setText(String.valueOf(quiz.getSuccesDefinitie()));
             submitButton.setText("Wijzig");
         }
@@ -71,8 +74,9 @@ public class CreateUpdateQuizController {
             Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
             aangemaakt.setContentText("Quiz aangemaakt");
             aangemaakt.show();
+        }
         // Quiz wijzigen
-        } else {
+        else {
             quiz.setQuizNaam(quizNaamTextField.getText());
             quiz.setSuccesDefinitie(Integer.parseInt(succesDefinitieTextField.getText()));
             quizDAO.updateOne(quiz);

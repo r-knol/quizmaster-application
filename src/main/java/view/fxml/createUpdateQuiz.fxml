@@ -54,13 +54,16 @@
                 </Label>
 
                 <TextField fx:id="quizIDTextfield" disable="true" editable="false" GridPane.columnIndex="1" />
-            <MenuButton fx:id="cursusTaskMenuButton" mnemonicParsing="false" popupSide="RIGHT" prefHeight="27.0" prefWidth="197.0" text="Kies een cursus" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <MenuButton fx:id="cursusTaskMenuButton" mnemonicParsing="false" popupSide="RIGHT" prefHeight="27.0"
+                        prefWidth="197.0" text="Kies een cursus" textAlignment="RIGHT" GridPane.columnIndex="1"
+                        GridPane.rowIndex="1">
             </MenuButton>
                 <TextField fx:id="quizNaamTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField fx:id="succesDefinitieTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             </children>
         </GridPane>
-        <Button fx:id="submitButton" layoutX="276.0" layoutY="304.0" mnemonicParsing="false" onAction="#doCreateUpdateQuiz" text="Wijzig" />
+        <Button fx:id="submitButton" layoutX="276.0" layoutY="304.0" mnemonicParsing="false"
+                onAction="#doCreateUpdateQuiz" text="Wijzig" />
 
         <Button layoutX="420.0" layoutY="304.0" mnemonicParsing="false" onAction="#doMenu" text="Menu" />
     </children>
