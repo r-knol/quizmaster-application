@@ -15,12 +15,10 @@ import java.util.List;
  * @author Olaf van der Kaaij
  */
 
-public class CreateUpdateQuestionController {
+public class CreateUpdateQuestionController extends AbstractController {
 
     private Question question;
     private Quiz quiz;
-    private QuestionDAO questionDAO;
-    private DBAccess dbAccess;
 
     @FXML
     private Label titleLabel;
@@ -41,15 +39,11 @@ public class CreateUpdateQuestionController {
     @FXML
     private Button submitButton;
 
-    private CreateUpdateQuestionController() {
-        this.dbAccess = Main.getDBaccess();
-        this.questionDAO = new QuestionDAO(dbAccess);
-    }
 
     public void setup(Question question) {
-        QuizDAO quizDAO = new QuizDAO(dbAccess);
+        QuizDAO quizDAO = new QuizDAO(Main.getDBaccess());
         List<Quiz> allQuizzes = quizDAO.getAll();
-        MenuItem item = new MenuItem("Kies een quiz");
+        MenuItem item;
         for (Quiz quiz : allQuizzes) {
             item = new MenuItem(quiz.getQuizNaam());
             item.setOnAction(event -> {
@@ -71,6 +65,7 @@ public class CreateUpdateQuestionController {
             submitButton.setText("Maak");
         } else {
             this.question = question;
+            this.quiz = question.getQuiz();
             vraagIDTextfield.setText(String.valueOf(question.getVraagID()));
             quizTaskMenuButton.setText(String.valueOf(question.getQuiz().getQuizNaam()));
             quizVraagTextField.setText(String.valueOf(question.getQuizVraag()));
@@ -83,6 +78,7 @@ public class CreateUpdateQuestionController {
     }
 
     public void doCreateUpdateQuestion() {
+        QuestionDAO questionDAO = new QuestionDAO(Main.getDBaccess());
         if (question == null) {
             question = new Question(Integer.parseInt(vraagIDTextfield.getText()), quiz, quizVraagTextField.getText(), juistAntwoordTextField.getText(),
                     foutAntwoord1TextField.getText(), foutAntwoord2TextField.getText(), foutAntwoord3TextField.getText());
@@ -92,6 +88,7 @@ public class CreateUpdateQuestionController {
             aangemaakt.show();
         } else {
             question.setVraagID(Integer.parseInt(vraagIDTextfield.getText()));
+            question.setQuiz(quiz);
             question.setQuizVraag(quizVraagTextField.getText());
             question.setJuistAntwoord(juistAntwoordTextField.getText());
             question.setFoutAntwoord1(foutAntwoord1TextField.getText());

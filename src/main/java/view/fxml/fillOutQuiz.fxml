@@ -4,9 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-            prefWidth="900.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controller.FillOutQuizController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FillOutQuizController">
     <Label fx:id="titleLabel" layoutX="14.0" layoutY="14.0" text="Vraag 1">
         <font>
             <Font size="18.0" />
@@ -19,7 +17,7 @@
     <Button layoutX="284.0" layoutY="366.0" mnemonicParsing="false" onAction="#doRegisterD" text="Antwoord D" />
     <Button layoutX="481.0" layoutY="366.0" mnemonicParsing="false" onAction="#doPreviousQuestion" text="Vorige" />
     <Button layoutX="546.0" layoutY="366.0" mnemonicParsing="false" onAction="#doNextQuestion" text="Volgende" />
-    <Button layoutX="14.0" layoutY="422.0" mnemonicParsing="false" onAction="#doMenu" text="Menu">
+    <Button layoutX="14.0" layoutY="422.0" mnemonicParsing="false" onAction="#doMenu" text="Terug">
         <font>
             <Font size="14.0" />
         </font>

@@ -5,9 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="416.0"
-            prefWidth="619.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.CreateUpdateCourseController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="416.0" prefWidth="619.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateUpdateCourseController">
     <children>
         <Label fx:id="titleLabel" layoutX="258.0" layoutY="80.0" text="Wijzig cursus">
             <font>
@@ -39,16 +37,12 @@
                     </GridPane.margin></Label>
                 <TextField fx:id="cursusID" disable="true" GridPane.columnIndex="1" />
                 <TextField fx:id="cursusnaam" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <MenuButton fx:id="coordinatorTaskMenuButton" mnemonicParsing="false" prefHeight="27.0"
-                            prefWidth="197.0" text="Selecteer de coördinator" textAlignment="RIGHT"
-                            GridPane.columnIndex="1"
-                            GridPane.rowIndex="2">
+                <MenuButton fx:id="coordinatorTaskMenuButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="197.0" text="Selecteer de coördinator" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="2">
                 </MenuButton>
 <!--                <TextField fx:id="coordinatorID" GridPane.columnIndex="1" GridPane.rowIndex="2" />-->
             </children>
         </GridPane>
-        <Button fx:id="submitButton" layoutX="256.0" layoutY="270.0" mnemonicParsing="false"
-                onAction="#doCreateUpdateCourse" text="Wijzig" />
-        <Button layoutX="402.0" layoutY="270.0" mnemonicParsing="false" onAction="#doMenu" text="Menu" />
+        <Button fx:id="submitButton" layoutX="256.0" layoutY="270.0" mnemonicParsing="false" onAction="#doCreateUpdateCourse" text="Wijzig" />
+        <Button layoutX="402.0" layoutY="270.0" mnemonicParsing="false" onAction="#doMenu" text="Terug" />
     </children>
 </AnchorPane>

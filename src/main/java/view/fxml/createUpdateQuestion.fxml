@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateUpdateQuestionController">
     <children>
@@ -69,7 +63,7 @@
                     </GridPane.margin>
                 </Label>
 
-                <TextField fx:id="vraagIDTextfield" editable="false" GridPane.columnIndex="1" />
+                <TextField fx:id="vraagIDTextfield" GridPane.columnIndex="1" />
                 <MenuButton fx:id="quizTaskMenuButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="285.0" text="Kies een quiz" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 </MenuButton>
                 <TextField fx:id="quizVraagTextField" prefHeight="58.0" prefWidth="285.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -81,6 +75,6 @@
         </GridPane>
         <Button fx:id="submitButton" layoutX="304.0" layoutY="454.0" mnemonicParsing="false" onAction="#doCreateUpdateQuestion" text="Wijzig" />
 
-        <Button layoutX="537.0" layoutY="454.0" mnemonicParsing="false" onAction="#doMenu" text="Menu" />
+        <Button layoutX="537.0" layoutY="454.0" mnemonicParsing="false" onAction="#doMenu" text="Terug" />
     </children>
 </AnchorPane>

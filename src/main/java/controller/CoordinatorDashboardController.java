@@ -13,6 +13,7 @@ import view.Main;
 
 public class CoordinatorDashboardController {
 
+    @FXML
     private Label welcomeLabel;
 
     @FXML
