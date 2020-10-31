@@ -2,7 +2,6 @@ package controller;
 
 import database.mysql.UserDAO;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -61,8 +60,8 @@ public class CreateUpdateUserController extends AbstractController {
         if (user == null) {
             user = new User(Rol.getText(), Voornaam.getText(), Tussenvoegsel.getText(), Achternaam.getText());
             userDAO.storeOne(user);
-            showInformationAlert(String.format("Gebruiker %s aangemaakt \nHet cursusnummer is: %s" +
-                            "\nDe gebruikersnaam is: %s\nHet wachtwoord is %s",
+            showInformationAlert(String.format(
+                    "Gebruiker %s aangemaakt \nDe gebruikersnaam is: %s\nHet wachtwoord is %s",
                     user.getGebruikerID(), user.getGebruikersnaam(), user.getWachtwoord()));
             doMenu();
         }

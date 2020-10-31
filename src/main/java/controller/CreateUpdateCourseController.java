@@ -64,12 +64,7 @@ public class CreateUpdateCourseController extends AbstractController {
         if (course == null) {
             course = new Course(cursusnaam.getText(), coordinator);
             courseDAO.storeOne(course);
-            showInformationAlert(String.format("Cursus %s aangemaakt \nHet cursusnummer is: %s",
-                    course.getCursusNaam(), course.getCursusID()));
-/*            Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
-            aangemaakt.setContentText(String.format("Cursus %s aangemaakt \nHet cursusnummer is: %s",
-                    course.getCursusNaam(), course.getCursusID()));
-            aangemaakt.show();*/
+            showInformationAlert(String.format("Cursus %s aangemaakt", course.getCursusID()));
             doMenu();
         }
         // Wijzigen van een bestaande cursus in de database
@@ -78,9 +73,6 @@ public class CreateUpdateCourseController extends AbstractController {
             course.setCoordinator(coordinator);
             courseDAO.updateOne(course);
             showInformationAlert("Cursus gewijzigd");
-/*            Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
-            gewijzigd.setContentText("Cursus gewijzigd");
-            gewijzigd.show();*/
             doMenu();
         }
     }
