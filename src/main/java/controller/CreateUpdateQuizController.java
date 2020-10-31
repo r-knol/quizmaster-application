@@ -50,7 +50,7 @@ public class CreateUpdateQuizController extends AbstractController {
         // Scherm voor het aanmaken van een nieuwe quiz
         if (quiz == null) {
             titleLabel.setText("Nieuwe quiz");
-            submitButton.setText("Nieuw");
+            submitButton.setText("Maak");
         }
         // Scherm voor het wijzigen van een bestaande quiz
         else {
