@@ -1,12 +1,10 @@
 package controller;
 
 import database.mysql.CourseDAO;
-import database.mysql.UserDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import model.Course;
-import model.User;
 import view.Main;
 
 import java.util.List;
@@ -15,12 +13,11 @@ import java.util.List;
  * @author Wendy Ellens
  */
 
-public class ManageCoursesController {
+public class ManageCoursesController extends AbstractController{
 
     @FXML
     ListView<Course> courseList;
 
-    // Alle cursussen voor de ingelogde coördinator laten zien
     public void setup() {
         setupCode();
     }
@@ -30,21 +27,20 @@ public class ManageCoursesController {
     }
 
     public void doCreateCourse() {
-        Main.getSceneManager().showCreateUpdateCourseScene(null); // pakt lege cursus
+        Main.getSceneManager().showCreateUpdateCourseScene(null); // geeft lege cursus mee
     }
 
     public void doUpdateCourse() {
-        Course course = courseList.getSelectionModel().getSelectedItem(); // pakt geselecteerde item
+        Course course = courseList.getSelectionModel().getSelectedItem(); // geeft te wijzigen cursus
         Main.getSceneManager().showCreateUpdateCourseScene(course);
     }
 
     public void doDeleteCourse() {
         CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
         Course course = courseList.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("Cursus verwijderd");
-        alert.show();
+        showInformationAlert("Cursus verwijderd");
         courseDAO.deleteOne(course);
+        // Lijst met cursussen verversen
         courseList.getItems().clear();
         setupCode();
     }

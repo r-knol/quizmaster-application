@@ -3,6 +3,7 @@ import model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Richard Knol, Wendy Ellens
@@ -24,6 +25,31 @@ public class UserDAO extends AbstractDAO implements GenericDAO<User> {
             while (resultSet.next()) {
                 int id = resultSet.getInt("gebruikersID");
                 String role = resultSet.getString("rolNaam");
+                String userName = resultSet.getString("gebruikersNaam");
+                String password = resultSet.getString("wachtwoord");
+                String firstName = resultSet.getString("voornaam");
+                String preposition = resultSet.getString("tussenvoegsel");
+                String lastName = resultSet.getString("achternaam");
+                user = new User(id, role, userName, password, firstName, preposition, lastName);
+                result.add(user);
+            }
+        }
+        catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return result;
+    }
+
+    public ArrayList<User> getAllByRole(String role) {
+        String sql = "Select * FROM Gebruiker WHERE rolNaam = ?";
+        ArrayList<User> result = new ArrayList<>();
+        try {
+            setupPreparedStatement(sql);
+            preparedStatement.setString(1, role);
+            ResultSet resultSet = executeSelectStatement();
+            User user;
+            while (resultSet.next()) {
+                int id = resultSet.getInt("gebruikersID");
                 String userName = resultSet.getString("gebruikersNaam");
                 String password = resultSet.getString("wachtwoord");
                 String firstName = resultSet.getString("voornaam");

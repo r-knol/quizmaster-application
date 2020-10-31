@@ -18,6 +18,7 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
 
     @Override
     public ArrayList<Course> getAll() {
+        UserDAO userDAO = new UserDAO(dbAccess);
         String sql = "Select * FROM Cursus";
         ArrayList<Course> result = new ArrayList<>();
         try {
@@ -28,7 +29,7 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
                 int cursusID = resultSet.getInt("cursusID");
                 String cursusNaam = resultSet.getString("cursusNaam");
                 int coordinatorID = resultSet.getInt("coordinatorID");
-                course = new Course(cursusID, cursusNaam, coordinatorID);
+                course = new Course(cursusID, cursusNaam, userDAO.getOneById(coordinatorID));
                 result.add(course);
             }
         } catch (SQLException e) {
@@ -38,6 +39,7 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
     }
 
     public ArrayList<Course> getAllByCoordinatorID(int coordinatorID) {
+        UserDAO userDAO = new UserDAO(dbAccess);
         String sql = "Select * FROM Cursus Where coordinatorID = ?";
         ArrayList<Course> result = new ArrayList<>();
         try {
@@ -48,7 +50,7 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
             while (resultSet.next()) {
                 int cursusID = resultSet.getInt("cursusID");
                 String cursusNaam = resultSet.getString("cursusNaam");
-                course = new Course(cursusID, cursusNaam, coordinatorID);
+                course = new Course(cursusID, cursusNaam, userDAO.getOneById(coordinatorID));
                 result.add(course);
             }
         } catch (SQLException e) {
@@ -59,6 +61,7 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
 
     @Override
     public Course getOneById(int cursusID) {
+        UserDAO userDAO = new UserDAO(dbAccess);
         String sql = "Select * From Cursus Where cursusID = ?";
         Course result = null;
         try {
@@ -68,7 +71,7 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
             if (resultSet.next()) {
                 String cursusNaam = resultSet.getString("cursusNaam");
                 int coordinatorID = resultSet.getInt("coordinatorID");
-                result = new Course(cursusID, cursusNaam, coordinatorID);
+                result = new Course(cursusID, cursusNaam, userDAO.getOneById(coordinatorID));
             } else {
                 System.out.println("Cursus met dit cursusnummer bestaat niet");
             }
@@ -85,10 +88,11 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
         try {
             setupPreparedStatementWithKey(sql);
             preparedStatement.setString(1, course.getCursusNaam());
-            preparedStatement.setInt(2, course.getCoordinatorID());
+            preparedStatement.setInt(2, course.getCoordinator().getGebruikerID());
             int key = executeInsertStatementWithKey();
             course.setCursusID(key);
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
         }
     }
@@ -99,7 +103,7 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
         try {
             setupPreparedStatement(sql);
             preparedStatement.setString(1, course.getCursusNaam());
-            preparedStatement.setInt(2, course.getCoordinatorID());
+            preparedStatement.setInt(2, course.getCoordinator().getGebruikerID());
             preparedStatement.setInt(3, course.getCursusID());
             executeManipulateStatement();
         } catch (SQLException sqlException) {

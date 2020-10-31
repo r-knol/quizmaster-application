@@ -33,13 +33,18 @@
                     <GridPane.margin>
                         <Insets right="5.0" />
                     </GridPane.margin></Label>
-                <Label text="CoordinatorID" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                <Label text="Coordinator" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets right="5.0" />
                     </GridPane.margin></Label>
                 <TextField fx:id="cursusID" disable="true" GridPane.columnIndex="1" />
                 <TextField fx:id="cursusnaam" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="coordinatorID" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <MenuButton fx:id="coordinatorTaskMenuButton" mnemonicParsing="false" prefHeight="27.0"
+                            prefWidth="197.0" text="Selecteer de coördinator" textAlignment="RIGHT"
+                            GridPane.columnIndex="1"
+                            GridPane.rowIndex="2">
+                </MenuButton>
+<!--                <TextField fx:id="coordinatorID" GridPane.columnIndex="1" GridPane.rowIndex="2" />-->
             </children>
         </GridPane>
         <Button fx:id="submitButton" layoutX="256.0" layoutY="270.0" mnemonicParsing="false"
