@@ -62,6 +62,7 @@ public class CreateUpdateQuestionController {
         if (question == null) {
             titleLabel.setText("Nieuwe vraag");
             vraagIDTextfield.setText("");
+            quizTaskMenuButton.setText(quiz.getQuizNaam());
             quizVraagTextField.setText("");
             juistAntwoordTextField.setText("");
             foutAntwoord1TextField.setText("");
