@@ -39,7 +39,7 @@ public class CreateUpdateUserController extends AbstractController {
         // Scherm voor het aanmaken van een nieuwe gebruiker
         if (user == null) {
             titleLabel.setText("Nieuwe gebruiker");
-            submitButton.setText("Nieuw");
+            submitButton.setText("Maak");
         }
         // Scherm voor het wijzigen van een bestaande gebruiker
         else {
@@ -61,7 +61,7 @@ public class CreateUpdateUserController extends AbstractController {
         if (user == null) {
             user = new User(Rol.getText(), Voornaam.getText(), Tussenvoegsel.getText(), Achternaam.getText());
             userDAO.storeOne(user);
-            showInformationAlert(String.format("Gebruiker %s aangemaakt \nHet cursusnummer is: %s" +
+            showInformationAlert(String.format("Gebruiker %s aangemaakt" +
                             "\nDe gebruikersnaam is: %s\nHet wachtwoord is %s",
                     user.getGebruikerID(), user.getGebruikersnaam(), user.getWachtwoord()));
             doMenu();
