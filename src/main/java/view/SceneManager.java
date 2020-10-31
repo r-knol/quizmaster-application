@@ -142,4 +142,5 @@ public class SceneManager {
         CoordinatorDashboardController controller = loader.getController();
         controller.setup();
     }
+
 }

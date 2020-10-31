@@ -47,7 +47,12 @@
                         <Insets right="5.0" />
                     </GridPane.margin>
                 </Label>
-                <Label text="Succes Definitie" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                <Label text="Aantal Vragen" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label text="Succes Definitie" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                     <GridPane.margin>
                         <Insets right="5.0" />
                     </GridPane.margin>
@@ -57,7 +62,8 @@
             <MenuButton fx:id="cursusTaskMenuButton" mnemonicParsing="false" popupSide="RIGHT" prefHeight="27.0" prefWidth="197.0" text="Kies een cursus" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1">
             </MenuButton>
                 <TextField fx:id="quizNaamTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="succesDefinitieTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="aantalVragenTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="succesDefinitieTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             </children>
         </GridPane>
         <Button fx:id="submitButton" layoutX="276.0" layoutY="304.0" mnemonicParsing="false" onAction="#doCreateUpdateQuiz" text="Wijzig" />

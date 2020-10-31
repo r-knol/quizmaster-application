@@ -18,6 +18,10 @@ public class Question {
         this(0,new Quiz(),"","","","","");
     }
 
+    public Question (String quizVraag, String juistAntwoord, String foutAntwoord1, String foutAntwoord2, String foutAntwoord3) {
+        this(0,new Quiz(),quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
+    }
+
     public Question (Quiz quiz, String quizVraag, String juistAntwoord,
                      String foutAntwoord1, String foutAntwoord2, String foutAntwoord3) {
         this(0, quiz, quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
@@ -88,6 +92,10 @@ public class Question {
 
     public void setFoutAntwoord3(String foutAntwoord3) {
         this.foutAntwoord3 = foutAntwoord3;
+    }
+
+    public String toString() {
+        return vraagID + ". " + quizVraag;
     }
 
 

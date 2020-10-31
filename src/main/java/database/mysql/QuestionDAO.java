@@ -19,7 +19,7 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question> {
 
     @Override
     public ArrayList<Question> getAll() {
-        String sql = "SELECT * FROM quizmaster.vraag";
+        String sql = "SELECT * FROM vraag";
         ArrayList<Question> result = new ArrayList<>();
         Question tussenResultaat;
         QuizDAO quizDAO = new QuizDAO(dbAccess);
@@ -48,7 +48,7 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question> {
 
     @Override
     public Question getOneById(int id) {
-        String sql = "SELECT * FROM Vraag WHERE vraagID = ?";
+        String sql = "SELECT * FROM vraag WHERE vraagID = ?" ;
         Question result = null;
         QuizDAO quizDAO = new QuizDAO(dbAccess);
         try {
@@ -62,7 +62,7 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question> {
                 String foutAntwoord1 = resultSet.getString("antwoord2");
                 String foutAntwoord2 = resultSet.getString("antwoord3");
                 String foutAntwoord3 = resultSet.getString("antwoord4");
-                result = new Question(quiz, quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
+                result = new Question(id, quiz, quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
                 result.setVraagID(id);
             } else {
                 System.out.println("Vraag met dit vraagID bestaat niet.");
@@ -76,7 +76,7 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question> {
     @Override
     public void storeOne(Question question) {
         String sql = "INSERT into Vraag(vraagID, quizID, vraag, antwoord1, antwoord2, antwoord3, \n" +
-                "antwoord4) VALUES (?,?,?,?,?,?,?)";
+                "antwoord4) VALUES (?,?,?,?,?,?,?);";
         try {
             setupPreparedStatement(sql);
             preparedStatement.setInt(1,question.getVraagID());

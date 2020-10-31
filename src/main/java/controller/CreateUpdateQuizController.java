@@ -31,6 +31,8 @@ public class CreateUpdateQuizController {
     @FXML
     private TextField quizNaamTextField;
     @FXML
+    private TextField aantalVragenTextField;
+    @FXML
     private TextField succesDefinitieTextField;
     @FXML
     private Button submitButton;
@@ -57,6 +59,7 @@ public class CreateUpdateQuizController {
             titleLabel.setText("Nieuwe quiz");
             quizIDTextfield.setText("");
             quizNaamTextField.setText("");
+            aantalVragenTextField.setText("");
             succesDefinitieTextField.setText("");
             submitButton.setText("Maak");
         } else {
@@ -64,6 +67,7 @@ public class CreateUpdateQuizController {
             quizIDTextfield.setText(String.valueOf(quiz.getQuizID()));
             cursusTaskMenuButton.setText(String.valueOf(quiz.getCourse().getCursusNaam()));
             quizNaamTextField.setText(String.valueOf(quiz.getQuizNaam()));
+            aantalVragenTextField.setText("");
             succesDefinitieTextField.setText(String.valueOf(quiz.getSuccesDefinitie()));
             submitButton.setText("Wijzig");
         }
@@ -72,7 +76,7 @@ public class CreateUpdateQuizController {
     public void doCreateUpdateQuiz() {
         // Aanmaken van een quiz met updateOne()
         if (quiz == null) {
-            quiz = new Quiz(course, quizNaamTextField.getText(), Integer.parseInt(succesDefinitieTextField.getText()));
+            quiz = new Quiz(course, quizNaamTextField.getText(), Integer.parseInt(aantalVragenTextField.getText()),Integer.parseInt(succesDefinitieTextField.getText()));
             quizDAO.storeOne(quiz);
             Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
             aangemaakt.setContentText("Quiz aangemaakt");
@@ -80,6 +84,7 @@ public class CreateUpdateQuizController {
             // quiz wijzigen
         } else {
             quiz.setQuizNaam(quizNaamTextField.getText());
+            quiz.setAantalVragen(Integer.parseInt(aantalVragenTextField.getText()));
             quiz.setSuccesDefinitie(Integer.parseInt(succesDefinitieTextField.getText()));
             quizDAO.updateOne(quiz);
             Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);

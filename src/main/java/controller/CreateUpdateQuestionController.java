@@ -49,7 +49,7 @@ public class CreateUpdateQuestionController {
     public void setup(Question question) {
         QuizDAO quizDAO = new QuizDAO(dbAccess);
         List<Quiz> allQuizzes = quizDAO.getAll();
-        MenuItem item;
+        MenuItem item = new MenuItem("Kies een quiz");
         for (Quiz quiz : allQuizzes) {
             item = new MenuItem(quiz.getQuizNaam());
             item.setOnAction(event -> {
@@ -83,14 +83,14 @@ public class CreateUpdateQuestionController {
 
     public void doCreateUpdateQuestion() {
         if (question == null) {
-            question = new Question(quiz, quizVraagTextField.getText(),juistAntwoordTextField.getText(),
-                    foutAntwoord1TextField.getText(), foutAntwoord2TextField.getText(),foutAntwoord3TextField.getText());
+            question = new Question(Integer.parseInt(vraagIDTextfield.getText()), quiz, quizVraagTextField.getText(), juistAntwoordTextField.getText(),
+                    foutAntwoord1TextField.getText(), foutAntwoord2TextField.getText(), foutAntwoord3TextField.getText());
             questionDAO.storeOne(question);
             Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
             aangemaakt.setContentText("Quiz aangemaakt");
             aangemaakt.show();
         } else {
-            //question.setVraagID(Integer.parseInt(vraagIDTextfield.getText()));
+            question.setVraagID(Integer.parseInt(vraagIDTextfield.getText()));
             question.setQuizVraag(quizVraagTextField.getText());
             question.setJuistAntwoord(juistAntwoordTextField.getText());
             question.setFoutAntwoord1(foutAntwoord1TextField.getText());
