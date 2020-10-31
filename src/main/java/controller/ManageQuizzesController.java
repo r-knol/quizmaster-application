@@ -13,7 +13,7 @@ import java.util.List;
  * @author Olaf van der Kaaij
  */
 
-public class ManageQuizzesController {
+public class ManageQuizzesController extends AbstractController {
 
     @FXML
     ListView<Quiz> quizList;
@@ -38,10 +38,9 @@ public class ManageQuizzesController {
     public void doDeleteQuiz(){
         QuizDAO quizDAO = new QuizDAO(Main.getDBaccess());
         Quiz quiz = quizList.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("Quiz verwijderd");
-        alert.show();
+        showInformationAlert("Quiz verwijderd");
         quizDAO.deleteOne(quiz);
+        // Lijst met quizzes verversen
         quizList.getItems().clear();
         setupCode();
     }

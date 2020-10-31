@@ -107,12 +107,13 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
     }
 
     public void updateOne (Quiz quiz) {
-        String sql = "UPDATE quizmaster.quiz SET quizNaam = ?, succesDefinitie = ? WHERE quizID = ?;";
+        String sql = "UPDATE Quiz SET cursusID = ?, quizNaam = ?, succesDefinitie = ? WHERE quizID = ?;";
         try {
             setupPreparedStatement(sql);
-            preparedStatement.setString(1, quiz.getQuizNaam());
-            preparedStatement.setInt(2, quiz.getSuccesDefinitie());
-            preparedStatement.setInt(3, quiz.getQuizID());
+            preparedStatement.setInt(1, quiz.getCourse().getCursusID());
+            preparedStatement.setString(2, quiz.getQuizNaam());
+            preparedStatement.setInt(3, quiz.getSuccesDefinitie());
+            preparedStatement.setInt(4, quiz.getQuizID());
             executeManipulateStatement();
         } catch (SQLException sqlException) {
             System.out.println("SQL error " + sqlException.getMessage());

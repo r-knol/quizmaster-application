@@ -12,7 +12,7 @@ import view.Main;
 /** @author Richard Knol
  */
 
-public class CreateUpdateUserController {
+public class CreateUpdateUserController extends AbstractController {
 
     private User user;
 
@@ -35,52 +35,15 @@ public class CreateUpdateUserController {
     @FXML
     private Button submitButton;
 
-    // Huidige gebruiker aanmaken (this.user) en huidige data uit database weergeven als gebruiker al bestaat
     public void setup(User user) {
-        this.user = user;
-        setupCode();
-    }
-
-    public void doCreateUpdateUser() {
-        UserDAO userDAO = new UserDAO(Main.getDBaccess());
-        if (user == null) { // Nieuwe gebruiker aanmaken
-            user = new User(Rol.getText(), Voornaam.getText(), Tussenvoegsel.getText(), Achternaam.getText());
-            userDAO.storeOne(user);
-            Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
-            aangemaakt.setContentText("Gebruiker aangemaakt");
-            aangemaakt.show();
-            setupCode(); // Gegenereerde ID, gebruikersnaam en wachtwoord tonen
-        }
-        else { // Wijzigen van een bestaande gebruiker
-            user.setRol(Rol.getText());
-            user.setVoornaam(Voornaam.getText());
-            user.setTussenvoegsels(Tussenvoegsel.getText());
-            user.setAchternaam(Achternaam.getText());
-            userDAO.updateOne(user);
-            Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
-            gewijzigd.setContentText("Gebruiker gewijzigd");
-            gewijzigd.show();
-        }
-    }
-
-    public void doMenu() {
-        // Terug naar manageUsers scherm
-        Main.getSceneManager().showManageUserScene();
-    }
-
-    public void setupCode() {
+        // Scherm voor het aanmaken van een nieuwe gebruiker
         if (user == null) {
             titleLabel.setText("Nieuwe gebruiker");
-            GebruikersID.setText("");
-            Rol.setText("");
-            Gebruikersnaam.setText("");
-            Wachtwoord.setText("");
-            Voornaam.setText("");
-            Tussenvoegsel.setText("");
-            Achternaam.setText("");
             submitButton.setText("Nieuw");
-        } else {
-            titleLabel.setText("Wijzig gebruiker");
+        }
+        // Scherm voor het wijzigen van een bestaande gebruiker
+        else {
+            this.user = user;
             GebruikersID.setText(String.valueOf(user.getGebruikerID()));
             Rol.setText(user.getRol());
             Gebruikersnaam.setText(user.getGebruikersnaam());
@@ -90,5 +53,32 @@ public class CreateUpdateUserController {
             Achternaam.setText(user.getAchternaam());
             submitButton.setText("Wijzig");
         }
+    }
+
+    public void doCreateUpdateUser() {
+        UserDAO userDAO = new UserDAO(Main.getDBaccess());
+        // Nieuwe gebruiker opslaan in de database
+        if (user == null) {
+            user = new User(Rol.getText(), Voornaam.getText(), Tussenvoegsel.getText(), Achternaam.getText());
+            userDAO.storeOne(user);
+            showInformationAlert(String.format("Gebruiker %s aangemaakt \nHet cursusnummer is: %s" +
+                            "\nDe gebruikersnaam is: %s\nHet wachtwoord is %s",
+                    user.getGebruikerID(), user.getGebruikersnaam(), user.getWachtwoord()));
+            doMenu();
+        }
+        // Wijzigen van een bestaande gebruiker in de database
+        else {
+            user.setRol(Rol.getText());
+            user.setVoornaam(Voornaam.getText());
+            user.setTussenvoegsels(Tussenvoegsel.getText());
+            user.setAchternaam(Achternaam.getText());
+            userDAO.updateOne(user);
+            showInformationAlert("Gebruiker gewijzigd");
+            doMenu();
+        }
+    }
+
+    public void doMenu() {
+        Main.getSceneManager().showManageUserScene();
     }
 }

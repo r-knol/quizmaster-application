@@ -1,7 +1,6 @@
 package controller;
 
 import database.mysql.CourseDAO;
-import database.mysql.DBAccess;
 import database.mysql.QuizDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -15,7 +14,7 @@ import java.util.List;
  * @author Olaf van der Kaaij
  */
 
-public class CreateUpdateQuizController {
+public class CreateUpdateQuizController extends AbstractController {
 
     private Quiz quiz;
     private Course course;
@@ -34,31 +33,29 @@ public class CreateUpdateQuizController {
     private Button submitButton;
 
     public void setup(Quiz quiz) {
+        // Dropdownmenu maken met alle cursussen waarvan de ingelogde gebruiker coördinator is
         CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
-        // TODO Alleen cursusssen bij ingelogde coordinator
+        // TODO Alleen cursussen bij ingelogde coordinator
         List<Course> allCourses = courseDAO.getAll();
-        MenuItem item = new MenuItem("Kies een cursus"); // TODO kan weg?
         for (Course course : allCourses) {
-            item = new MenuItem(course.getCursusNaam() + " (" + course.getCursusID() + ')');
+            MenuItem item = new MenuItem(course.getCursusNaam() + " (" + course.getCursusID() + ')');
             item.setOnAction(event -> {
                 this.course = course;
-                // TODO testen
                 cursusTaskMenuButton.setText(course.getCursusNaam() + " (" + course.getCursusID() + ')');
             });
             cursusTaskMenuButton.getItems().add(item);
         }
-        cursusTaskMenuButton.setText("Kies een cursus");
+        // Scherm voor het aanmaken van een nieuwe quiz
         if (quiz == null) {
             titleLabel.setText("Nieuwe quiz");
-            quizIDTextfield.setText("");
-            quizNaamTextField.setText("");
-            succesDefinitieTextField.setText("");
             submitButton.setText("Nieuw");
         }
+        // Scherm voor het wijzigen van een bestaande quiz
         else {
             this.quiz = quiz;
+            this.course = quiz.getCourse();
             quizIDTextfield.setText(String.valueOf(quiz.getQuizID()));
-            cursusTaskMenuButton.setText(course.getCursusNaam());
+            cursusTaskMenuButton.setText(quiz.getCourse().getCursusNaam());
             quizNaamTextField.setText(quiz.getQuizNaam());
             succesDefinitieTextField.setText(String.valueOf(quiz.getSuccesDefinitie()));
             submitButton.setText("Wijzig");
@@ -67,24 +64,22 @@ public class CreateUpdateQuizController {
 
     public void doCreateUpdateQuiz() {
         QuizDAO quizDAO = new QuizDAO(Main.getDBaccess());
-        // Aanmaken van een quiz
+        // Nieuwe quiz opslaan in de database
         if (quiz == null) {
             quiz = new Quiz(course, quizNaamTextField.getText(), Integer.parseInt(succesDefinitieTextField.getText()));
             quizDAO.storeOne(quiz);
-            Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
-            aangemaakt.setContentText("Quiz aangemaakt");
-            aangemaakt.show();
+            showInformationAlert(String.format("Quiz %s aangemaakt \nHet quiznummer is %s", quiz.getQuizNaam(), quiz.getQuizID()));
+            doMenu();
         }
-        // Quiz wijzigen
+        // Wijzigen van een bestaande quiz in de database
         else {
+            quiz.setCourse(course);
             quiz.setQuizNaam(quizNaamTextField.getText());
             quiz.setSuccesDefinitie(Integer.parseInt(succesDefinitieTextField.getText()));
             quizDAO.updateOne(quiz);
-            Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
-            gewijzigd.setContentText("Quiz gewijzigd");
-            gewijzigd.show();
+            showInformationAlert("Quiz gewijzigd");
+            doMenu();
         }
-
     }
 
     @FXML

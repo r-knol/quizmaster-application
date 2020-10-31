@@ -13,7 +13,7 @@ import java.util.List;
  * @author Wendy Ellens
  */
 
-public class ManageCoursesController {
+public class ManageCoursesController extends AbstractController{
 
     @FXML
     ListView<Course> courseList;
@@ -38,10 +38,9 @@ public class ManageCoursesController {
     public void doDeleteCourse() {
         CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
         Course course = courseList.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("Cursus verwijderd");
-        alert.show();
+        showInformationAlert("Cursus verwijderd");
         courseDAO.deleteOne(course);
+        // Lijst met cursussen verversen
         courseList.getItems().clear();
         setupCode();
     }

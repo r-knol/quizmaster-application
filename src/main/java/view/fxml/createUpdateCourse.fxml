@@ -33,7 +33,7 @@
                     <GridPane.margin>
                         <Insets right="5.0" />
                     </GridPane.margin></Label>
-                <Label text="CoordinatorID" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                <Label text="Coordinator" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                     <GridPane.margin>
                         <Insets right="5.0" />
                     </GridPane.margin></Label>

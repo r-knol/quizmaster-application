@@ -14,7 +14,7 @@ import java.util.List;
  * @author Wendy Ellens
  */
 
-public class CreateUpdateCourseController {
+public class CreateUpdateCourseController extends AbstractController {
 
     private Course course;
     private User coordinator;
@@ -31,6 +31,7 @@ public class CreateUpdateCourseController {
     private Button submitButton;
 
     public void setup(Course course) {
+        // Dropdownmenu maken met alle coördinatoren
         UserDAO userDAO = new UserDAO(Main.getDBaccess());
         List<User> allUsers = userDAO.getAllByRole("coordinator");
         for (User user : allUsers) {
@@ -41,66 +42,50 @@ public class CreateUpdateCourseController {
             });
             coordinatorTaskMenuButton.getItems().add(item);
         }
-        // TODO coordinatorTaskMenuButton.setText("Selecteer de coördinator");
+        // Scherm voor het aanmaken van een nieuwe cursus
         if (course == null) {
             titleLabel.setText("Nieuwe cursus");
-            cursusID.setText("");
-            cursusnaam.setText("");
             submitButton.setText("Nieuw");
         }
-        // Gegevens van te wijzigen cursus tonen
+        // Scherm voor het wijzigen van een bestaande cursus
         else {
             this.course = course;
-            titleLabel.setText("Wijzig cursus");
+            this.coordinator = course.getCoordinator();
             cursusID.setText(String.valueOf(course.getCursusID()));
             cursusnaam.setText(course.getCursusNaam());
-            coordinatorTaskMenuButton.setText(coordinator.getGebruikersnaam());
+            coordinatorTaskMenuButton.setText(course.getCoordinator().getGebruikersnaam());
             submitButton.setText("Wijzig");
         }
     }
 
-    // Huidige cursus opslaan en huidige data uit database weergeven als cursus al bestaat
     public void doCreateUpdateCourse() {
         CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
-        UserDAO userDAO = new UserDAO(Main.getDBaccess());
-//        int gegevenCoordinatorID = Integer.parseInt(coordinatorID.getText());
-        String gegevenCursusnaam = cursusnaam.getText();
-        // Controleren of het opgegeven ID bij een coordinator hoort, anders foutmelding geven
-//        if (userDAO.getOneById(gegevenCoordinatorID).getRol().equals("coordinator")) {
-            // Nieuwe cursus aanmaken
-            if (course == null) {
-//                course = new Course(gegevenCursusnaam, userDAO.getOneById(gegevenCoordinatorID));
-                course = new Course(cursusnaam.getText(), coordinator);
-                courseDAO.storeOne(course);
-                Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
-                aangemaakt.setContentText(String.format("Cursus %s aangemaakt. \nHet cursusnummer is: %s.", course.getCursusNaam(), course.getCursusID()));
-//                "Cursus " + course.getCursusNaam() + " is aangemaakt." +
-//                        "\nHet cursusnummer is: " + course.getCursusID() + '.');
-                aangemaakt.show();
-                doMenu();
-            }
-            // Wijzigen van een bestaande cursus
-            else {
-                course.setCursusNaam(gegevenCursusnaam);
-                // TODO is coordinator zo ook te wijzigen?
-//                course.setCoordinator(userDAO.getOneById(gegevenCoordinatorID));
-                courseDAO.updateOne(course);
-                Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
-                gewijzigd.setContentText("Cursus gewijzigd");
-                gewijzigd.show();
-                doMenu();
-            }
-//        }
-//        else {
-//            Alert foutmelding = new Alert(Alert.AlertType.WARNING);
-//            foutmelding.setContentText("Gebruiker met dit ID is geen coordinator. " +
-//                    "Geef het ID van de vakcoordinator.");
-//            foutmelding.show();
-//        }
+        // Nieuwe cursus opslaan in de database
+        if (course == null) {
+            course = new Course(cursusnaam.getText(), coordinator);
+            courseDAO.storeOne(course);
+            showInformationAlert(String.format("Cursus %s aangemaakt \nHet cursusnummer is: %s",
+                    course.getCursusNaam(), course.getCursusID()));
+/*            Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
+            aangemaakt.setContentText(String.format("Cursus %s aangemaakt \nHet cursusnummer is: %s",
+                    course.getCursusNaam(), course.getCursusID()));
+            aangemaakt.show();*/
+            doMenu();
+        }
+        // Wijzigen van een bestaande cursus in de database
+        else {
+            course.setCursusNaam(cursusnaam.getText());
+            course.setCoordinator(coordinator);
+            courseDAO.updateOne(course);
+            showInformationAlert("Cursus gewijzigd");
+/*            Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
+            gewijzigd.setContentText("Cursus gewijzigd");
+            gewijzigd.show();*/
+            doMenu();
+        }
     }
 
     public void doMenu() {
-        // Terug naar manageCourses scherm
         Main.getSceneManager().showManageCoursesScene();
     }
 }

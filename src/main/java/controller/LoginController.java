@@ -10,7 +10,7 @@ import view.Main;
  * @author Richard Knol, Wendy Ellens
  */
 
-public class LoginController {
+public class LoginController extends AbstractController {
 
     @FXML
     private TextField nameTextField;
@@ -25,9 +25,7 @@ public class LoginController {
 
         // Controleren of de gebruikersnaam en het wachtwoord juist zijn
         if (Main.getUser() == null) { // Indien onjuist: gebruiker waarschuwen en op inlogpagina blijven
-            Alert foutmelding = new Alert(Alert.AlertType.WARNING);
-            foutmelding.setContentText("Deze combinatie van gebruikersnaam en wachtwoord is onbekend.");
-            foutmelding.show();
+            showInformationAlert("Deze combinatie van gebruikersnaam en wachtwoord is onbekend");
         }
         else { // Indien juist: doorgaan naar het welkomstscherm
             Main.getSceneManager().showWelcomeScene();
