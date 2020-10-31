@@ -12,17 +12,7 @@ public class Quiz {
     private int aantalVragen;
     private int succesDefinitie;
 
-    public Quiz() {
-        this(0,new Course(), "",0);
-    }
-
-
-    public Quiz (Course course, String quizNaam, int succesDefinitie) {
-        this(0, course, quizNaam, succesDefinitie);
-
-    }
-
-    public Quiz(int quizID, Course course , String quizNaam, int succesDefinitie) {
+    public Quiz(int quizID, Course course , String quizNaam, int aantalVragen, int succesDefinitie) {
         this.quizID = quizID;
         this.course = course;
         this.quizNaam = quizNaam;
@@ -30,13 +20,13 @@ public class Quiz {
         this.succesDefinitie = succesDefinitie;
     }
 
-    public Quiz (Course course, String quizNaam, int succesDefinitie) {
-        this(0, course, quizNaam, succesDefinitie);
+    public Quiz (Course course, String quizNaam, int aantalVragen, int succesDefinitie) {
+        this(0,course, quizNaam, aantalVragen,succesDefinitie);
 
     }
 
     public Quiz() {
-        this(new Course(), "",0);
+        this(new Course(), "", 0,0);
     }
 
     public int getQuizID() {

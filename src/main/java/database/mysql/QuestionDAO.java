@@ -19,10 +19,10 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question> {
 
     @Override
     public ArrayList<Question> getAll() {
+        QuizDAO quizDAO = new QuizDAO(dbAccess);
         String sql = "SELECT * FROM vraag";
         ArrayList<Question> result = new ArrayList<>();
         Question tussenResultaat;
-        QuizDAO quizDAO = new QuizDAO(dbAccess);
         try {
             setupPreparedStatement(sql);
             ResultSet resultSet = executeSelectStatement();

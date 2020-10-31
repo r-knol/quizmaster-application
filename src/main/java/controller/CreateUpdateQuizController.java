@@ -59,7 +59,7 @@ public class CreateUpdateQuizController extends AbstractController {
             quizIDTextfield.setText(String.valueOf(quiz.getQuizID()));
             cursusTaskMenuButton.setText(quiz.getCourse().getCursusNaam());
             quizNaamTextField.setText(quiz.getQuizNaam());
-            aantalVragenTextField.setText(String.valueOf();
+            aantalVragenTextField.setText(String.valueOf(quiz.getAantalVragen()));
             succesDefinitieTextField.setText(String.valueOf(quiz.getSuccesDefinitie()));
             submitButton.setText("Wijzig");
         }

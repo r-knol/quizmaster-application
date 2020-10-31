@@ -6,7 +6,6 @@ package database.mysql;
 
 import model.Course;
 import model.Quiz;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -55,8 +54,9 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
                 int quizID = resultSet.getInt("quizID");
                 Course course = courseDAO.getOneById(resultSet.getInt("cursusID"));
                 String quizNaam = resultSet.getString("quizNaam");
+                int aantalVragen = resultSet.getInt("aantalVragen");
                 int sDefinitie = resultSet.getInt("succesDefinitie");
-                quiz = new Quiz(quizID, course, quizNaam, sDefinitie);
+                quiz = new Quiz(quizID, course, quizNaam, aantalVragen, sDefinitie);
                 result.add(quiz);
             } else {
                 System.out.println("Cursus met dit cursusID bestaat niet");
@@ -110,7 +110,7 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
     }
 
     public void updateOne (Quiz quiz) {
-        String sql = "UPDATE Quiz SET cursusID = ?, quizNaam = ?, succesDefinitie = ? WHERE quizID = ?;";
+        String sql = "UPDATE Quiz SET cursusID = ?, quizNaam = ?, aantalVragen = ?, succesDefinitie = ? WHERE quizID = ?;";
         try {
             setupPreparedStatement(sql);
             preparedStatement.setInt(1, quiz.getCourse().getCursusID());
