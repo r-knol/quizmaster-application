@@ -2,10 +2,7 @@ package controller;
 
 import database.mysql.UserDAO;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import model.User;
 import view.Main;
 
@@ -15,13 +12,12 @@ import view.Main;
 public class CreateUpdateUserController extends AbstractController {
 
     private User user;
+    private String rol;
 
     @FXML
     Label titleLabel;
     @FXML
     private TextField GebruikersID;
-    @FXML
-    private TextField Rol;
     @FXML
     private TextField Gebruikersnaam;
     @FXML
@@ -34,18 +30,31 @@ public class CreateUpdateUserController extends AbstractController {
     private TextField Achternaam;
     @FXML
     private Button submitButton;
+    @FXML
+    private MenuButton menuButton;
 
     public void setup(User user) {
-        // Scherm voor het aanmaken van een nieuwe gebruiker
+        // Code voor dropdown menu
+        String[] rollen = {"coordinator", "technisch beheerder", "administrator", "student"};
+        for (String rol : rollen) {
+            MenuItem item = new MenuItem(rol);
+            item.setOnAction(e -> {
+                this.rol = rol;
+                menuButton.setText(rol);
+            });
+            menuButton.getItems().add(item);
+        }
+
+        // Scherm voor aanmaken nieuwe gebruiker
         if (user == null) {
             titleLabel.setText("Nieuwe gebruiker");
             submitButton.setText("Nieuw");
         }
+
         // Scherm voor het wijzigen van een bestaande gebruiker
         else {
             this.user = user;
             GebruikersID.setText(String.valueOf(user.getGebruikerID()));
-            Rol.setText(user.getRol());
             Gebruikersnaam.setText(user.getGebruikersnaam());
             Wachtwoord.setText(user.getWachtwoord());
             Voornaam.setText(user.getVoornaam());
@@ -57,19 +66,21 @@ public class CreateUpdateUserController extends AbstractController {
 
     public void doCreateUpdateUser() {
         UserDAO userDAO = new UserDAO(Main.getDBaccess());
-        // Nieuwe gebruiker opslaan in de database
+        // Aanmaken van nieuwe gebruiker
         if (user == null) {
-            user = new User(Rol.getText(), Voornaam.getText(), Tussenvoegsel.getText(), Achternaam.getText());
+            user = new User(rol, Voornaam.getText(), Tussenvoegsel.getText(), Achternaam.getText());
             userDAO.storeOne(user);
-            showInformationAlert(String.format("Gebruiker %s aangemaakt \nHet cursusnummer is: %s" +
+            showInformationAlert(String.format("Gebruiker aangemaakt \nHet gebruikersID is: %s" +
                             "\nDe gebruikersnaam is: %s\nHet wachtwoord is %s",
                     user.getGebruikerID(), user.getGebruikersnaam(), user.getWachtwoord()));
             doMenu();
         }
         // Wijzigen van een bestaande gebruiker in de database
         else {
-            user.setRol(Rol.getText());
+            user.setRol(rol);
+            user.setGebruikersnaam(Gebruikersnaam.getText());
             user.setVoornaam(Voornaam.getText());
+            user.setWachtwoord(Wachtwoord.getText());
             user.setTussenvoegsels(Tussenvoegsel.getText());
             user.setAchternaam(Achternaam.getText());
             userDAO.updateOne(user);

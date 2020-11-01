@@ -92,8 +92,16 @@ public class User {
         return gebruikersnaam;
     }
 
+    public void setGebruikersnaam(String gebruikersnaam) {
+        this.gebruikersnaam = gebruikersnaam;
+    }
+
     public String getWachtwoord() {
         return wachtwoord;
+    }
+
+    public void setWachtwoord(String wachtwoord) {
+        this.wachtwoord = wachtwoord;
     }
 
     public String getVoornaam() {
