@@ -28,6 +28,8 @@ public class CreateUpdateQuizController extends AbstractController {
     @FXML
     private TextField quizNaamTextField;
     @FXML
+    private TextField aantalVragenTextField;
+    @FXML
     private TextField succesDefinitieTextField;
     @FXML
     private Button submitButton;
@@ -48,7 +50,7 @@ public class CreateUpdateQuizController extends AbstractController {
         // Scherm voor het aanmaken van een nieuwe quiz
         if (quiz == null) {
             titleLabel.setText("Nieuwe quiz");
-            submitButton.setText("Nieuw");
+            submitButton.setText("Maak");
         }
         // Scherm voor het wijzigen van een bestaande quiz
         else {
@@ -57,6 +59,7 @@ public class CreateUpdateQuizController extends AbstractController {
             quizIDTextfield.setText(String.valueOf(quiz.getQuizID()));
             cursusTaskMenuButton.setText(quiz.getCourse().getCursusNaam());
             quizNaamTextField.setText(quiz.getQuizNaam());
+            aantalVragenTextField.setText(String.valueOf(quiz.getAantalVragen()));
             succesDefinitieTextField.setText(String.valueOf(quiz.getSuccesDefinitie()));
             submitButton.setText("Wijzig");
         }
@@ -66,7 +69,7 @@ public class CreateUpdateQuizController extends AbstractController {
         QuizDAO quizDAO = new QuizDAO(Main.getDBaccess());
         // Nieuwe quiz opslaan in de database
         if (quiz == null) {
-            quiz = new Quiz(course, quizNaamTextField.getText(), Integer.parseInt(succesDefinitieTextField.getText()));
+            quiz = new Quiz(course, quizNaamTextField.getText(), Integer.parseInt(aantalVragenTextField.getText()),Integer.parseInt(succesDefinitieTextField.getText()));
             quizDAO.storeOne(quiz);
             showInformationAlert(String.format("Quiz %s aangemaakt \nHet quiznummer is %s", quiz.getQuizNaam(), quiz.getQuizID()));
             doMenu();
@@ -75,6 +78,7 @@ public class CreateUpdateQuizController extends AbstractController {
         else {
             quiz.setCourse(course);
             quiz.setQuizNaam(quizNaamTextField.getText());
+            quiz.setAantalVragen(Integer.parseInt(aantalVragenTextField.getText()));
             quiz.setSuccesDefinitie(Integer.parseInt(succesDefinitieTextField.getText()));
             quizDAO.updateOne(quiz);
             showInformationAlert("Quiz gewijzigd");

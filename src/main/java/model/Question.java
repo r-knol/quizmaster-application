@@ -7,22 +7,30 @@ package model;
 public class Question {
 
     private int vraagID;
-    private int quizID;
+    private Quiz quiz;
     private String quizVraag;
     private String juistAntwoord;
     private String foutAntwoord1;
     private String foutAntwoord2;
     private String foutAntwoord3;
 
-    public Question (int quizID, String quizVraag, String juistAntwoord,
-                     String foutAntwoord1, String foutAntwoord2, String foutAntwoord3) {
-        this(0, quizID, quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
+    public Question(){
+        this(0,new Quiz(),"","","","","");
     }
 
-    public Question (int vraagID, int quizID, String quizVraag, String juistAntwoord,
+    public Question (String quizVraag, String juistAntwoord, String foutAntwoord1, String foutAntwoord2, String foutAntwoord3) {
+        this(0,new Quiz(),quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
+    }
+
+    public Question (Quiz quiz, String quizVraag, String juistAntwoord,
+                     String foutAntwoord1, String foutAntwoord2, String foutAntwoord3) {
+        this(0, quiz, quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
+    }
+
+    public Question (int vraagID, Quiz quiz, String quizVraag, String juistAntwoord,
                      String foutAntwoord1, String foutAntwoord2, String foutAntwoord3) {
         this.vraagID = vraagID;
-        this.quizID = quizID;
+        this.quiz = quiz;
         this.quizVraag = quizVraag;
         this.juistAntwoord = juistAntwoord;
         this.foutAntwoord1 = foutAntwoord1;
@@ -38,12 +46,12 @@ public class Question {
         this.vraagID = vraagID;
     }
 
-    public int getQuizID() {
-        return quizID;
+    public Quiz getQuiz() {
+        return quiz;
     }
 
-    public void setQuizID(int quizID) {
-        this.quizID = quizID;
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
     }
 
     public String getQuizVraag() {
@@ -84,6 +92,10 @@ public class Question {
 
     public void setFoutAntwoord3(String foutAntwoord3) {
         this.foutAntwoord3 = foutAntwoord3;
+    }
+
+    public String toString() {
+        return vraagID + ". " + quizVraag;
     }
 
 

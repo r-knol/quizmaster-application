@@ -13,6 +13,7 @@ import view.Main;
 
 public class CoordinatorDashboardController {
 
+    @FXML
     private Label welcomeLabel;
 
     @FXML
@@ -24,7 +25,7 @@ public class CoordinatorDashboardController {
 
     public void setup() {
 
-        // welcomeLabel.setText("Welkom " + User.getGebruikersNaam() + ", selecteer eerst een cursus.");
+        welcomeLabel.setText("Welkom " + Main.getUser().getGebruikersnaam() + ", selecteer eerst een cursus.");
 
         courseList.getSelectionModel().selectedItemProperty().addListener(
                 new ChangeListener<Course>() {

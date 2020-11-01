@@ -45,7 +45,7 @@ public class CreateUpdateCourseController extends AbstractController {
         // Scherm voor het aanmaken van een nieuwe cursus
         if (course == null) {
             titleLabel.setText("Nieuwe cursus");
-            submitButton.setText("Nieuw");
+            submitButton.setText("Maak");
         }
         // Scherm voor het wijzigen van een bestaande cursus
         else {

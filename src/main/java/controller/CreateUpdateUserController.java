@@ -48,7 +48,7 @@ public class CreateUpdateUserController extends AbstractController {
         // Scherm voor aanmaken nieuwe gebruiker
         if (user == null) {
             titleLabel.setText("Nieuwe gebruiker");
-            submitButton.setText("Nieuw");
+            submitButton.setText("Maak");
         }
 
         // Scherm voor het wijzigen van een bestaande gebruiker

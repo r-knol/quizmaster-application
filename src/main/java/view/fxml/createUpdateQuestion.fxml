@@ -1,9 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateUpdateQuestionController">
+    <children>
+        <Label fx:id="titleLabel" layoutX="297.0" layoutY="76.0" text="Wijzig Vraag">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <GridPane layoutX="137.0" layoutY="142.0" prefHeight="300.0" prefWidth="450.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="74.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="285.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="91.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="63.0" minHeight="34.0" prefHeight="46.0" />
+            <RowConstraints maxHeight="46.0" minHeight="34.0" prefHeight="46.0" />
+            </rowConstraints>
+            <children>
+                <Label text="Vraag Nr." GridPane.halignment="RIGHT">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label text="Quiznaam" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label text="Vraag" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label text="Juiste Antwoord" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label text="Fout Antwoord 1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label text="Fout Antwoord 2" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin>
+                </Label>
+                <Label text="Fout Antwoord 3" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin>
+                </Label>
+
+                <TextField fx:id="vraagIDTextfield" GridPane.columnIndex="1" />
+                <MenuButton fx:id="quizTaskMenuButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="285.0" text="Kies een quiz" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                </MenuButton>
+                <TextField fx:id="quizVraagTextField" prefHeight="58.0" prefWidth="285.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="juistAntwoordTextField" prefHeight="52.0" prefWidth="285.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="foutAntwoord1TextField" prefHeight="52.0" prefWidth="285.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <TextField fx:id="foutAntwoord2TextField" prefHeight="52.0" prefWidth="285.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <TextField fx:id="foutAntwoord3TextField" prefHeight="52.0" prefWidth="285.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            </children>
+        </GridPane>
+        <Button fx:id="submitButton" layoutX="304.0" layoutY="454.0" mnemonicParsing="false" onAction="#doCreateUpdateQuestion" text="Wijzig" />
+
+        <Button layoutX="537.0" layoutY="454.0" mnemonicParsing="false" onAction="#doMenu" text="Terug" />
+    </children>
 </AnchorPane>
