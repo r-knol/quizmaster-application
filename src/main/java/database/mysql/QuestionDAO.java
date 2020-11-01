@@ -4,7 +4,6 @@ package database.mysql;
  * @author Olaf van der Kaaij
  */
 
-
 import model.Question;
 import model.Quiz;
 import java.sql.ResultSet;
@@ -22,20 +21,48 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question> {
         QuizDAO quizDAO = new QuizDAO(dbAccess);
         String sql = "SELECT * FROM vraag";
         ArrayList<Question> result = new ArrayList<>();
-        Question tussenResultaat;
+                Question tussenResultaat;
+                try {
+                    setupPreparedStatement(sql);
+                    ResultSet resultSet = executeSelectStatement();
+                    while (resultSet.next()) {
+                        int vraagID = resultSet.getInt("vraagID");
+                        Quiz quiz = quizDAO.getOneById(resultSet.getInt("quizID"));
+                        String quizVraag = resultSet.getString("vraag");
+                        String juistAntwoord = resultSet.getString("antwoord1");
+                        String foutAntwoord1 = resultSet.getString("antwoord2");
+                String foutAntwoord2 = resultSet.getString("antwoord3");
+                String foutAntwoord3 = resultSet.getString("antwoord4");
+                tussenResultaat = new Question(vraagID, quiz, quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
+                result.add(tussenResultaat);
+            }
+            if (result.isEmpty()) {
+                System.out.println("Deze quiz heeft geen vragen.");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return result;
+    }
+
+    public ArrayList<Question> getAllByQuizId(int quizID) {
+        QuizDAO quizDAO = new QuizDAO(dbAccess);
+        String sql = "SELECT * FROM Vraag WHERE quizID = ?";
+        ArrayList<Question> result = new ArrayList<>();
         try {
             setupPreparedStatement(sql);
+            preparedStatement.setInt( 1,quizID);
             ResultSet resultSet = executeSelectStatement();
+            Question question;
             while (resultSet.next()) {
                 int vraagID = resultSet.getInt("vraagID");
-                Quiz quiz = quizDAO.getOneById(resultSet.getInt("quizID"));
                 String quizVraag = resultSet.getString("vraag");
                 String juistAntwoord = resultSet.getString("antwoord1");
                 String foutAntwoord1 = resultSet.getString("antwoord2");
                 String foutAntwoord2 = resultSet.getString("antwoord3");
                 String foutAntwoord3 = resultSet.getString("antwoord4");
-                tussenResultaat = new Question(vraagID, quiz, quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
-                result.add(tussenResultaat);
+                question = new Question(vraagID, quizDAO.getOneById(quizID), quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
+                result.add(question);
             }
             if (result.isEmpty()) {
                 System.out.println("Deze quiz heeft geen vragen.");

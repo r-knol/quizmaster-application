@@ -5,6 +5,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import model.User;
 
+
+
 public class Main extends Application {
 
     private static SceneManager sceneManager = null;

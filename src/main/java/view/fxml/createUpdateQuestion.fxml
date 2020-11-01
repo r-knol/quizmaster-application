@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateUpdateQuestionController">
     <children>
@@ -66,11 +73,11 @@
                 <TextField fx:id="vraagIDTextfield" GridPane.columnIndex="1" />
                 <MenuButton fx:id="quizTaskMenuButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="285.0" text="Kies een quiz" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 </MenuButton>
-                <TextField fx:id="quizVraagTextField" prefHeight="58.0" prefWidth="285.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="juistAntwoordTextField" prefHeight="52.0" prefWidth="285.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <TextField fx:id="foutAntwoord1TextField" prefHeight="52.0" prefWidth="285.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <TextField fx:id="foutAntwoord2TextField" prefHeight="52.0" prefWidth="285.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                <TextField fx:id="foutAntwoord3TextField" prefHeight="52.0" prefWidth="285.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextArea fx:id="quizVraagTextField" prefHeight="35.0" prefWidth="285.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextArea fx:id="juistAntwoordTextField" prefHeight="66.0" prefWidth="285.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextArea fx:id="foutAntwoord1TextField" prefHeight="35.0" prefWidth="285.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextArea fx:id="foutAntwoord2TextField" prefHeight="46.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextArea fx:id="foutAntwoord3TextField" prefHeight="35.0" prefWidth="285.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             </children>
         </GridPane>
         <Button fx:id="submitButton" layoutX="304.0" layoutY="454.0" mnemonicParsing="false" onAction="#doCreateUpdateQuestion" text="Wijzig" />

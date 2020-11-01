@@ -16,6 +16,7 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
         super(dbAccess);
     }
 
+    @Override
     public ArrayList<Quiz> getAll() {
         CourseDAO courseDAO = new CourseDAO(dbAccess);
         String sql = "Select * FROM Quiz";
@@ -41,29 +42,30 @@ public class QuizDAO extends AbstractDAO implements GenericDAO<Quiz> {
         } return result;
     }
 
-    public ArrayList<Quiz> getAllByCourseId(int id) {
-        String sql = "SELECT * FROM Quizmaster.quiz WHERE cursusID = ?";
-        ArrayList<Quiz> result = new ArrayList<>();
+    public ArrayList<Quiz> getAllByCourseId(int courseID) {
         CourseDAO courseDAO = new CourseDAO(dbAccess);
+        String sql = "SELECT * FROM Quiz WHERE cursusID = ?";
+        ArrayList<Quiz> result = new ArrayList<>();
         try {
             setupPreparedStatement(sql);
-            preparedStatement.setInt(2, id);
+            preparedStatement.setInt(1, courseID);
             ResultSet resultSet = executeSelectStatement();
             Quiz quiz;
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 int quizID = resultSet.getInt("quizID");
-                Course course = courseDAO.getOneById(resultSet.getInt("cursusID"));
                 String quizNaam = resultSet.getString("quizNaam");
                 int aantalVragen = resultSet.getInt("aantalVragen");
                 int sDefinitie = resultSet.getInt("succesDefinitie");
-                quiz = new Quiz(quizID, course, quizNaam, aantalVragen, sDefinitie);
+                quiz = new Quiz(quizID, courseDAO.getOneById(courseID), quizNaam, aantalVragen, sDefinitie);
                 result.add(quiz);
-            } else {
-                System.out.println("Cursus met dit cursusID bestaat niet");
+            }
+            if (result.isEmpty()) {
+                System.out.println("Deze cursus heeft geen quizzen.");
             }
         } catch (SQLException e) {
             System.out.println("SQL error: " + e.getMessage());
-        } return result;
+        }
+        return result;
     }
 
     @Override

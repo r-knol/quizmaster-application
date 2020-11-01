@@ -38,7 +38,7 @@ public class CreateUpdateQuizController extends AbstractController {
         // Dropdownmenu maken met alle cursussen waarvan de ingelogde gebruiker coördinator is
         CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
         // TODO Alleen cursussen bij ingelogde coordinator
-        List<Course> allCourses = courseDAO.getAll();
+        List<Course> allCourses = courseDAO.getAllByCoordinatorID(Main.getUser().getGebruikerID());
         for (Course course : allCourses) {
             MenuItem item = new MenuItem(course.getCursusNaam() + " (" + course.getCursusID() + ')');
             item.setOnAction(event -> {
