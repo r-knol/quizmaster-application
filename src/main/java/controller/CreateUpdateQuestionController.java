@@ -27,15 +27,15 @@ public class CreateUpdateQuestionController extends AbstractController {
     @FXML
     private MenuButton quizTaskMenuButton;
     @FXML
-    private TextField quizVraagTextField;
+    private TextArea quizVraagTextField;
     @FXML
-    private TextField juistAntwoordTextField;
+    private TextArea juistAntwoordTextField;
     @FXML
-    private TextField foutAntwoord1TextField;
+    private TextArea foutAntwoord1TextField;
     @FXML
-    private TextField foutAntwoord2TextField;
+    private TextArea foutAntwoord2TextField;
     @FXML
-    private TextField foutAntwoord3TextField;
+    private TextArea foutAntwoord3TextField;
     @FXML
     private Button submitButton;
 
