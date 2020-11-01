@@ -1,10 +1,10 @@
 package controller;
 
-import database.mysql.UserDAO;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import model.User;
-import view.Main;
+        import database.mysql.UserDAO;
+        import javafx.fxml.FXML;
+        import javafx.scene.control.*;
+        import model.User;
+        import view.Main;
 
 /** @author Richard Knol
  */
@@ -87,8 +87,8 @@ public class CreateUpdateUserController extends AbstractController {
                 showInformationAlert("Deze gebruikersnaam is al in gebruik"); //todo: gewijzigd 1-11-2020
             } //todo: gewijzigd 1-11-2020
             else { //todo: gewijzigd 1-11-2020
-                user.setGebruikersnaam(Gebruikersnaam.getText()); //todo: gewijzigd 1-11-2020
                 user.setRol(rol);
+                user.setGebruikersnaam(Gebruikersnaam.getText());
                 user.setVoornaam(Voornaam.getText());
                 user.setWachtwoord(Wachtwoord.getText());
                 user.setTussenvoegsels(Tussenvoegsel.getText());
