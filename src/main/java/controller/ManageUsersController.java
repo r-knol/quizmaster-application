@@ -2,7 +2,6 @@ package controller;
 
 import database.mysql.UserDAO;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import model.User;
 import view.Main;
