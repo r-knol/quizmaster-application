@@ -48,12 +48,16 @@ public class CreateUpdateUserController extends AbstractController {
         // Scherm voor aanmaken nieuwe gebruiker
         if (user == null) {
             titleLabel.setText("Nieuwe gebruiker");
+            Gebruikersnaam.setDisable(true); //todo: gewijzigd 1-11-2020
+            Wachtwoord.setDisable(true); //todo: gewijzigd 1-11-2020
             submitButton.setText("Maak");
         }
 
         // Scherm voor het wijzigen van een bestaande gebruiker
         else {
             this.user = user;
+            this.rol = user.getRol(); //todo: gewijzigd 1-11-2020
+            menuButton.setText(rol); //todo: gewijzigd 1-11-2020
             GebruikersID.setText(String.valueOf(user.getGebruikerID()));
             Gebruikersnaam.setText(user.getGebruikersnaam());
             Wachtwoord.setText(user.getWachtwoord());
@@ -77,15 +81,22 @@ public class CreateUpdateUserController extends AbstractController {
         }
         // Wijzigen van een bestaande gebruiker in de database
         else {
-            user.setRol(rol);
-            user.setGebruikersnaam(Gebruikersnaam.getText());
-            user.setVoornaam(Voornaam.getText());
-            user.setWachtwoord(Wachtwoord.getText());
-            user.setTussenvoegsels(Tussenvoegsel.getText());
-            user.setAchternaam(Achternaam.getText());
-            userDAO.updateOne(user);
-            showInformationAlert("Gebruiker gewijzigd");
-            doMenu();
+            // TODO Waarschuwing als gebruikersnaam gewijzigd is en de nieuwe gebruikersnaam al bestaat
+            if (!(user.getGebruikersnaam().equals(Gebruikersnaam.getText()))
+                    && !(userDAO.getOneByUsername(Gebruikersnaam.getText()) == null)) { //todo: gewijzigd 1-11-2020
+                showInformationAlert("Deze gebruikersnaam is al in gebruik"); //todo: gewijzigd 1-11-2020
+            } //todo: gewijzigd 1-11-2020
+            else { //todo: gewijzigd 1-11-2020
+                user.setGebruikersnaam(Gebruikersnaam.getText()); //todo: gewijzigd 1-11-2020
+                user.setRol(rol);
+                user.setVoornaam(Voornaam.getText());
+                user.setWachtwoord(Wachtwoord.getText());
+                user.setTussenvoegsels(Tussenvoegsel.getText());
+                user.setAchternaam(Achternaam.getText());
+                userDAO.updateOne(user);
+                showInformationAlert("Gebruiker gewijzigd");
+                doMenu();
+            } //todo: gewijzigd 1-11-2020
         }
     }
 
