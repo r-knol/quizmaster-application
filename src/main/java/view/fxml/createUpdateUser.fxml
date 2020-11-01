@@ -48,7 +48,7 @@
             <Label layoutX="81.0" layoutY="135.0" text="Achternaam  " textAlignment="RIGHT" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
             <TextField fx:id="GebruikersID" disable="true" layoutX="158.0" layoutY="28.0" GridPane.columnIndex="1" />
             <MenuButton fx:id="menuButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="190.0" text="Kies een rol" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <TextField fx:id="Gebruikersnaam" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="Gebruikersnaam" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField fx:id="Wachtwoord" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                 <TextField fx:id="Voornaam" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="Tussenvoegsel" layoutX="158.0" layoutY="91.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
