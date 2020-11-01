@@ -48,12 +48,15 @@ public class CreateUpdateUserController extends AbstractController {
         // Scherm voor aanmaken nieuwe gebruiker
         if (user == null) {
             titleLabel.setText("Nieuwe gebruiker");
+            Wachtwoord.setDisable(true);
             submitButton.setText("Maak");
         }
 
         // Scherm voor het wijzigen van een bestaande gebruiker
         else {
             this.user = user;
+            this.rol = user.getRol();
+            menuButton.setText(rol);
             GebruikersID.setText(String.valueOf(user.getGebruikerID()));
             Gebruikersnaam.setText(user.getGebruikersnaam());
             Wachtwoord.setText(user.getWachtwoord());
