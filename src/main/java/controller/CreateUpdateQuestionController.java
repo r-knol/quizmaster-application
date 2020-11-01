@@ -43,9 +43,8 @@ public class CreateUpdateQuestionController extends AbstractController {
     public void setup(Question question) {
         QuizDAO quizDAO = new QuizDAO(Main.getDBaccess());
         List<Quiz> allQuizzes = quizDAO.getAll();
-        MenuItem item;
         for (Quiz quiz : allQuizzes) {
-            item = new MenuItem(quiz.getQuizNaam());
+            MenuItem item = new MenuItem(quiz.getQuizNaam());
             item.setOnAction(event -> {
                 this.quiz = quiz;
                 quizTaskMenuButton.setText(quiz.getQuizNaam());
@@ -55,13 +54,6 @@ public class CreateUpdateQuestionController extends AbstractController {
         quizTaskMenuButton.setText("Kies een quiz");
         if (question == null) {
             titleLabel.setText("Nieuwe vraag");
-            vraagIDTextfield.setText("");
-            quizTaskMenuButton.setText(quiz.getQuizNaam());
-            quizVraagTextField.setText("");
-            juistAntwoordTextField.setText("");
-            foutAntwoord1TextField.setText("");
-            foutAntwoord2TextField.setText("");
-            foutAntwoord3TextField.setText("");
             submitButton.setText("Maak");
         } else {
             this.question = question;
@@ -83,9 +75,8 @@ public class CreateUpdateQuestionController extends AbstractController {
             question = new Question(Integer.parseInt(vraagIDTextfield.getText()), quiz, quizVraagTextField.getText(), juistAntwoordTextField.getText(),
                     foutAntwoord1TextField.getText(), foutAntwoord2TextField.getText(), foutAntwoord3TextField.getText());
             questionDAO.storeOne(question);
-            Alert aangemaakt = new Alert(Alert.AlertType.INFORMATION);
-            aangemaakt.setContentText("Quiz aangemaakt");
-            aangemaakt.show();
+            showInformationAlert(String.format("Vraag %s aangemaakt \nDe vraag is: %s", question.getVraagID(), question.getQuizVraag()));
+            doMenu();
         } else {
             question.setVraagID(Integer.parseInt(vraagIDTextfield.getText()));
             question.setQuiz(quiz);
@@ -95,9 +86,8 @@ public class CreateUpdateQuestionController extends AbstractController {
             question.setFoutAntwoord2(foutAntwoord2TextField.getText());
             question.setFoutAntwoord3(foutAntwoord3TextField.getText());
             questionDAO.updateOne(question);
-            Alert gewijzigd = new Alert(Alert.AlertType.INFORMATION);
-            gewijzigd.setContentText("Quiz gewijzigd");
-            gewijzigd.show();
+            showInformationAlert("Vraag gewijzigd");
+            doMenu();;
         }
     }
 
