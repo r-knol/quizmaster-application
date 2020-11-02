@@ -34,7 +34,7 @@
             <Font size="14.0" />
         </font>
     </Button>
-    <Button layoutX="14.0" layoutY="329.0" mnemonicParsing="false" onAction="#doMenu" text="Menu">
+    <Button layoutX="14.0" layoutY="329.0" mnemonicParsing="false" onAction="#doMenu" text="Terug">
         <font>
             <Font size="14.0" />
         </font>
