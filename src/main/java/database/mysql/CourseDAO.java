@@ -2,6 +2,7 @@ package database.mysql;
 
 import model.Course;
 
+import java.security.DrbgParameters;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
