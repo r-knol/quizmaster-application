@@ -1,5 +1,12 @@
 package model;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * @author Olaf van der Kaaij
  */
@@ -14,21 +21,21 @@ public class Question {
     private String foutAntwoord2;
     private String foutAntwoord3;
 
-    public Question(){
-        this(0,new Quiz(),"","","","","");
+    public Question() {
+        this(0, new Quiz(), "", "", "", "", "");
     }
 
-    public Question (String quizVraag, String juistAntwoord, String foutAntwoord1, String foutAntwoord2, String foutAntwoord3) {
-        this(0,new Quiz(),quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
+    public Question(String quizVraag, String juistAntwoord, String foutAntwoord1, String foutAntwoord2, String foutAntwoord3) {
+        this(0, new Quiz(), quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
     }
 
-    public Question (Quiz quiz, String quizVraag, String juistAntwoord,
-                     String foutAntwoord1, String foutAntwoord2, String foutAntwoord3) {
+    public Question(Quiz quiz, String quizVraag, String juistAntwoord,
+                    String foutAntwoord1, String foutAntwoord2, String foutAntwoord3) {
         this(0, quiz, quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
     }
 
-    public Question (int vraagID, Quiz quiz, String quizVraag, String juistAntwoord,
-                     String foutAntwoord1, String foutAntwoord2, String foutAntwoord3) {
+    public Question(int vraagID, Quiz quiz, String quizVraag, String juistAntwoord,
+                    String foutAntwoord1, String foutAntwoord2, String foutAntwoord3) {
         this.vraagID = vraagID;
         this.quiz = quiz;
         this.quizVraag = quizVraag;
@@ -94,10 +101,15 @@ public class Question {
         this.foutAntwoord3 = foutAntwoord3;
     }
 
+    // todo: afmaken, nog A B C D er bij en array onder elkaar laten printen
     public String toString() {
-        return vraagID + ". " + quizVraag;
+        ArrayList<String> antwoorden = new ArrayList<>();
+        antwoorden.add(juistAntwoord);
+        antwoorden.add(foutAntwoord1);
+        antwoorden.add(foutAntwoord2);
+        antwoorden.add(foutAntwoord3);
+        Collections.shuffle(antwoorden);
+        return quizVraag + "\n\n" + antwoorden;
     }
-
-
-
 }
+
