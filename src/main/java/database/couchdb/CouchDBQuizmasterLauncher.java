@@ -1,9 +1,12 @@
 package database.couchdb;
 
+/** Author Richard Knol
+ */
+
 public class CouchDBQuizmasterLauncher {
 
-    private CouchDBaccess db;
-    private QuizResultCouchDBDAO quizResultCouchDBDAO;
+    private static CouchDBaccess db;
+    private static QuizResultCouchDBDAO quizResultCouchDBDAO;
 
     public CouchDBQuizmasterLauncher() {
         super();
