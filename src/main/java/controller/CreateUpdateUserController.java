@@ -1,12 +1,13 @@
 package controller;
 
-        import database.mysql.UserDAO;
-        import javafx.fxml.FXML;
-        import javafx.scene.control.*;
-        import model.User;
-        import view.Main;
+import database.mysql.UserDAO;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import model.User;
+import view.Main;
 
-/** @author Richard Knol
+/**
+ * @author Richard Knol
  */
 
 public class CreateUpdateUserController extends AbstractController {
@@ -48,16 +49,16 @@ public class CreateUpdateUserController extends AbstractController {
         // Scherm voor aanmaken nieuwe gebruiker
         if (user == null) {
             titleLabel.setText("Nieuwe gebruiker");
-            Gebruikersnaam.setDisable(true); //todo: gewijzigd 1-11-2020
-            Wachtwoord.setDisable(true); //todo: gewijzigd 1-11-2020
+            Gebruikersnaam.setDisable(true);
+            Wachtwoord.setDisable(true);
             submitButton.setText("Maak");
         }
 
         // Scherm voor het wijzigen van een bestaande gebruiker
         else {
             this.user = user;
-            this.rol = user.getRol(); //todo: gewijzigd 1-11-2020
-            menuButton.setText(rol); //todo: gewijzigd 1-11-2020
+            this.rol = user.getRol();
+            menuButton.setText(rol);
             GebruikersID.setText(String.valueOf(user.getGebruikerID()));
             Gebruikersnaam.setText(user.getGebruikersnaam());
             Wachtwoord.setText(user.getWachtwoord());
@@ -81,12 +82,11 @@ public class CreateUpdateUserController extends AbstractController {
         }
         // Wijzigen van een bestaande gebruiker in de database
         else {
-            // TODO Waarschuwing als gebruikersnaam gewijzigd is en de nieuwe gebruikersnaam al bestaat
+            // Waarschuwing als gebruikersnaam gewijzigd is en de nieuwe gebruikersnaam al bestaat
             if (!(user.getGebruikersnaam().equals(Gebruikersnaam.getText()))
-                    && !(userDAO.getOneByUsername(Gebruikersnaam.getText()) == null)) { //todo: gewijzigd 1-11-2020
-                showInformationAlert("Deze gebruikersnaam is al in gebruik"); //todo: gewijzigd 1-11-2020
-            } //todo: gewijzigd 1-11-2020
-            else { //todo: gewijzigd 1-11-2020
+                    && !(userDAO.getOneByUsername(Gebruikersnaam.getText()) == null)) {
+                showInformationAlert("Deze gebruikersnaam is al in gebruik");
+            } else {
                 user.setRol(rol);
                 user.setGebruikersnaam(Gebruikersnaam.getText());
                 user.setVoornaam(Voornaam.getText());
@@ -96,7 +96,7 @@ public class CreateUpdateUserController extends AbstractController {
                 userDAO.updateOne(user);
                 showInformationAlert("Gebruiker gewijzigd");
                 doMenu();
-            } //todo: gewijzigd 1-11-2020
+            }
         }
     }
 
