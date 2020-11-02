@@ -31,12 +31,12 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question> {
                         String quizVraag = resultSet.getString("vraag");
                         String juistAntwoord = resultSet.getString("antwoord1");
                         String foutAntwoord1 = resultSet.getString("antwoord2");
-                String foutAntwoord2 = resultSet.getString("antwoord3");
-                String foutAntwoord3 = resultSet.getString("antwoord4");
-                tussenResultaat = new Question(vraagID, quiz, quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
-                result.add(tussenResultaat);
-            }
-            if (result.isEmpty()) {
+                        String foutAntwoord2 = resultSet.getString("antwoord3");
+                        String foutAntwoord3 = resultSet.getString("antwoord4");
+                        tussenResultaat = new Question(vraagID, quiz, quizVraag, juistAntwoord, foutAntwoord1, foutAntwoord2, foutAntwoord3);
+                        result.add(tussenResultaat);
+                    }
+                if (result.isEmpty()) {
                 System.out.println("Deze quiz heeft geen vragen.");
             }
         } catch (SQLException e) {

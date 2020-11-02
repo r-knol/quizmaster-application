@@ -43,7 +43,7 @@ public class CoordinatorDashboardController extends AbstractController{
         // Haalt op basis van de cursus alle bijbehorende quizzes op, bij nieuwe keuze wordt de lijst leegemaakt.
         courseList.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue, oldCourse, newCourse) -> {
-                    if (oldCourse != null || newCourse != null) quizList.getItems().clear();
+                    if (oldCourse != null || newCourse == null) quizList.getItems().clear();
                     Course course = courseList.getSelectionModel().getSelectedItem();
                     QuizDAO quizDAO = new QuizDAO(Main.getDBaccess());
                     List<Quiz> allQuizzesById = quizDAO.getAllByCourseId(course.getCursusID());
@@ -51,7 +51,7 @@ public class CoordinatorDashboardController extends AbstractController{
                     // Haalt op basis va nde quiz alle bijbehorende vragen op, bij nieuwe keuze wordt de lijst leeggemaakt.
                     quizList.getSelectionModel().selectedItemProperty().addListener(
                             (observableValue2,  oldQuiz, newQuiz) -> {
-                                    if (oldQuiz != null || oldCourse != null) questionList.getItems().clear();
+                                    if (oldQuiz != null || newQuiz == null) questionList.getItems().clear();
                                     Quiz quiz = quizList.getSelectionModel().getSelectedItem();
                                     QuestionDAO questionDAO = new QuestionDAO(Main.getDBaccess());
                                     List<Question> allQuestionsById = questionDAO.getAllByQuizId(quiz.getQuizID());
