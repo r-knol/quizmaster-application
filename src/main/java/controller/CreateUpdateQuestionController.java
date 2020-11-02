@@ -93,6 +93,6 @@ public class CreateUpdateQuestionController extends AbstractController {
 
     @FXML
     public void doMenu() {
-        Main.getSceneManager().showManageQuestionsScene();
+        Main.getSceneManager().showCoordinatorDashboard();
     }
 }

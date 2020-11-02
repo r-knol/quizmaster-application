@@ -88,6 +88,6 @@ public class CreateUpdateQuizController extends AbstractController {
 
     @FXML
     public void doMenu() {
-        Main.getSceneManager().showManageQuizScene();
+        Main.getSceneManager().showCoordinatorDashboard();
     }
 }

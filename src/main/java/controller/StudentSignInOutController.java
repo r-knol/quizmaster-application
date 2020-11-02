@@ -16,21 +16,37 @@ public class StudentSignInOutController {
     private ListView <Course> signedInCourseList;
 
     public void setup() {
-        setupCode();
+        CourseDAO courseDAO = new CourseDAO( Main.getDBaccess() );
+        List<Course> allCourses = courseDAO.getAll();
+        for (Course course : allCourses) {
+            signedOutCourseList.getItems().add(course);
+        }
+        signedOutCourseList.getSelectionModel().getSelectedItems();
     }
 
-    public void doMenu() {}
+        public void doMenu() {
+        Main.getSceneManager().showWelcomeScene();
+    }
 
-    public void doSignIn() {}
+    public void doSignIn() {
+
+    }
 
     public void doSignOut() {}
 
     public void setupCode() {
         CourseDAO courseDAO = new CourseDAO( Main.getDBaccess());
-        List<Course> allCourses = courseDAO.getAll();
+        List<Course> allCourses = courseDAO.getAllByStudentID(Main.getUser().getGebruikerID());
         for (Course course : allCourses) {
             signedOutCourseList.getItems().add(course);
+
         }
-        signedOutCourseList.getSelectionModel().selectFirst(); // selecteert de eerste cursus op de lijst
+        signedOutCourseList.getSelectionModel().getSelectedItem();
+        CourseDAO courseDAO1 = new CourseDAO(Main.getDBaccess());
+        List<Course> allCoursesSignedIn = courseDAO.getAllByStudentID(Main.getUser().getGebruikerID());
+        for (Course course : allCourses) {
+            signedInCourseList.getItems().add( course );
+        }
     }
+
 }
