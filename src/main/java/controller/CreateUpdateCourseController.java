@@ -50,10 +50,10 @@ public class CreateUpdateCourseController extends AbstractController {
         // Scherm voor het wijzigen van een bestaande cursus
         else {
             this.course = course;
-            this.coordinator = course.getCoordinator();
+            this.coordinator = course.getUser();
             cursusID.setText(String.valueOf(course.getCursusID()));
             cursusnaam.setText(course.getCursusNaam());
-            coordinatorTaskMenuButton.setText(course.getCoordinator().getGebruikersnaam());
+            coordinatorTaskMenuButton.setText(course.getUser().getGebruikersnaam());
             submitButton.setText("Wijzig");
         }
     }
@@ -70,7 +70,7 @@ public class CreateUpdateCourseController extends AbstractController {
         // Wijzigen van een bestaande cursus in de database
         else {
             course.setCursusNaam(cursusnaam.getText());
-            course.setCoordinator(coordinator);
+            course.setUser(coordinator);
             courseDAO.updateOne(course);
             showInformationAlert("Cursus gewijzigd");
             doMenu();

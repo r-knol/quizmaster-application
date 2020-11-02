@@ -1,5 +1,9 @@
 package controller;
 
+/**
+ * @author Olaf van der Kaaij
+ */
+
 import database.mysql.CourseDAO;
 import database.mysql.QuizDAO;
 import javafx.fxml.FXML;
@@ -12,14 +16,21 @@ import java.util.List;
 
 public class SelectQuizForStudentController extends AbstractController {
 
-    private Course course;
-
     @FXML
     ListView<Quiz> quizList;
 
+    // Op basis van de ingeschreven cursus een quiz selecteren.
     public void setup() {
-
-        setupCode();
+        CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
+        QuizDAO quizDAO = new QuizDAO(Main.getDBaccess());
+        List<Course> allCourses = courseDAO.getAllByStudentID(Main.getUser().getGebruikerID());
+        for(Course c : allCourses) {
+            List<Quiz> allQuizzes = quizDAO.getAllByCourseId(c.getCursusID());
+            for (Quiz quiz : allQuizzes) {
+                quizList.getItems().add(quiz);
+            }
+        }
+        quizList.getSelectionModel().selectFirst();
     }
 
     public void doMenu() {
@@ -28,15 +39,5 @@ public class SelectQuizForStudentController extends AbstractController {
 
     public void doQuiz() {
         Main.getSceneManager().showFillOutQuiz(null);
-    }
-
-    public void setupCode() {
-       QuizDAO quizDAO = new QuizDAO( Main.getDBaccess());
-
-        List<Quiz> allQuizzes = quizDAO.getAllByCourseId(course.getCursusID());
-        for (Quiz quiz : allQuizzes) {
-            quizList.getItems().add(quiz);
-        }
-        quizList.getSelectionModel().selectFirst();
     }
 }

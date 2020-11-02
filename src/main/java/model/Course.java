@@ -8,16 +8,17 @@ public class Course {
 
     private int cursusID;
     private String cursusNaam;
-    private User coordinator;
+    private User user;
 
-    public Course(int cursusID, String cursusNaam, User coordinator) {
+
+    public Course(int cursusID, String cursusNaam, User user) {
         this.cursusID = cursusID;
         this.cursusNaam = cursusNaam;
-        this.coordinator = coordinator;
+        this.user = user;
     }
 
-    public Course(String cursusNaam, User coordinator) {
-        this(0, cursusNaam, coordinator);
+    public Course(String cursusNaam, User user) {
+        this(0, cursusNaam, user);
     }
 
     public Course () {
@@ -40,12 +41,12 @@ public class Course {
         this.cursusNaam = cursusNaam;
     }
 
-    public User getCoordinator() {
-        return coordinator;
+    public User getUser() {
+        return user;
     }
 
-    public void setCoordinator(User coordinator) {
-        this.coordinator = coordinator;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

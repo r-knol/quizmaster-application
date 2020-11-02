@@ -39,6 +39,26 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
         return result;
     }
 
+    public ArrayList<Course> getAllByStudentID (int studentID) {
+        UserDAO userDAO = new UserDAO(dbAccess);
+        String sql = "SELECT * FROM Cursusinschrijving WHERE studentID = ?";
+        ArrayList<Course> result = new ArrayList<>();
+        try {
+            setupPreparedStatement(sql);
+            preparedStatement.setInt(1, studentID);
+            ResultSet resultSet = executeSelectStatement();
+            Course course = new Course();
+            while (resultSet.next()) {
+                int cursusID = resultSet.getInt("cursusID");
+                course = new Course(cursusID, course.getCursusNaam(), userDAO.getOneById( studentID ));
+                result.add(course);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+        return result;
+    }
+
     public ArrayList<Course> getAllByCoordinatorID(int coordinatorID) {
         UserDAO userDAO = new UserDAO(dbAccess);
         String sql = "Select * FROM Cursus Where coordinatorID = ?";
@@ -89,7 +109,7 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
         try {
             setupPreparedStatementWithKey(sql);
             preparedStatement.setString(1, course.getCursusNaam());
-            preparedStatement.setInt(2, course.getCoordinator().getGebruikerID());
+            preparedStatement.setInt(2, course.getUser().getGebruikerID());
             int key = executeInsertStatementWithKey();
             course.setCursusID(key);
         }
@@ -104,7 +124,7 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
         try {
             setupPreparedStatement(sql);
             preparedStatement.setString(1, course.getCursusNaam());
-            preparedStatement.setInt(2, course.getCoordinator().getGebruikerID());
+            preparedStatement.setInt(2, course.getUser().getGebruikerID());
             preparedStatement.setInt(3, course.getCursusID());
             executeManipulateStatement();
         } catch (SQLException sqlException) {
