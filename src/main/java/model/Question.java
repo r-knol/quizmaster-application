@@ -102,14 +102,20 @@ public class Question {
     }
 
     // todo: afmaken, nog A B C D er bij en array onder elkaar laten printen
+    // todo: in andere methode dan toString zetten
     public String toString() {
+
         ArrayList<String> antwoorden = new ArrayList<>();
         antwoorden.add(juistAntwoord);
         antwoorden.add(foutAntwoord1);
         antwoorden.add(foutAntwoord2);
         antwoorden.add(foutAntwoord3);
         Collections.shuffle(antwoorden);
-        return quizVraag + "\n\n" + antwoorden;
+        return 'A' + antwoorden.get(1) +
+                "\nB" + antwoorden.get(2) +
+                "\nC" + antwoorden.get(3) +
+                "\nD" + antwoorden.get(4); // todo Nieuw
+        // return quizVraag + "\n\n" + antwoorden; // todo vervangen door bovenstaande
     }
 }
 
