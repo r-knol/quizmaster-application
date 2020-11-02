@@ -1,0 +1,32 @@
+package model;
+
+/**
+ * @author Wendy Ellens
+ * Om nummer van gekozen antwoord op te slaan bij het nummer van de vraag
+ */
+
+public class QuestionAnswerPair {
+    private Question vraag;
+    private String antwoord;
+
+    public Question getVraag() {
+        return vraag;
+    }
+
+    public void setVraag(Question vraag) {
+        this.vraag = vraag;
+    }
+
+    public String getAntwoord() {
+        return antwoord;
+    }
+
+    public void setAntwoord(String antwoord) {
+        this.antwoord = antwoord;
+    }
+
+    public QuestionAnswerPair(Question vraag, String antwoord) {
+        this.vraag = vraag;
+        this.antwoord = antwoord;
+    }
+}
