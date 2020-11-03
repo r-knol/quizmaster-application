@@ -53,4 +53,12 @@ public class QuizResult {
         return "Het resultaat van quiz " + quiz.getQuizNaam() + " op "
                 + datum.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " was: " + behaald;
     }
+
+    public User getStudent() {
+        return student;
+    }
+
+    public Quiz getQuiz() {
+        return quiz;
+    }
 }

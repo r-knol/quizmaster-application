@@ -6,8 +6,12 @@ package database.couchdb;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import model.Quiz;
 import model.QuizResult;
 import model.User;
+import view.Main;
+
+import java.util.List;
 
 public class QuizResultCouchDBDAO {
 
@@ -33,6 +37,19 @@ public class QuizResultCouchDBDAO {
         System.out.println("Info als Json: ");
         System.out.println(gebruiker);
         System.out.println(doc_iD);
+    }
+
+    // Methode om het de resultaten van de quiz uit couchDB te halen @author Olaf van der Kaaij
+    public QuizResult getQuizResult (User student, Quiz quiz) {
+        QuizResult resultaat = null;
+        List<JsonObject> alleResults = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
+        for (JsonObject json : alleResults) {
+            resultaat = gson.fromJson(json, QuizResult.class);
+            if ((resultaat.getStudent().equals(student)) && (resultaat.getQuiz().equals(quiz))) {
+                return resultaat;
+            }
+        }
+        return resultaat;
     }
 
     // todo: mogelijke oplossing voor opslaan enkele poging in Json object?
