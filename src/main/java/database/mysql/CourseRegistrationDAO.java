@@ -42,20 +42,18 @@ public class CourseRegistrationDAO extends  AbstractDAO implements GenericDAO<Co
         return result;
     }
 
-    public ArrayList<CourseRegistration> getAllByUserId (int gebruikersID) {
+    public ArrayList<Course> getAllByUserId (User gebruikersID) {
         CourseDAO courseDAO = new CourseDAO(dbAccess);
         UserDAO userDAO = new UserDAO(dbAccess);
         String sql = "SELECT * FROM Cursusinschrijving WHERE studentID = ?";
-        ArrayList<CourseRegistration> result = new ArrayList<>();
+        ArrayList<Course> result = new ArrayList<>();
         try {
             setupPreparedStatement( sql );
             preparedStatement.setInt( 1, Main.getUser().getGebruikerID() );
             ResultSet resultSet = executeSelectStatement();
-            CourseRegistration courseRegistration;
             if (resultSet.next()) {
                 Course course = courseDAO.getOneById( resultSet.getInt("cursusID"));
-                courseRegistration = new CourseRegistration( course, userDAO.getOneById(Main.getUser().getGebruikerID() ) );
-                result.add( courseRegistration );
+                result.add(course);
             }
         } catch (SQLException e) {
             System.out.println( "SQL error " + e.getMessage() );
@@ -88,10 +86,9 @@ public class CourseRegistrationDAO extends  AbstractDAO implements GenericDAO<Co
 
     public void storeOne(CourseRegistration courseRegistration) {
         String sql = "INSERT INTO Cursusinschrijving(cursusID, studentID) VALUES (?,?);";
-        CourseDAO courseDAO = new CourseDAO( dbAccess );
-        Course course = new Course();
+        Course course = courseRegistration.getCursusID();
         try {
-            setupPreparedStatement( sql );
+            setupPreparedStatement(sql);
             preparedStatement.setInt( 1, course.getCursusID() );
             preparedStatement.setInt( 2, Main.getUser().getGebruikerID() );
             executeManipulateStatement();
