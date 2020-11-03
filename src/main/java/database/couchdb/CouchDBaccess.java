@@ -5,7 +5,8 @@ import org.lightcouch.CouchDbClient;
 import org.lightcouch.CouchDbProperties;
 import org.lightcouch.Response;
 
-/** Author Richard Knol
+/**
+ * Author Richard Knol
  */
 
 public class CouchDBaccess {

@@ -19,10 +19,17 @@ public class QuizResultCouchDBDAO {
         gson = new Gson();
     }
 
-    // todo: Json string maken van een eenvoudig object
-//    QuizResult eenResult = new QuizResult(quizID, gebruikerID, pogingnr, resultaat, datum);
-//    Gson gson = new Gson();
-//    String resultaatJson = gson.toJson(eenResult);
+    public String saveQuizResult(QuizResult quizResult) {
+        String jsonstring = gson.toJson(quizResult);
+        JsonParser parser = new JsonParser();
+        JsonObject jsonObject = parser.parse(jsonstring).getAsJsonObject();
+        String doc_Id = db.saveDocument(jsonObject);
+        return doc_Id;
+    }
+    // Json string maken van quizResult
+    QuizResult eenResult = new QuizResult(student, quiz, datum, vraagAntwoorParen, vraag);
+    Gson gson = new Gson();
+    String resultaatJson = gson.toJson(eenResult);
 
     // todo: mogelijke oplossing voor opslaan enkele poging in Json object?
 //    public String saveSingleQuizResult(QuizResult quizresult) {

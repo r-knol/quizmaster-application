@@ -1,6 +1,7 @@
 package database.couchdb;
 
-/** Author Richard Knol
+/**
+ * Author Richard Knol
  */
 
 public class CouchDBQuizmasterLauncher {
