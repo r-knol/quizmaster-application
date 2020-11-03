@@ -5,21 +5,27 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import model.Question;
+import model.QuestionAnswerPair;
 import model.Quiz;
+import model.QuizResult;
 import view.Main;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Author Richard Knol, Wendy Ellens
+/**
+ * Author Richard Knol, Wendy Ellens
  */
 
 public class FillOutQuizController {
 
-    Quiz quiz; // todo Nieuw
-    Question huidigeVraag; // todo naam gewijzigd
-    List<Question> vragen; // todo Nieuw
-    int huidigVraagnummer = 0; // todo Nieuw
+    List<Question> alleVragen;
+    int huidigVraagnummer = 0;
+    QuizResult quizResult;
+    ArrayList<QuestionAnswerPair> questionAnswerPairs = new ArrayList<QuestionAnswerPair>();
+    Quiz quiz;
+    List<String> antwoordenHuidigeVraag;
 
     @FXML
     private Label titleLabel;
@@ -27,45 +33,101 @@ public class FillOutQuizController {
     private TextArea questionArea;
 
     public void setup(Quiz quiz) {
+        this.quiz = quiz;
+        // Eén vraag laten zien, de eerste uit de lijst voor de desbetreffende quiz
+        QuestionDAO questionDAO = new QuestionDAO(Main.getDBaccess()); // instantie van questiondao
+        alleVragen = questionDAO.getAllByQuizId(quiz.getQuizID()); // lijst maken van alle vragen o.b.v. quizID
+        // Nu wil ik de eerste vraag van dit lijstje tonen in questionArea (TextArea), met de mogelijke antwoorden
+        antwoordenHuidigeVraag = alleVragen.get(huidigVraagnummer).shuffleAntwoorden();
+        questionArea.setText(alleVragen.get(huidigVraagnummer).zetAntwoordenInString(antwoordenHuidigeVraag));
+        // Titel veranderen met juiste vraagnummer
+        titleLabel.setText("Vraag " + (huidigVraagnummer + 1));
 
-        QuestionDAO questionDAO = new QuestionDAO(Main.getDBaccess()); // todo verplaatst
-        huidigVraagnummer++; // todo Nieuw
-        if (huidigVraagnummer == 1) { // todo Nieuw
-            this.quiz = quiz; // todo Nieuw
-            vragen = questionDAO.getAllByQuizId(quiz.getQuizID()); // todo verplaatst en declaratie weggelaten vanwege nieuw attribuut
-        } // todo Nieuw
-
-        // todo: titlelabel werkt niet
-        // titleLabel.setText(String.valueOf(questionDAO.getOneById(question.getVraagID())));
-        titleLabel.setText("Vraag " + huidigVraagnummer); // todo Nieuw
-
-        huidigeVraag = vragen.get(huidigVraagnummer); // todo Nieuw
-
-        // todo: hij pakt alleen de laatste vraag, niet de eerste
-//        for (Question v : vragen) { // todo uitgecommentarieerd
-//            questionArea.setText(String.valueOf(v)); // todo vervangen door onderstaande
-        questionArea.setText(huidigeVraag.toString()); // todo nieuw
-//        } // todo uitgecommentarieerd
-
-        // todo: antwoord linken aan de buttons doRegister methods
-
-
+        quizResult = new QuizResult(Main.getUser(), quiz, LocalDateTime.now());
     }
 
-    public void doRegisterA() {}
+    public void doRegisterA() {
+        // Sla antwoord op en ga naar volgende vraag
+        if (questionAnswerPairs.size() <= huidigVraagnummer) { // nieuw antwoord toevoegen
+            questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                antwoordenHuidigeVraag.get(0)));
+        }
+        else { // eerder gegeven antwoord overschrijven
+            questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                    antwoordenHuidigeVraag.get(0)));
+        }
+        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(0)));
+        doNextQuestion();
+    }
 
-    public void doRegisterB() {}
+    public void doRegisterB() {
+        // Sla antwoord op en ga naar volgende vraag
+        if (questionAnswerPairs.size() <= huidigVraagnummer) { // nieuw antwoord toevoegen
+            questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                    antwoordenHuidigeVraag.get(1)));
+        }
+        else { // eerder gegeven antwoord overschrijven
+            questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                    antwoordenHuidigeVraag.get(1)));
+        }
+        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(1)));
+        doNextQuestion();
+    }
 
-    public void doRegisterC() {}
+    public void doRegisterC() {
+        // Sla antwoord op en ga naar volgende vraag
+        if (questionAnswerPairs.size() <= huidigVraagnummer) { // nieuw antwoord toevoegen
+            questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                    antwoordenHuidigeVraag.get(2)));
+        }
+        else { // eerder gegeven antwoord overschrijven
+            questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                    antwoordenHuidigeVraag.get(2)));
+        }
+        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(2)));
+        doNextQuestion();
+    }
 
-    public void doRegisterD() {}
+    public void doRegisterD() {
+        // Sla antwoord op en ga naar volgende vraag
+        if (questionAnswerPairs.size() <= huidigVraagnummer) { // nieuw antwoord toevoegen
+            questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                    antwoordenHuidigeVraag.get(3)));
+        }
+        else { // eerder gegeven antwoord overschrijven
+            questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                    antwoordenHuidigeVraag.get(3)));
+        }
+        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(1)));
+        doNextQuestion();
+    }
 
-    // todo: zorgen dat ie de volgende vraag van dezelfde quizID pakt
     public void doNextQuestion() {
-        // todo weer naar FillOutQuiz scherm gaan. dan wordt setup() aangeroepen met volgende vraag
+        // controle of er wel een volgende vraag is
+        huidigVraagnummer++;
+        if (huidigVraagnummer >= alleVragen.size()) {
+            quizResult.setVraagAntwoordParen(questionAnswerPairs);
+            quizResult.setBehaald();
+            // todo quizResult in DB met CouchDBQuizResultDAO
+            Main.getSceneManager().showStudentFeedback(quiz);
+        } else { // door met de volgende vraag
+            antwoordenHuidigeVraag = alleVragen.get(huidigVraagnummer).shuffleAntwoorden();
+            questionArea.setText(alleVragen.get(huidigVraagnummer).zetAntwoordenInString(antwoordenHuidigeVraag));
+            titleLabel.setText("Vraag " + (huidigVraagnummer + 1));
+        }
     }
 
-    public void doPreviousQuestion() {}
+    public void doPreviousQuestion() {
+        // todo niet verder terug dan huidigVraagnummer = 0
+        huidigVraagnummer--;
+        antwoordenHuidigeVraag = alleVragen.get(huidigVraagnummer).shuffleAntwoorden();
+        questionArea.setText(alleVragen.get(huidigVraagnummer).zetAntwoordenInString(antwoordenHuidigeVraag));
+        titleLabel.setText("Vraag " + (huidigVraagnummer + 1));
+    }
 
     public void doMenu() {
         Main.getSceneManager().showSelectQuizForStudent();
