@@ -111,10 +111,11 @@ public class Question {
         antwoorden.add(foutAntwoord2);
         antwoorden.add(foutAntwoord3);
         Collections.shuffle(antwoorden);
-        return 'A' + antwoorden.get(1) +
-                "\nB" + antwoorden.get(2) +
-                "\nC" + antwoorden.get(3) +
-                "\nD" + antwoorden.get(4); // todo Nieuw
+        return quizVraag + "\n\n" +
+                "A. " + antwoorden.get(0) +
+                "\nB. " + antwoorden.get(1) +
+                "\nC. " + antwoorden.get(2) +
+                "\nD. " + antwoorden.get(3); // todo Nieuw
         // return quizVraag + "\n\n" + antwoorden; // todo vervangen door bovenstaande
     }
 }
