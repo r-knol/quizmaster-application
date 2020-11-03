@@ -10,7 +10,6 @@ public class Course {
     private String cursusNaam;
     private User user;
 
-
     public Course(int cursusID, String cursusNaam, User user) {
         this.cursusID = cursusID;
         this.cursusNaam = cursusNaam;
