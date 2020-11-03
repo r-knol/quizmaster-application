@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -31,5 +32,10 @@ public class QuizResult {
             }
         }
         return aantalJuisteAntwoorden >= quiz.getSuccesDefinitie();
+    }
+
+    @Override
+    public String toString() {
+        return "Het resultaat van quiz " + quiz.getQuizNaam() + " op " + datum.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " was: " + behaald;
     }
 }

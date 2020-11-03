@@ -38,6 +38,7 @@ public class SelectQuizForStudentController extends AbstractController {
     }
 
     public void doQuiz() {
-        Main.getSceneManager().showFillOutQuiz(null);
+        Quiz quiz = quizList.getSelectionModel().getSelectedItem();
+        Main.getSceneManager().showFillOutQuiz(quiz);
     }
 }

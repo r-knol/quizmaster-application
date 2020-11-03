@@ -51,7 +51,7 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question> {
         ArrayList<Question> result = new ArrayList<>();
         try {
             setupPreparedStatement(sql);
-            preparedStatement.setInt( 1,quizID);
+            preparedStatement.setInt( 1, quizID);
             ResultSet resultSet = executeSelectStatement();
             Question question;
             while (resultSet.next()) {
