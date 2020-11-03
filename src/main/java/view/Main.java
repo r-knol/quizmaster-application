@@ -1,5 +1,7 @@
 package view;
 
+import database.couchdb.CouchDBaccess;
+import database.couchdb.QuizResultCouchDBDAO;
 import database.mysql.DBAccess;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -7,13 +9,26 @@ import model.User;
 
 public class Main extends Application {
 
+    private static CouchDBaccess couchDBaccess;
+    private static QuizResultCouchDBDAO quizResultCouchDBDAO;
     private static SceneManager sceneManager = null;
     private static Stage primaryStage = null;
-    private static DBAccess db = null; // Toegevoegd door Richard om DB connectie te leggen
-    private static User user; /* Toegevoegd door Wendy om de gegevens van de gebruiker die inlogt
-    overal beschikbaar te hebben*/
+    private static DBAccess db = null;
+    private static User user;
+
+    // Constructor van main om couchdb access te regelen
+    public Main() {
+        super();
+        couchDBaccess = new CouchDBaccess();
+        quizResultCouchDBDAO = new QuizResultCouchDBDAO(couchDBaccess);
+    }
 
     public static void main(String[] args) {
+        // stukje code om couchDB te testen
+        Main test = new Main();
+        test.run();
+        quizResultCouchDBDAO.runTest();
+        // code om Application klasse te launchen
         launch(args);
     }
 
@@ -51,6 +66,17 @@ public class Main extends Application {
             db = new DBAccess("quizmaster","userQuizmaster", "userQuizmasterPW");
         }
         return db;
+    }
+
+    // setupconnection CouchDB
+    public void run() {
+        try {
+            couchDBaccess.setupConnection();
+            System.out.println("Connection open");
+        } catch (Exception e) {
+            System.out.println("\nEr is iets fout gegaan");
+            e.printStackTrace();
+        }
     }
 
 }
