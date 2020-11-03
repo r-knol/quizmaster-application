@@ -1,11 +1,7 @@
 package model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author Olaf van der Kaaij
@@ -101,22 +97,23 @@ public class Question {
         this.foutAntwoord3 = foutAntwoord3;
     }
 
-    // todo: afmaken, nog A B C D er bij en array onder elkaar laten printen
-    // todo: in andere methode dan toString zetten
-    public String toString() {
-
+    public ArrayList<String> shuffleAntwoorden() {
         ArrayList<String> antwoorden = new ArrayList<>();
         antwoorden.add(juistAntwoord);
         antwoorden.add(foutAntwoord1);
         antwoorden.add(foutAntwoord2);
         antwoorden.add(foutAntwoord3);
         Collections.shuffle(antwoorden);
+        return antwoorden;
+    }
+
+    public String toString() {
+        ArrayList<String> antwoorden = shuffleAntwoorden();
         return quizVraag + "\n\n" +
                 "A. " + antwoorden.get(0) +
                 "\nB. " + antwoorden.get(1) +
                 "\nC. " + antwoorden.get(2) +
-                "\nD. " + antwoorden.get(3); // todo Nieuw
-        // return quizVraag + "\n\n" + antwoorden; // todo vervangen door bovenstaande
+                "\nD. " + antwoorden.get(3);
     }
 }
 

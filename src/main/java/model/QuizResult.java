@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,12 +17,16 @@ public class QuizResult {
     private List<QuestionAnswerPair> vraagAntwoordParen;
     private Boolean behaald;
 
-    public QuizResult(User student, Quiz quiz, int pogingnummer, LocalDateTime datum, List<QuestionAnswerPair> vraagAntwoordParen) {
+    public QuizResult(User student, Quiz quiz, LocalDateTime datum, List<QuestionAnswerPair> vraagAntwoordParen) {
         this.student = student;
         this.quiz = quiz;
         this.datum = datum;
         this.vraagAntwoordParen = vraagAntwoordParen;
         this.behaald = bepaalBehaald(quiz, vraagAntwoordParen);
+    }
+
+    public QuizResult(User student, Quiz quiz, LocalDateTime datum) {
+        this(student, quiz, datum, new ArrayList<QuestionAnswerPair>());
     }
 
     private Boolean bepaalBehaald(Quiz quiz, List<QuestionAnswerPair> vraagAntwoordParen) {
@@ -34,8 +39,17 @@ public class QuizResult {
         return aantalJuisteAntwoorden >= quiz.getSuccesDefinitie();
     }
 
+    public void setVraagAntwoordParen(List<QuestionAnswerPair> vraagAntwoordParen) {
+        this.vraagAntwoordParen = vraagAntwoordParen;
+    }
+
+    public void setBehaald() {
+        this.behaald = bepaalBehaald(quiz, vraagAntwoordParen);
+    }
+
     @Override
     public String toString() {
-        return "Het resultaat van quiz " + quiz.getQuizNaam() + " op " + datum.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " was: " + behaald;
+        return "Het resultaat van quiz " + quiz.getQuizNaam() + " op "
+                + datum.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + " was: " + behaald;
     }
 }
