@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Olaf van der Kaaij
@@ -107,8 +108,7 @@ public class Question {
         return antwoorden;
     }
 
-    public String toString() {
-        ArrayList<String> antwoorden = shuffleAntwoorden();
+    public String zetAntwoordenInString(List<String> antwoorden) {
         return quizVraag + "\n\n" +
                 "A. " + antwoorden.get(0) +
                 "\nB. " + antwoorden.get(1) +

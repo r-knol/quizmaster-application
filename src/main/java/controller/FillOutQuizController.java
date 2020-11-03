@@ -25,6 +25,7 @@ public class FillOutQuizController {
     QuizResult quizResult;
     ArrayList<QuestionAnswerPair> questionAnswerPairs = new ArrayList<QuestionAnswerPair>();
     Quiz quiz;
+    List<String> antwoordenHuidigeVraag;
 
     @FXML
     private Label titleLabel;
@@ -37,7 +38,8 @@ public class FillOutQuizController {
         QuestionDAO questionDAO = new QuestionDAO(Main.getDBaccess()); // instantie van questiondao
         alleVragen = questionDAO.getAllByQuizId(quiz.getQuizID()); // lijst maken van alle vragen o.b.v. quizID
         // Nu wil ik de eerste vraag van dit lijstje tonen in questionArea (TextArea), met de mogelijke antwoorden
-        questionArea.setText(String.valueOf(alleVragen.get(huidigVraagnummer)));
+        antwoordenHuidigeVraag = alleVragen.get(huidigVraagnummer).shuffleAntwoorden();
+        questionArea.setText(alleVragen.get(huidigVraagnummer).zetAntwoordenInString(antwoordenHuidigeVraag));
         // Titel veranderen met juiste vraagnummer
         titleLabel.setText("Vraag " + (huidigVraagnummer + 1));
 
@@ -46,37 +48,61 @@ public class FillOutQuizController {
 
     public void doRegisterA() {
         // Sla antwoord op en ga naar volgende vraag
-//        questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+        if (questionAnswerPairs.size() <= huidigVraagnummer) { // nieuw antwoord toevoegen
+            questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                antwoordenHuidigeVraag.get(0)));
+        }
+        else { // eerder gegeven antwoord overschrijven
+            questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                    antwoordenHuidigeVraag.get(0)));
+        }
+//        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
 //                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(0)));
-        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
-                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(0)));
         doNextQuestion();
     }
 
     public void doRegisterB() {
         // Sla antwoord op en ga naar volgende vraag
-//        questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+        if (questionAnswerPairs.size() <= huidigVraagnummer) { // nieuw antwoord toevoegen
+            questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                    antwoordenHuidigeVraag.get(1)));
+        }
+        else { // eerder gegeven antwoord overschrijven
+            questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                    antwoordenHuidigeVraag.get(1)));
+        }
+//        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
 //                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(1)));
-        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
-                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(1)));
         doNextQuestion();
     }
 
     public void doRegisterC() {
         // Sla antwoord op en ga naar volgende vraag
-//        questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+        if (questionAnswerPairs.size() <= huidigVraagnummer) { // nieuw antwoord toevoegen
+            questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                    antwoordenHuidigeVraag.get(2)));
+        }
+        else { // eerder gegeven antwoord overschrijven
+            questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                    antwoordenHuidigeVraag.get(2)));
+        }
+//        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
 //                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(2)));
-        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
-                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(2)));
         doNextQuestion();
     }
 
     public void doRegisterD() {
         // Sla antwoord op en ga naar volgende vraag
-//        questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
-//                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(3)));
-        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
-                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(3)));
+        if (questionAnswerPairs.size() <= huidigVraagnummer) { // nieuw antwoord toevoegen
+            questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                    antwoordenHuidigeVraag.get(3)));
+        }
+        else { // eerder gegeven antwoord overschrijven
+            questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                    antwoordenHuidigeVraag.get(3)));
+        }
+//        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+//                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(1)));
         doNextQuestion();
     }
 
@@ -89,13 +115,17 @@ public class FillOutQuizController {
             // todo quizResult in DB met CouchDBQuizResultDAO
             // Main.getSceneManager().showStudentFeedback(quiz);
         } else { // door met de volgende vraag
-            questionArea.setText(String.valueOf(alleVragen.get(huidigVraagnummer)));
+            antwoordenHuidigeVraag = alleVragen.get(huidigVraagnummer).shuffleAntwoorden();
+            questionArea.setText(alleVragen.get(huidigVraagnummer).zetAntwoordenInString(antwoordenHuidigeVraag));
             titleLabel.setText("Vraag " + (huidigVraagnummer + 1));
         }
     }
 
     public void doPreviousQuestion() {
-        questionArea.setText(String.valueOf(alleVragen.get(--huidigVraagnummer)));
+        // todo niet verder terug dan huidigVraagnummer = 0
+        huidigVraagnummer--;
+        antwoordenHuidigeVraag = alleVragen.get(huidigVraagnummer).shuffleAntwoorden();
+        questionArea.setText(alleVragen.get(huidigVraagnummer).zetAntwoordenInString(antwoordenHuidigeVraag));
         titleLabel.setText("Vraag " + (huidigVraagnummer + 1));
     }
 

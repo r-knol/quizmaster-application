@@ -47,6 +47,7 @@ public class QuizResult {
         this.behaald = bepaalBehaald(quiz, vraagAntwoordParen);
     }
 
+    // todo: als behaald = true dan "behaald", anders "niet behaald"
     @Override
     public String toString() {
         return "Het resultaat van quiz " + quiz.getQuizNaam() + " op "
