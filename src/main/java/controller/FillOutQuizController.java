@@ -56,8 +56,8 @@ public class FillOutQuizController {
             questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
                     antwoordenHuidigeVraag.get(0)));
         }
-//        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
-//                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(0)));
+        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(0)));
         doNextQuestion();
     }
 
@@ -71,8 +71,8 @@ public class FillOutQuizController {
             questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
                     antwoordenHuidigeVraag.get(1)));
         }
-//        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
-//                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(1)));
+        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(1)));
         doNextQuestion();
     }
 
@@ -86,8 +86,8 @@ public class FillOutQuizController {
             questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
                     antwoordenHuidigeVraag.get(2)));
         }
-//        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
-//                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(2)));
+        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(2)));
         doNextQuestion();
     }
 
@@ -101,8 +101,8 @@ public class FillOutQuizController {
             questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
                     antwoordenHuidigeVraag.get(3)));
         }
-//        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
-//                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(1)));
+        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
+                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(1)));
         doNextQuestion();
     }
 
@@ -113,7 +113,7 @@ public class FillOutQuizController {
             quizResult.setVraagAntwoordParen(questionAnswerPairs);
             quizResult.setBehaald();
             // todo quizResult in DB met CouchDBQuizResultDAO
-            // Main.getSceneManager().showStudentFeedback(quiz);
+            Main.getSceneManager().showStudentFeedback(quiz);
         } else { // door met de volgende vraag
             antwoordenHuidigeVraag = alleVragen.get(huidigVraagnummer).shuffleAntwoorden();
             questionArea.setText(alleVragen.get(huidigVraagnummer).zetAntwoordenInString(antwoordenHuidigeVraag));
