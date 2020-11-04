@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserDAOTest {
 
-//    private final User actual = new User("student", "Frits", "",
-//            "Wester");
+    private final User actual = new User("student", "Frits", "",
+            "Wester");
 
     @org.junit.jupiter.api.Test
     void getAll() {
@@ -20,8 +20,8 @@ class UserDAOTest {
 
     @org.junit.jupiter.api.Test
     void getOneByNameAndPassword() {
-//        assertEquals(actual.getVoornaam(), "Frits");
-//        assertEquals(actual.getRol(), "Wester");
+        assertEquals(actual.getVoornaam(), "Frits");
+        assertEquals(actual.getRol(), "Wester");
     }
 
     @org.junit.jupiter.api.Test

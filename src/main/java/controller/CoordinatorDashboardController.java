@@ -8,7 +8,6 @@ import database.mysql.CourseDAO;
 import database.mysql.QuestionDAO;
 import database.mysql.QuizDAO;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import model.Course;
@@ -49,16 +48,15 @@ public class CoordinatorDashboardController extends AbstractController{
                     QuizDAO quizDAO = new QuizDAO(Main.getDBaccess());
                     List<Quiz> allQuizzesById = quizDAO.getAllByCourseId(course.getCursusID());
                     for (Quiz quiz : allQuizzesById) quizList.getItems().add( quiz );
-                    // Haalt op basis va nde quiz alle bijbehorende vragen op, bij nieuwe keuze wordt de lijst leeggemaakt.
-                    quizList.getSelectionModel().selectedItemProperty().addListener(
-                            (observableValue2,  oldQuiz, newQuiz) -> {
-                                    if (oldQuiz != null || newQuiz == null) questionList.getItems().clear();
-                                    Quiz quiz = quizList.getSelectionModel().getSelectedItem();
-                                    QuestionDAO questionDAO = new QuestionDAO(Main.getDBaccess());
-                                    List<Question> allQuestionsById = questionDAO.getAllByQuizId(quiz.getQuizID());
-                                    for (Question question : allQuestionsById) questionList.getItems().add( question );
-                            });
-
+                });
+        // Haalt op basis va nde quiz alle bijbehorende vragen op, bij nieuwe keuze wordt de lijst leeggemaakt.
+        quizList.getSelectionModel().selectedItemProperty().addListener(
+                (observableValue2,  oldQuiz, newQuiz) -> {
+                    if (oldQuiz != null) questionList.getItems().clear();
+                    Quiz quiz = quizList.getSelectionModel().getSelectedItem();
+                    QuestionDAO questionDAO = new QuestionDAO(Main.getDBaccess());
+                    List<Question> allQuestionsById = questionDAO.getAllByQuizId(quiz.getQuizID());
+                    for (Question question : allQuestionsById) questionList.getItems().add(question);
                 });
     }
 
