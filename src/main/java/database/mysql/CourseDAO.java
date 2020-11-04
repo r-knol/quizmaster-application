@@ -54,7 +54,6 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
                 int cursusID = resultSet.getInt("cursusID");
                 course = getOneById(cursusID);
                 result.add(course);
-                System.out.println("bla" + course);
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
