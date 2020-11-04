@@ -15,6 +15,7 @@ import model.Question;
 import model.Quiz;
 import view.Main;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CoordinatorDashboardController extends AbstractController{
@@ -43,20 +44,29 @@ public class CoordinatorDashboardController extends AbstractController{
         // Haalt op basis van de cursus alle bijbehorende quizzes op, bij nieuwe keuze wordt de lijst leegemaakt.
         courseList.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue, oldCourse, newCourse) -> {
-                    if (oldCourse != null || newCourse == null) quizList.getItems().clear();
+                    quizList.getItems().clear();
                     Course course = courseList.getSelectionModel().getSelectedItem();
                     QuizDAO quizDAO = new QuizDAO(Main.getDBaccess());
                     List<Quiz> allQuizzesById = quizDAO.getAllByCourseId(course.getCursusID());
-                    for (Quiz quiz : allQuizzesById) quizList.getItems().add( quiz );
+                    for (Quiz quiz : allQuizzesById) {
+                      quizList.getItems().add( quiz );
+                    }
                 });
         // Haalt op basis va nde quiz alle bijbehorende vragen op, bij nieuwe keuze wordt de lijst leeggemaakt.
         quizList.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue2,  oldQuiz, newQuiz) -> {
-                    if (oldQuiz != null) questionList.getItems().clear();
+                  List<Question> allQuestionsById = null;
+                    questionList.getItems().clear();
                     Quiz quiz = quizList.getSelectionModel().getSelectedItem();
                     QuestionDAO questionDAO = new QuestionDAO(Main.getDBaccess());
-                    List<Question> allQuestionsById = questionDAO.getAllByQuizId(quiz.getQuizID());
-                    for (Question question : allQuestionsById) questionList.getItems().add(question);
+                    if (quiz != null) {
+                      allQuestionsById = questionDAO.getAllByQuizId(quiz.getQuizID());
+                    } else {
+                      allQuestionsById = new ArrayList<>();
+                    }
+                    for (Question question : allQuestionsById) {
+                      questionList.getItems().add(question);
+                    }
                 });
     }
 
