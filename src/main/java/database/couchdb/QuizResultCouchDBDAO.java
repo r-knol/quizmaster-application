@@ -57,23 +57,21 @@ public class QuizResultCouchDBDAO {
     }
 }
 
-        // Om de datum + tijd om te zetten in een Json-string
-        class LocalDateTimeSerializer implements JsonSerializer<LocalDateTime> {
-            private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+// Om de datum + tijd om te zetten in een Json-string
+class LocalDateTimeSerializer implements JsonSerializer<LocalDateTime> {
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
-            @Override
-            public JsonElement serialize(LocalDateTime localDateTime, Type srcType, JsonSerializationContext context) {
-                return new JsonPrimitive(formatter.format(localDateTime));
-            }
+    @Override
+    public JsonElement serialize(LocalDateTime localDateTime, Type srcType, JsonSerializationContext context) {
+        return new JsonPrimitive(formatter.format(localDateTime));
+    }
+}
 
-        }
-
-        class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime> {
-
-            @Override
-            public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-                    throws JsonParseException {
-                return LocalDateTime.parse(json.getAsString(),
-                        DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").withLocale(Locale.ENGLISH));
-            }
-        }
+class LocalDateTimeDeserializer implements JsonDeserializer<LocalDateTime> {
+    @Override
+    public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException {
+        return LocalDateTime.parse(json.getAsString(),
+                DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").withLocale(Locale.ENGLISH));
+    }
+}

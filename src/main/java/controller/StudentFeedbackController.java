@@ -29,16 +29,11 @@ public class StudentFeedbackController {
         db.openConnection();
 
         QuizResultCouchDBDAO quizResultCouchDBDAO = new QuizResultCouchDBDAO(db);
-
         quizResult = quizResultCouchDBDAO.getQuizResult(Main.getUser(), quiz);
-        //quizResultCouchDBDAO.getQuizResults(quizResult);
 
         feedbackLabel.setText(quiz.getQuizNaam());
-
         feedbackList.getItems().add(quizResult);
         feedbackList.getSelectionModel();
-
-
     }
 
     public void doMenu() {
