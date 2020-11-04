@@ -108,6 +108,10 @@ public class Question {
         return antwoorden;
     }
 
+    public String toString() {
+        return quizVraag;
+    }
+
     public String zetAntwoordenInString(List<String> antwoorden) {
         return quizVraag + "\n\n" +
                 "A. " + antwoorden.get(0) +
