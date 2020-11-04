@@ -14,7 +14,7 @@ public class QuizResult {
     private Quiz quiz;
     private LocalDateTime datum;
     private List<QuestionAnswerPair> vraagAntwoordParen;
-    private Boolean behaald;
+    private String behaald; // String van gemaakt
 
     public QuizResult(User student, Quiz quiz, LocalDateTime datum, List<QuestionAnswerPair> vraagAntwoordParen) {
         this.student = student;
@@ -28,15 +28,28 @@ public class QuizResult {
         this(student, quiz, datum, new ArrayList<QuestionAnswerPair>());
     }
 
-    private Boolean bepaalBehaald(Quiz quiz, List<QuestionAnswerPair> vraagAntwoordParen) {
-        int aantalJuisteAntwoorden = 0;
+    public String bepaalBehaald(Quiz quiz, List<QuestionAnswerPair> vraagAntwoordParen) {
+        int aantaljuisteAntwoorden = 0;
         for (QuestionAnswerPair vraagAntwoordPaar : vraagAntwoordParen) {
             if (vraagAntwoordPaar.getVraag().getJuistAntwoord().equals(vraagAntwoordPaar.getAntwoord())) {
-                aantalJuisteAntwoorden++;
+                aantaljuisteAntwoorden++;
             }
+        } if (aantaljuisteAntwoorden >= quiz.getSuccesDefinitie()) {
+            return "behaald";
+        } else {
+            return "niet behaald";
         }
-        return aantalJuisteAntwoorden >= quiz.getSuccesDefinitie();
     }
+
+//    private Boolean bepaalBehaald(Quiz quiz, List<QuestionAnswerPair> vraagAntwoordParen) {
+//        int aantalJuisteAntwoorden = 0;
+//        for (QuestionAnswerPair vraagAntwoordPaar : vraagAntwoordParen) {
+//            if (vraagAntwoordPaar.getVraag().getJuistAntwoord().equals(vraagAntwoordPaar.getAntwoord())) {
+//                aantalJuisteAntwoorden++;
+//            }
+//        }
+//        return aantalJuisteAntwoorden >= quiz.getSuccesDefinitie();
+//    }
 
     public void setVraagAntwoordParen(List<QuestionAnswerPair> vraagAntwoordParen) {
         this.vraagAntwoordParen = vraagAntwoordParen;

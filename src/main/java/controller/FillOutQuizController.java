@@ -111,7 +111,6 @@ public class FillOutQuizController {
             CouchDBaccess db = new CouchDBaccess();
             db.openConnection();
             new QuizResultCouchDBDAO(db).saveQuizResult(quizResult);
-
             Main.getSceneManager().showStudentFeedback(quiz);
         } else { // door met de volgende vraag
             antwoordenHuidigeVraag = alleVragen.get(huidigVraagnummer).shuffleAntwoorden();

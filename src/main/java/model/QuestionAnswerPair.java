@@ -9,7 +9,6 @@ public class QuestionAnswerPair {
     private Question vraag;
     private String antwoord;
 
-
     public QuestionAnswerPair(Question vraag, String antwoord) {
         this.vraag = vraag;
         this.antwoord = antwoord;
