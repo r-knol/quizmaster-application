@@ -24,6 +24,11 @@ public class Course {
         this("", null);
     }
 
+    public Course (int cursusID, User user){
+        this.cursusID = cursusID;
+        this.user = user;
+    }
+
     public int getCursusID() {
         return cursusID;
     }
