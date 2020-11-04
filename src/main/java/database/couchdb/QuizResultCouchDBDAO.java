@@ -10,6 +10,7 @@ import model.*;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -39,18 +40,19 @@ public class QuizResultCouchDBDAO {
     }
 
     // Methode om het de resultaten van de quiz uit couchDB te halen @author Olaf van der Kaaij
-    public QuizResult getQuizResult(User student, Quiz quiz) {
+    public List<QuizResult> getQuizResult(User student, Quiz quiz) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer());
         Gson gson = gsonBuilder.setPrettyPrinting().create();
 
-        QuizResult resultaat = null;
+        List<QuizResult> resultaat = new ArrayList<>();
         List<JsonObject> alleResults = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
         for (JsonObject json : alleResults) {
-            resultaat = gson.fromJson(json, QuizResult.class);
+            QuizResult quizResult = gson.fromJson(json, QuizResult.class);
             //todo: check of er wel quiz en student is
-            if ((resultaat.getStudent().equals(student)) && (resultaat.getQuiz().equals(quiz))) {
-                return resultaat;
+            if ((quizResult.getStudent().getGebruikerID() == student.getGebruikerID())
+                    && (quizResult.getQuiz().getQuizID() == quiz.getQuizID())) {
+                resultaat.add((quizResult));
             }
         }
         return resultaat;

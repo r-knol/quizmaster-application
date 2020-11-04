@@ -110,9 +110,7 @@ public class FillOutQuizController {
             // quizResult in DB met CouchDBQuizResultDAO
             CouchDBaccess db = new CouchDBaccess();
             db.openConnection();
-            System.out.println("dit is het quizresultaat, wegschrijven: " + quizResult);
             new QuizResultCouchDBDAO(db).saveQuizResult(quizResult);
-
             Main.getSceneManager().showStudentFeedback(quiz);
         } else { // door met de volgende vraag
             antwoordenHuidigeVraag = alleVragen.get(huidigVraagnummer).shuffleAntwoorden();

@@ -7,15 +7,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import model.Quiz;
 import model.QuizResult;
-import model.User;
 import view.Main;
-
 import java.util.List;
 
 public class StudentFeedbackController {
 
     private Quiz quiz;
-    private QuizResult quizResult;
     private CouchDBaccess db;
 
     @FXML
@@ -29,10 +26,15 @@ public class StudentFeedbackController {
         db.openConnection();
 
         QuizResultCouchDBDAO quizResultCouchDBDAO = new QuizResultCouchDBDAO(db);
-        quizResult = quizResultCouchDBDAO.getQuizResult(Main.getUser(), quiz);
 
+        // Instantie quizResult vullen met wat er opgehaald wordt uit get van de DAO
+        List<QuizResult> quizResult = quizResultCouchDBDAO.getQuizResult(Main.getUser(), quiz);
+
+        // Labeltje met juiste quiznaam
         feedbackLabel.setText(quiz.getQuizNaam());
-        feedbackList.getItems().add(quizResult);
+
+        // Tekstveld waar resultaat in komt te staan
+        feedbackList.getItems().addAll(quizResult);
         feedbackList.getSelectionModel();
     }
 
