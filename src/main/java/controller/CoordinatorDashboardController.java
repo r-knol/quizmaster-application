@@ -8,6 +8,7 @@ import database.mysql.CourseDAO;
 import database.mysql.QuestionDAO;
 import database.mysql.QuizDAO;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import model.Course;
@@ -71,6 +72,13 @@ public class CoordinatorDashboardController extends AbstractController{
         Main.getSceneManager().showCreateUpdateQuizScene(quiz);
     }
 
+    public void doDeleteQuiz() {
+        QuizDAO quizDAO = new QuizDAO(Main.getDBaccess());
+        Quiz quiz = quizList.getSelectionModel().getSelectedItem();
+        showInformationAlert("Quiz verwijderd");
+        quizDAO.deleteOne(quiz);
+    }
+
     public void doNewQuestion() {
         Main.getSceneManager().showCreateUpdateQuestionScene(null);
     }
@@ -78,6 +86,13 @@ public class CoordinatorDashboardController extends AbstractController{
     public void doEditQuestion() {
         Question question = questionList.getSelectionModel().getSelectedItem();
         Main.getSceneManager().showCreateUpdateQuestionScene(question);
+    }
+
+    public void doDeleteQuestion () {
+        QuestionDAO questionDAO = new QuestionDAO(Main.getDBaccess());
+        Question question = questionList.getSelectionModel().getSelectedItem();
+        showInformationAlert("Vraag verwijderd");
+        questionDAO.deleteOne(question);
     }
 
     public void doMenu() {
