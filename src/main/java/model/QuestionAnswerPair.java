@@ -9,24 +9,20 @@ public class QuestionAnswerPair {
     private Question vraag;
     private String antwoord;
 
+
+    public QuestionAnswerPair(Question vraag, String antwoord) {
+        this.vraag = vraag;
+        this.antwoord = antwoord;
+    }
+
     public Question getVraag() {
         return vraag;
     }
-
     public void setVraag(Question vraag) {
         this.vraag = vraag;
     }
 
     public String getAntwoord() {
         return antwoord;
-    }
-
-    public void setAntwoord(String antwoord) {
-        this.antwoord = antwoord;
-    }
-
-    public QuestionAnswerPair(Question vraag, String antwoord) {
-        this.vraag = vraag;
-        this.antwoord = antwoord;
     }
 }

@@ -6,7 +6,7 @@ import org.lightcouch.CouchDbProperties;
 import org.lightcouch.Response;
 
 /**
- * Author Richard Knol
+ * Author Richard Knol, Wendy Ellens
  */
 
 public class CouchDBaccess {
@@ -26,6 +26,17 @@ public class CouchDBaccess {
         properties.setPassword("Hallotest5@"); // ""
 
         client = new CouchDbClient(properties); // de properties worden hier in het object client gestopt
+    }
+
+    public void openConnection() {
+        try {
+            this.setupConnection();
+            System.out.println("Connection open");
+        }
+        catch (Exception e) {
+            System.out.println("\nEr is iets fout gegaan\n");
+            e.printStackTrace();
+        }
     }
 
     public String saveDocument(JsonObject document) { // waarsch nodig voor opslaan JSON objecten

@@ -9,7 +9,6 @@ import java.util.List;
  * @author Wendy Ellens
  */
 
-// TODO poging uit ERD halen
 public class QuizResult {
     private User student;
     private Quiz quiz;

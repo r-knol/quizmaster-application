@@ -1,13 +1,15 @@
 package database.couchdb;
 
-/** Author Richard Knol
+/**
+ * Author Richard Knol, Wendy Ellens
  */
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import model.QuizResult;
-import model.User;
+import com.google.gson.*;
+import model.*;
+
+import java.lang.reflect.Type;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class QuizResultCouchDBDAO {
 
@@ -21,39 +23,58 @@ public class QuizResultCouchDBDAO {
     }
 
     public String saveQuizResult(QuizResult quizResult) {
+        // Om datum + tijd om te zetten in een Json-string
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
+        Gson gson = gsonBuilder.setPrettyPrinting().create();
+
+        // quizResult opslaan in de database
         String jsonstring = gson.toJson(quizResult);
         JsonParser parser = new JsonParser();
         JsonObject jsonObject = parser.parse(jsonstring).getAsJsonObject();
         String doc_Id = db.saveDocument(jsonObject);
+
         return doc_Id;
     }
-    // Json string maken van quizResult
-    QuizResult eenResult = new QuizResult(student, quiz, datum, vraagAntwoorParen, vraag);
-    Gson gson = new Gson();
-    String resultaatJson = gson.toJson(eenResult);
-    // todo: Json string maken van een eenvoudig object
-    public void runTest() {
-        User user1 = new User("Student", "Richard", "", "Knol");
-        user1.setWachtwoord("hoi");
-        Gson gson = new Gson();
-        String jsonstring = gson.toJson(user1);
-        String gebruiker = gson.toJson(user1);
-        JsonParser parser = new JsonParser();
-        JsonObject jsonObject = parser.parse(jsonstring).getAsJsonObject();
-        String doc_iD = db.saveDocument(jsonObject);
-        System.out.println("Info als Json: ");
-        System.out.println(gebruiker);
-        System.out.println(doc_iD);
-    }
 
-    // todo: mogelijke oplossing voor opslaan enkele poging in Json object?
-//    public String saveSingleQuizResult(QuizResult quizresult) {
-//        String jsonstring = gson.toJson(quizresult);
-//        System.out.println(jsonstring);
+//    public void runTest() {
+//
+//        // quizResult maken als test
+//        QuizDAO quizDAO = new QuizDAO(Main.getDBaccess());
+//        User user1 = new User("Student", "Richard", "", "Knol");
+//        user1.setWachtwoord("hoi");
+//        Quiz quiz = quizDAO.getOneById(1);
+//        Question question1 = new Question(1, quiz, "Vraag",
+//                "Juist", "Onjuist1", "Onjuist2", "Onjuist3");
+//        Question question2 = new Question(2, quiz, "Vraag2",
+//                "Juist", "Onjuist1", "Onjuist2", "Onjuist3");
+//        List<QuestionAnswerPair> vraagAntwoordParen = new ArrayList<QuestionAnswerPair>();
+//        vraagAntwoordParen.add(new QuestionAnswerPair(question1, "Juist"));
+//        vraagAntwoordParen.add(new QuestionAnswerPair(question2, "Onjuist1"));
+//        QuizResult quizResult = new QuizResult(user1, quiz, LocalDateTime.now(), vraagAntwoordParen);
+//
+//        // Om datum + tijd om te zetten in een Json-string
+//        GsonBuilder gsonBuilder = new GsonBuilder();
+//        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
+//        Gson gson = gsonBuilder.setPrettyPrinting().create();
+//
+//        // quizResult opslaan in de database
+//        String jsonstring = gson.toJson(quizResult);
 //        JsonParser parser = new JsonParser();
 //        JsonObject jsonObject = parser.parse(jsonstring).getAsJsonObject();
-//        String doc_Id = db.saveDocument(jsonObject);
-//        return doc_Id;
+//        String doc_iD = db.saveDocument(jsonObject);
+//        System.out.println("Info als Json: ");
+//        System.out.println(jsonstring);
+//        System.out.println(doc_iD);
 //    }
+}
 
+// Om de datum + tijd om te zetten in een Json-string
+class LocalDateTimeSerializer implements JsonSerializer < LocalDateTime > {
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+    @Override
+    public JsonElement serialize(LocalDateTime localDateTime, Type srcType, JsonSerializationContext context) {
+        return new JsonPrimitive(formatter.format(localDateTime));
+    }
 }

@@ -1,5 +1,7 @@
 package controller;
 
+import database.couchdb.CouchDBaccess;
+import database.couchdb.QuizResultCouchDBDAO;
 import database.mysql.QuestionDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -56,8 +58,6 @@ public class FillOutQuizController {
             questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
                     antwoordenHuidigeVraag.get(0)));
         }
-        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
-                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(0)));
         doNextQuestion();
     }
 
@@ -71,8 +71,6 @@ public class FillOutQuizController {
             questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
                     antwoordenHuidigeVraag.get(1)));
         }
-        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
-                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(1)));
         doNextQuestion();
     }
 
@@ -86,8 +84,6 @@ public class FillOutQuizController {
             questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
                     antwoordenHuidigeVraag.get(2)));
         }
-        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
-                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(2)));
         doNextQuestion();
     }
 
@@ -101,9 +97,7 @@ public class FillOutQuizController {
             questionAnswerPairs.set(huidigVraagnummer, new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
                     antwoordenHuidigeVraag.get(3)));
         }
-        questionAnswerPairs.add(new QuestionAnswerPair(alleVragen.get(huidigVraagnummer),
-                alleVragen.get(huidigVraagnummer).shuffleAntwoorden().get(1)));
-        doNextQuestion();
+       doNextQuestion();
     }
 
     public void doNextQuestion() {
@@ -112,7 +106,12 @@ public class FillOutQuizController {
         if (huidigVraagnummer >= alleVragen.size()) {
             quizResult.setVraagAntwoordParen(questionAnswerPairs);
             quizResult.setBehaald();
-            // todo quizResult in DB met CouchDBQuizResultDAO
+
+            // quizResult in DB met CouchDBQuizResultDAO
+            CouchDBaccess db = new CouchDBaccess();
+            db.openConnection();
+            new QuizResultCouchDBDAO(db).saveQuizResult(quizResult);
+
             Main.getSceneManager().showStudentFeedback(quiz);
         } else { // door met de volgende vraag
             antwoordenHuidigeVraag = alleVragen.get(huidigVraagnummer).shuffleAntwoorden();

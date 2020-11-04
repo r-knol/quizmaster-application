@@ -16,18 +16,19 @@ public class Main extends Application {
     private static DBAccess db = null;
     private static User user;
 
+    // stukje code om couchDB te testen
     // Constructor van main om couchdb access te regelen
-    public Main() {
-        super();
-        couchDBaccess = new CouchDBaccess();
-        quizResultCouchDBDAO = new QuizResultCouchDBDAO(couchDBaccess);
-    }
+//    public Main() {
+//        super();
+//        couchDBaccess = new CouchDBaccess();
+//        quizResultCouchDBDAO = new QuizResultCouchDBDAO(couchDBaccess);
+//    }
 
     public static void main(String[] args) {
         // stukje code om couchDB te testen
-        Main test = new Main();
-        test.run();
-        quizResultCouchDBDAO.runTest();
+//        Main main = new Main();
+//        main.setupCouchDBConnection();
+//        quizResultCouchDBDAO.runTest();
         // code om Application klasse te launchen
         launch(args);
     }
@@ -51,11 +52,21 @@ public class Main extends Application {
         return primaryStage;
     }
 
+    // setupconnection CouchDB
+//    public void setupCouchDBConnection() {
+//        try {
+//            couchDBaccess.setupConnection();
+//            System.out.println("Connection open");
+//        } catch (Exception e) {
+//            System.out.println("\nEr is iets fout gegaan");
+//            e.printStackTrace();
+//        }
+//    }
+
     // Toegevoegd door Wendy om de gegevens van de gebruiker die inlogt overal beschikbaar te hebben
     public static User getUser() {
         return user;
     }
-
     public static void setUser(User user) {
         Main.user = user;
     }
@@ -67,16 +78,4 @@ public class Main extends Application {
         }
         return db;
     }
-
-    // setupconnection CouchDB
-    public void run() {
-        try {
-            couchDBaccess.setupConnection();
-            System.out.println("Connection open");
-        } catch (Exception e) {
-            System.out.println("\nEr is iets fout gegaan");
-            e.printStackTrace();
-        }
-    }
-
 }
