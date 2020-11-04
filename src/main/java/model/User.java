@@ -33,25 +33,29 @@ public class User {
     // GebruikerID, gebruikersnaam en wachtwoord worden automatisch gegenereerd.
     public User(String rol, String voornaam, String tussenvoegsels, String achternaam) {
         this(0, rol, "", "", voornaam, tussenvoegsels, achternaam);
-        // TODO: testen. Zal worden gedaan in de CreateUpdateUserController en als Unittest.
-        UserDAO userDAO = new UserDAO(Main.getDBaccess());
-        int gebruikersnaam_suffix = 1;
+        gebruikersnaam = genereerGebruikersnaam(voornaam, achternaam);
+        wachtwoord = genereerWachtwoord(WACHTWOORD_LENGTE);
+    }
 
+    public static String genereerGebruikersnaam(String voornaam, String achternaam) {
         // Gebruikersnaam genereren o.b.v. eerste letter voornaam en achternaam
-        gebruikersnaam = voornaam.charAt(0) + achternaam;
+        String gebruikersnaam = voornaam.charAt(0) + achternaam;
 
         // Suffix 1 toevoegen als de gebruikersnaam al bestaat
+        UserDAO userDAO = new UserDAO(Main.getDBaccess());
         if (!(userDAO.getOneByUsername(gebruikersnaam) == null)) {
+            int gebruikersnaam_suffix = 1;
             gebruikersnaam += gebruikersnaam_suffix;
+
+            // Suffix verhogen zolang als nodig is om een nieuwe gebruikersnaam te creeren
+            while (!(userDAO.getOneByUsername(gebruikersnaam) == null)) {
+                gebruikersnaam_suffix++; // Suffix ophogen
+                gebruikersnaam = gebruikersnaam.substring(0, gebruikersnaam.length() - 1); // Oude suffix verwijderen
+                gebruikersnaam += gebruikersnaam_suffix; // Nieuwe suffix toevoegen
+            }
         }
 
-        // Suffix verhogen zolang als nodig is om een nieuwe gebruikersnaam te creeren
-        while (!(userDAO.getOneByUsername(gebruikersnaam) == null)) {
-            gebruikersnaam_suffix++; // Suffix ophogen
-            gebruikersnaam = gebruikersnaam.substring(0, gebruikersnaam.length() - 1); // Oude suffix verwijderen
-            gebruikersnaam += gebruikersnaam_suffix; // Nieuwe suffix toevoegen
-        }
-        wachtwoord = genereerWachtwoord(WACHTWOORD_LENGTE);
+        return gebruikersnaam;
     }
 
     public static String genereerWachtwoord(int lengte, String tekens) {
@@ -65,7 +69,6 @@ public class User {
         return wachtwoord.toString();
     }
 
-    // TODO: testen. Zal worden gedaan in de CreateUpdateUserController en als Unittest.
     public static String genereerWachtwoord(int lengte) {
         final String tekens
                 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:\'\",<.>/?";
@@ -75,7 +78,6 @@ public class User {
     public int getGebruikerID() {
         return gebruikerID;
     }
-
     public void setGebruikerID(int gebruikerID) {
         this.gebruikerID = gebruikerID;
     }
@@ -83,7 +85,6 @@ public class User {
     public String getRol() {
         return rol;
     }
-
     public void setRol(String rol) {
         this.rol = rol;
     }
@@ -91,7 +92,6 @@ public class User {
     public String getGebruikersnaam() {
         return gebruikersnaam;
     }
-
     public void setGebruikersnaam(String gebruikersnaam) {
         this.gebruikersnaam = gebruikersnaam;
     }
@@ -99,7 +99,6 @@ public class User {
     public String getWachtwoord() {
         return wachtwoord;
     }
-
     public void setWachtwoord(String wachtwoord) {
         this.wachtwoord = wachtwoord;
     }
@@ -114,7 +113,6 @@ public class User {
     public String getTussenvoegsels() {
         return tussenvoegsels;
     }
-
     public void setTussenvoegsels(String tussenvoegsels) {
         this.tussenvoegsels = tussenvoegsels;
     }
@@ -122,7 +120,6 @@ public class User {
     public String getAchternaam() {
         return achternaam;
     }
-
     public void setAchternaam(String achternaam) {
         this.achternaam = achternaam;
     }

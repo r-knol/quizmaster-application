@@ -1,7 +1,7 @@
 package database.couchdb;
 
 /**
- * Author Richard Knol, Wendy Ellens
+ * Author Richard Knol
  */
 
 import com.google.gson.*;
@@ -23,6 +23,7 @@ public class QuizResultCouchDBDAO {
         gson = new Gson();
     }
 
+    // Aangepast door Wendy, zodat het attribuut datum van QuizResult goed owrdt verwerkt
     public String saveQuizResult(QuizResult quizResult) {
         // Om datum + tijd om te zetten in een Json-string
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -83,7 +84,7 @@ public class QuizResultCouchDBDAO {
 //    }
 }
 
-// Om de datum + tijd om te zetten in een Json-string
+// Toegevoegd door Wendy om de datum + tijd om te zetten in een Json-string
 class LocalDateTimeSerializer implements JsonSerializer < LocalDateTime > {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 

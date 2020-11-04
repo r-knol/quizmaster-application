@@ -2,7 +2,7 @@ package model;
 
 /**
  * @author Wendy Ellens
- * Om nummer van gekozen antwoord op te slaan bij het nummer van de vraag
+ * Om het nummer van het gekozen antwoord op te slaan bij het nummer van de vraag
  */
 
 public class QuestionAnswerPair {
