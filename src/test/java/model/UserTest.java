@@ -13,10 +13,6 @@ class UserTest {
     }
 
     @Test
-    void testGenereerWachtwoord() {
-    }
-
-    @Test
     void getVoornaam() {
         assertEquals(expected.getVoornaam(), "Menno");
     }

@@ -3,8 +3,6 @@ package model;
 import database.mysql.UserDAO;
 import view.Main;
 
-import java.util.Collections;
-
 /**
  * @author Richard Knol, Wendy Ellens
  */
