@@ -11,6 +11,7 @@ import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 public class QuizResultCouchDBDAO {
 
@@ -39,17 +40,31 @@ public class QuizResultCouchDBDAO {
     }
 
     // Methode om het de resultaten van de quiz uit couchDB te halen @author Olaf van der Kaaij
-    public QuizResult getQuizResult (User student, Quiz quiz) {
-        QuizResult resultaat = null;
-        List<JsonObject> alleResults = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
-        for (JsonObject json : alleResults) {
-            resultaat = gson.fromJson(json, QuizResult.class);
-            if ((resultaat.getStudent().equals(student)) && (resultaat.getQuiz().equals(quiz))) {
-                return resultaat;
-            }
-        }
-        return resultaat;
+//    public QuizResult getQuizResult (QuizResult quizResult) {
+//        // QuizResult resultaat = null;
+//        List<JsonObject> alleResults = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
+//        for (JsonObject json : alleResults) {
+//            quizResult = gson.fromJson(json, QuizResult.class);
+//            //if ((resultaat.getStudent().equals(student)) && (resultaat.getQuiz().equals(quiz))) {
+//                //return resultaat;
+//            //}
+//        }
+//        return quizResult;
+
+
+    //}
+
+    public QuizResult getQuizResults(String doc_Id) {
+        // Om datum + tijd om te zetten in een Json-string
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer());
+        //Gson gson = gsonBuilder.setPrettyPrinting().create();
+
+        JsonObject json = db.getClient().find(JsonObject.class, doc_Id);
+        QuizResult quizResult = gson.fromJson(json, QuizResult.class);
+        return quizResult;
     }
+}
 
 //    public void runTest() {
 //
@@ -81,7 +96,7 @@ public class QuizResultCouchDBDAO {
 //        System.out.println(jsonstring);
 //        System.out.println(doc_iD);
 //    }
-}
+//}
 
 // Om de datum + tijd om te zetten in een Json-string
 class LocalDateTimeSerializer implements JsonSerializer < LocalDateTime > {
@@ -90,5 +105,14 @@ class LocalDateTimeSerializer implements JsonSerializer < LocalDateTime > {
     @Override
     public JsonElement serialize(LocalDateTime localDateTime, Type srcType, JsonSerializationContext context) {
         return new JsonPrimitive(formatter.format(localDateTime));
+    }
+
+}
+
+class LocalDateTimeDeserializer implements JsonDeserializer <LocalDateTime> {
+    @Override
+    public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException {
+        return LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").withLocale( Locale.ENGLISH ));
     }
 }
