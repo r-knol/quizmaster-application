@@ -57,6 +57,24 @@ public class QuizResultCouchDBDAO {
         }
         return resultaat;
     }
+
+    // Om één resultaat op te halen en in quiz selecteren te laten zien
+    public QuizResult getOneQuizResult(User student, Quiz quiz) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer());
+        Gson gson = gsonBuilder.setPrettyPrinting().create();
+
+        QuizResult resultaat = null;
+        List<JsonObject> results = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
+        for (JsonObject json : results) {
+            resultaat = gson.fromJson(json, QuizResult.class);
+            if ((resultaat.getStudent().getGebruikerID() == student.getGebruikerID()) &&
+                    (resultaat.getQuiz().getQuizID() == quiz.getQuizID())) {
+                return resultaat;
+            }
+        }
+        return resultaat;
+    }
 }
 
 // Om de datum + tijd om te zetten in een Json-string

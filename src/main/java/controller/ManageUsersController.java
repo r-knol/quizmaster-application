@@ -6,6 +6,7 @@ import javafx.scene.control.ListView;
 import model.User;
 import view.Main;
 
+import java.util.Collections;
 import java.util.List;
 
 /** @author Richard Knol

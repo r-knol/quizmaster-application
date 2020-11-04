@@ -21,6 +21,7 @@ public class SelectQuizForStudentController extends AbstractController {
 
     // Op basis van de ingeschreven cursus een quiz selecteren.
     public void setup() {
+
         CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
         QuizDAO quizDAO = new QuizDAO(Main.getDBaccess());
         List<Course> allCourses = courseDAO.getAllByStudentID(Main.getUser().getGebruikerID());

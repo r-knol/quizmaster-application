@@ -37,7 +37,6 @@ public class StudentSignInOutController extends  AbstractController{
         signedInCourseList.getSelectionModel().getSelectedItems();
     }
 
-
     public void doMenu() {
         Main.getSceneManager().showWelcomeScene();
     }

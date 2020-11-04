@@ -7,53 +7,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserDAOTest {
 
-    private final User actual = new User("student", "Frits", "",
-            "Wester");
+    private final User expected = new User("student", "Peter", "",
+            "Vroon");
 
     @org.junit.jupiter.api.Test
-    void getAll() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void getOneById() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void getOneByNameAndPassword() {
-        assertEquals(actual.getVoornaam(), "Frits");
-        assertEquals(actual.getRol(), "Wester");
-    }
-
-    @org.junit.jupiter.api.Test
-    void storeOne() {
-    }
-
-    @Test
-    void testGetAll() {
-    }
-
-    @Test
-    void testGetOneById() {
-    }
-
-    @Test
     void getOneByUsername() {
+        assertEquals(expected.getGebruikersnaam(), "PVroon");
     }
 
-    @Test
-    void getOneByUsernameAndPassword() {
-    }
-
-    @Test
-    void testStoreOne() {
-    }
-
-    @Test
-    void updateOne() {
-    }
-
-    @Test
-    void deleteOne() {
-
-    }
 }
