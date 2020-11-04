@@ -42,13 +42,13 @@ public class WelcomeController {
                 item3.setOnAction(event -> Main.getSceneManager().showCoordinatorDashboard());
                 taskMenuButton.getItems().add(item3);
 
-                MenuItem item4 = new MenuItem("Ga naar Quizbeheer");
+                /*MenuItem item4 = new MenuItem("Ga naar Quizbeheer");
                 item4.setOnAction(event -> Main.getSceneManager().showManageQuizScene());
                 taskMenuButton.getItems().add(item4);
 
                 MenuItem item5 = new MenuItem("Ga naar Vragenbeheer");
                 item5.setOnAction(event -> Main.getSceneManager().showManageQuestionsScene());
-                taskMenuButton.getItems().add(item5);
+                taskMenuButton.getItems().add(item5);*/
                 break;
 
             case "administrator" :
