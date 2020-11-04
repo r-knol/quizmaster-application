@@ -25,10 +25,12 @@ public class StudentFeedbackController {
 
     public void setup(Quiz quiz) {
         this.quiz = quiz;
+        this.db = new CouchDBaccess();
+        db.openConnection();
 
         QuizResultCouchDBDAO quizResultCouchDBDAO = new QuizResultCouchDBDAO(db);
 
-        quizResult = quizResultCouchDBDAO.getQuizResults("78617af67ea24cd4a1e298f178b2a622");
+        quizResult = quizResultCouchDBDAO.getQuizResult(Main.getUser(), quiz);
         //quizResultCouchDBDAO.getQuizResults(quizResult);
 
         feedbackLabel.setText(quiz.getQuizNaam());
