@@ -1,6 +1,8 @@
 package database.mysql;
 
 import model.Course;
+import model.User;
+import view.Main;
 
 import java.security.DrbgParameters;
 import java.sql.ResultSet;
@@ -19,7 +21,7 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
 
     @Override
     public ArrayList<Course> getAll() {
-        UserDAO userDAO = new UserDAO(dbAccess);
+        UserDAO userDAO = new UserDAO(Main.getDBaccess());
         String sql = "Select * FROM Cursus";
         ArrayList<Course> result = new ArrayList<>();
         try {
@@ -40,18 +42,19 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
     }
 
     public ArrayList<Course> getAllByStudentID (int studentID) {
-        UserDAO userDAO = new UserDAO(dbAccess);
+        UserDAO userDAO = new UserDAO(Main.getDBaccess());
         String sql = "SELECT * FROM Cursusinschrijving WHERE studentID = ?";
         ArrayList<Course> result = new ArrayList<>();
         try {
             setupPreparedStatement(sql);
             preparedStatement.setInt(1, studentID);
             ResultSet resultSet = executeSelectStatement();
-            Course course = new Course();
+            Course course;
             while (resultSet.next()) {
                 int cursusID = resultSet.getInt("cursusID");
-                course = new Course(cursusID, course.getCursusNaam(), userDAO.getOneById( studentID ));
+                course = getOneById(cursusID);
                 result.add(course);
+                System.out.println("bla" + course);
             }
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
@@ -60,7 +63,7 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
     }
 
     public ArrayList<Course> getAllByCoordinatorID(int coordinatorID) {
-        UserDAO userDAO = new UserDAO(dbAccess);
+        UserDAO userDAO = new UserDAO(Main.getDBaccess());
         String sql = "Select * FROM Cursus Where coordinatorID = ?";
         ArrayList<Course> result = new ArrayList<>();
         try {
@@ -82,7 +85,7 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
 
     @Override
     public Course getOneById(int cursusID) {
-        UserDAO userDAO = new UserDAO(dbAccess);
+        UserDAO userDAO = new UserDAO(Main.getDBaccess());
         String sql = "Select * From Cursus Where cursusID = ?";
         Course result = null;
         try {
@@ -131,6 +134,33 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
             System.out.println("SQL error " + sqlException.getMessage());
         }
     }
+
+    public void storeOneInCourseRegistration(Course course) {
+        String sql = "INSERT INTO Cursusinschrijving(cursusID, studentID) VALUES (?,?);";
+        course.setCursusID(course.getCursusID());
+        System.out.println(Main.getUser().getGebruikerID());
+        System.out.println(course.getCursusID());
+        try {
+            setupPreparedStatement(sql);
+            preparedStatement.setInt( 1, course.getCursusID() );
+            preparedStatement.setInt( 2, Main.getUser().getGebruikerID() );
+            executeManipulateStatement();
+        } catch (SQLException e) {
+            System.out.println( "SQL error " + e.getMessage() );
+        }
+    }
+
+    public void deleteOneFromCourseRegistration(Course course) {
+        String sql = "DELETE FROM Cursusinschrijving WHERE studentID = ?";
+        try {
+            setupPreparedStatement(sql);
+            preparedStatement.setInt(1, Main.getUser().getGebruikerID());
+            executeManipulateStatement();
+        } catch (SQLException e) {
+            System.out.println("SQL error " + e.getMessage());
+        }
+    }
+
 
     @Override
     public void deleteOne(Course course) {
