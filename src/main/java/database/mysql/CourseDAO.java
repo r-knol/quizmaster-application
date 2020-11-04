@@ -138,8 +138,6 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
     public void storeOneInCourseRegistration(Course course) {
         String sql = "INSERT INTO Cursusinschrijving(cursusID, studentID) VALUES (?,?);";
         course.setCursusID(course.getCursusID());
-        System.out.println(Main.getUser().getGebruikerID());
-        System.out.println(course.getCursusID());
         try {
             setupPreparedStatement(sql);
             preparedStatement.setInt( 1, course.getCursusID() );
@@ -151,10 +149,11 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
     }
 
     public void deleteOneFromCourseRegistration(Course course) {
-        String sql = "DELETE FROM Cursusinschrijving WHERE studentID = ?";
+        String sql = "DELETE FROM Cursusinschrijving WHERE studentID = ? AND cursusID = ?;";
         try {
             setupPreparedStatement(sql);
             preparedStatement.setInt(1, Main.getUser().getGebruikerID());
+            preparedStatement.setInt( 2,course.getCursusID());
             executeManipulateStatement();
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());

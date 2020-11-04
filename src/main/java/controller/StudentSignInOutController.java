@@ -20,11 +20,12 @@ public class StudentSignInOutController extends  AbstractController{
         for (Course course : allCourses) {
             signedOutCourseList.getItems().add(course);
         }
+        signedOutCourseList.getSelectionModel().getSelectedItems();
         List<Course> allCoursesByID = courseDAO.getAllByStudentID(Main.getUser().getGebruikerID());
         System.out.println(Main.getUser().getGebruikerID());
         for(Course c : allCoursesByID) {
             signedInCourseList.getItems().add(c);
-            System.out.println(c);
+            //System.out.println(c);
             for (int index = 0; index < signedOutCourseList.getItems().size(); index++) {
                   Course oldCourse = signedOutCourseList.getItems().get(index);
                   if (oldCourse.getCursusNaam().equals(c.getCursusNaam())) {
@@ -34,7 +35,6 @@ public class StudentSignInOutController extends  AbstractController{
             }
         }
         signedInCourseList.getSelectionModel().getSelectedItems();
-        signedOutCourseList.getSelectionModel().getSelectedItems();
     }
 
 
@@ -46,7 +46,7 @@ public class StudentSignInOutController extends  AbstractController{
         CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
         Course course = signedOutCourseList.getSelectionModel().getSelectedItem();
         courseDAO.storeOneInCourseRegistration(course);
-        System.out.println(course);
+        //System.out.println(course);
         showInformationAlert( String.format( "Je bent ingeschreven voor cursus: ", course.getCursusID() + " " + course.getCursusNaam() ) );
         signedOutCourseList.getItems().clear();
         signedInCourseList.getItems().clear();
@@ -59,8 +59,8 @@ public class StudentSignInOutController extends  AbstractController{
         courseDAO.deleteOneFromCourseRegistration(course);
         System.out.println(course);
         showInformationAlert( String.format( "Je bent uitgeschreven voor cursus: ", course.getCursusID() + " " + course.getCursusNaam() ) );
-        signedInCourseList.getItems().clear();
         signedOutCourseList.getItems().clear();
+        signedInCourseList.getItems().clear();
         setup();
     }
 
