@@ -2,7 +2,7 @@ package model;
 
 import database.mysql.UserDAO;
 import org.junit.jupiter.api.Test;
-//import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import view.Main;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -55,7 +55,7 @@ class UserTest {
     void genereerWachtwoord2() { // Test karakters
         String tekens = "a2!";
         String wachtwoord = User.genereerWachtwoord(wachtwoordLengte, tekens);
-        //assertTrue(StringUtils.containsOnly(wachtwoord, tekens));
+        assertTrue(StringUtils.containsOnly(wachtwoord, tekens));
     }
     @Test
     void genereerWachtwoord3() { // Test volgende wachtwoord verschillend
