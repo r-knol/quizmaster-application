@@ -22,7 +22,6 @@ public class Quiz {
 
     public Quiz (Course course, String quizNaam, int aantalVragen, int succesDefinitie) {
         this(0,course, quizNaam, aantalVragen,succesDefinitie);
-
     }
 
     public Quiz() {
