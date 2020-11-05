@@ -14,10 +14,11 @@ import model.Course;
 import model.Question;
 import model.Quiz;
 import view.Main;
-
 import java.util.List;
 
 public class CoordinatorDashboardController extends AbstractController{
+
+    private Quiz quiz;
 
     @FXML
     private Label welcomeLabel;
@@ -34,31 +35,37 @@ public class CoordinatorDashboardController extends AbstractController{
 
         // Haalt eerst alle cursussen op.
         CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
+        QuizDAO quizDAO = new QuizDAO(Main.getDBaccess());
+        QuestionDAO questionDAO = new QuestionDAO(Main.getDBaccess());
+
         List<Course> allCourses = courseDAO.getAll();
         for (Course course : allCourses) courseList.getItems().add( course );
-        if (quizList != null) {
-            quizList.getItems().clear();
-            questionList.getItems().clear();
-        }
         // Haalt op basis van de cursus alle bijbehorende quizzes op, bij nieuwe keuze wordt de lijst leegemaakt.
         courseList.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue, oldCourse, newCourse) -> {
-                    if (oldCourse != null || newCourse == null) quizList.getItems().clear();
+                    if (oldCourse != null) {
+                        quizList.getItems().clear();
+                        questionList.getItems().clear();
+                    }
                     Course course = courseList.getSelectionModel().getSelectedItem();
-                    QuizDAO quizDAO = new QuizDAO(Main.getDBaccess());
                     List<Quiz> allQuizzesById = quizDAO.getAllByCourseId(course.getCursusID());
                     for (Quiz quiz : allQuizzesById) quizList.getItems().add( quiz );
                 });
         // Haalt op basis va nde quiz alle bijbehorende vragen op, bij nieuwe keuze wordt de lijst leeggemaakt.
         quizList.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue2,  oldQuiz, newQuiz) -> {
-                    if (oldQuiz != null) questionList.getItems().clear();
-                    Quiz quiz = quizList.getSelectionModel().getSelectedItem();
-                    QuestionDAO questionDAO = new QuestionDAO(Main.getDBaccess());
-                    List<Question> allQuestionsById = questionDAO.getAllByQuizId(quiz.getQuizID());
-                    for (Question question : allQuestionsById) questionList.getItems().add(question);
+                    if (oldQuiz != null)
+                        questionList.getItems().clear();
+                    quiz = quizList.getSelectionModel().getSelectedItem();
+                    if (quiz != null) {
+                        List <Question> allQuestionsById = questionDAO.getAllByQuizId(quiz.getQuizID());
+                        for (Question question : allQuestionsById) questionList.getItems().add( question );
+                    } else {
+                        questionList.getSelectionModel().clearSelection();
+                    }
                 });
     }
+
 
     // TODO : Afhankelijk van scherm van herkomst terug naar datzelfde scherm?
     public void doNewQuiz() {

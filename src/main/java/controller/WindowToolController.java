@@ -22,7 +22,7 @@ public class WindowToolController {
     public void populateScreenMenu() {
         String userDirectory = System.getProperty("user.dir");
         File fxmlDirectory = new File(userDirectory + "/src/main/java/view/fxml");
-        if (fxmlDirectory.isDirectory()) {
+        /*if (fxmlDirectory.isDirectory()) {
             String[] files = fxmlDirectory.list();
             if (files != null) {
                 for (String filename : files) {
@@ -34,6 +34,6 @@ public class WindowToolController {
                     }
                 }
             }
-        }
+        }*/
     }
 }

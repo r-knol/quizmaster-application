@@ -41,8 +41,8 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
         return result;
     }
 
+    // @author Olaf van der Kaaij
     public ArrayList<Course> getAllByStudentID (int studentID) {
-        UserDAO userDAO = new UserDAO(Main.getDBaccess());
         String sql = "SELECT * FROM Cursusinschrijving WHERE studentID = ?";
         ArrayList<Course> result = new ArrayList<>();
         try {
@@ -134,6 +134,7 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
         }
     }
 
+    //@author Olaf van der Kaaij
     public void storeOneInCourseRegistration(Course course) {
         String sql = "INSERT INTO Cursusinschrijving(cursusID, studentID) VALUES (?,?);";
         course.setCursusID(course.getCursusID());
@@ -147,6 +148,7 @@ public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {
         }
     }
 
+    //@author Olaf van der Kaaij
     public void deleteOneFromCourseRegistration(Course course) {
         String sql = "DELETE FROM Cursusinschrijving WHERE studentID = ? AND cursusID = ?;";
         try {

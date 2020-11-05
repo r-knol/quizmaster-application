@@ -5,12 +5,18 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import model.User;
 
+
+
 public class Main extends Application {
 
     private static SceneManager sceneManager = null;
     private static Stage primaryStage = null;
     private static DBAccess db = null;
     private static User user;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) {

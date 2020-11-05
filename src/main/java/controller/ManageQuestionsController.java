@@ -1,15 +1,11 @@
 package controller;
 
-import database.mysql.DBAccess;
 import database.mysql.QuestionDAO;
-import database.mysql.QuizDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import model.Question;
-import model.Quiz;
 import view.Main;
-
 import java.util.List;
 
 /**
