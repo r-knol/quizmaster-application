@@ -106,7 +106,6 @@ public class User {
     public String getVoornaam() {
         return voornaam;
     }
-
     public void setVoornaam(String voornaam) {
         this.voornaam = voornaam;
     }
