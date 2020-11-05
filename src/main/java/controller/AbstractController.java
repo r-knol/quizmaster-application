@@ -8,10 +8,7 @@ import javafx.scene.control.Alert;
  * Centraliseert gedeelde controllermethodes
  */
 
-public abstract class AbstractController{
-
-
-
+public abstract class AbstractController {
     protected void showInformationAlert(String text) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText(text);

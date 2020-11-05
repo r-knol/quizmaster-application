@@ -138,10 +138,11 @@ public class QuestionDAO extends AbstractDAO implements GenericDAO<Question> {
 
     @Override
     public void deleteOne(Question question) {
-        String sql = "DELETE FROM Vraag WHERE vraagID = ?";
+        String sql = "DELETE FROM Vraag WHERE vraagID = ? AND QuizID = ?";
         try {
             setupPreparedStatement(sql);
             preparedStatement.setInt(1, question.getVraagID());
+            preparedStatement.setInt(2, question.getQuiz().getQuizID());
             executeManipulateStatement();
         } catch (SQLException e) {
             System.out.println("SQL error " + e.getMessage());
