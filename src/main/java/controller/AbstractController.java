@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.application.Application;
 import javafx.scene.control.Alert;
 
 /**
@@ -7,7 +8,9 @@ import javafx.scene.control.Alert;
  * Centraliseert gedeelde controllermethodes
  */
 
-public abstract class AbstractController {
+public abstract class AbstractController extends Application {
+
+
 
     protected void showInformationAlert(String text) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

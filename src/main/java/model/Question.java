@@ -119,10 +119,5 @@ public class Question {
                 "\nC. " + antwoorden.get(2) +
                 "\nD. " + antwoorden.get(3);
     }
-
-    @Override
-    public String toString() {
-      return quizVraag;
-    }
 }
 
