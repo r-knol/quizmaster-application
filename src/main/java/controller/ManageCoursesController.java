@@ -2,7 +2,6 @@ package controller;
 
 import database.mysql.CourseDAO;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import model.Course;
 import view.Main;

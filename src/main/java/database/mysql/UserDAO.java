@@ -3,10 +3,10 @@ import model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Richard Knol, Wendy Ellens
+ * Om cursusgegevens aan de SQL-database toe te voegen of eruit op te halen
  */
 
 public class UserDAO extends AbstractDAO implements GenericDAO<User> {

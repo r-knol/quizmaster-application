@@ -4,13 +4,13 @@ import model.Course;
 import model.User;
 import view.Main;
 
-import java.security.DrbgParameters;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
  * @author Wendy Ellens
+ * Om cursusgegevens aan de SQL-database toe te voegen of eruit op te halen
  */
 
 public class CourseDAO extends AbstractDAO implements GenericDAO<Course> {

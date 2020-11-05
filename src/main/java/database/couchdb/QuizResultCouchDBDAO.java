@@ -1,7 +1,7 @@
 package database.couchdb;
 
 /**
- * Author Richard Knol, Wendy Ellens
+ * Author Richard Knol
  */
 
 import com.google.gson.*;
@@ -25,6 +25,7 @@ public class QuizResultCouchDBDAO {
         gson = new Gson();
     }
 
+    // Aangepast door Wendy, zodat het attribuut datum van QuizResult goed wordt verwerkt
     public String saveQuizResult(QuizResult quizResult) {
         // Om datum + tijd om te zetten in een Json-string
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -36,26 +37,8 @@ public class QuizResultCouchDBDAO {
         JsonParser parser = new JsonParser();
         JsonObject jsonObject = parser.parse(jsonstring).getAsJsonObject();
         String doc_Id = db.saveDocument(jsonObject);
+
         return doc_Id;
-    }
-
-    public QuizResult getQuizResultSingle (User student, Quiz quiz) {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer());
-        Gson gson = gsonBuilder.setPrettyPrinting().create();
-
-        QuizResult resultaat = null;
-        List<JsonObject> alleResults = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
-        for (JsonObject json : alleResults) {
-            QuizResult quizResult = gson.fromJson(json, QuizResult.class);
-            //todo: check of er wel quiz en student is
-            if ((quizResult.getStudent().getGebruikerID() == student.getGebruikerID())
-                    && (quizResult.getQuiz().getQuizID() == quiz.getQuizID())) {
-                return resultaat;
-            }
-        }
-        return resultaat;
-
     }
 
     // Methode om de resultaten van de quiz uit couchDB te halen @author Olaf van der Kaaij
@@ -78,8 +61,8 @@ public class QuizResultCouchDBDAO {
     }
 }
 
-// Om de datum + tijd om te zetten in een Json-string
-class LocalDateTimeSerializer implements JsonSerializer<LocalDateTime> {
+// Toegevoegd door Wendy om de datum + tijd om te zetten in een Json-string
+class LocalDateTimeSerializer implements JsonSerializer < LocalDateTime > {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
     @Override

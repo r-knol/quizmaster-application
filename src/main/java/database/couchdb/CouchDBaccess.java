@@ -6,7 +6,7 @@ import org.lightcouch.CouchDbProperties;
 import org.lightcouch.Response;
 
 /**
- * Author Richard Knol, Wendy Ellens
+ * Author Richard Knol
  */
 
 public class CouchDBaccess {
@@ -22,12 +22,13 @@ public class CouchDBaccess {
         properties.setHost("localhost");
         properties.setPort(5984);
         properties.setProtocol("http");
-        properties.setUsername("admin"); // ieder voor zich eenmalig aanpassen
-        properties.setPassword("Hallotest5@"); // ""
+        properties.setUsername("admin");
+        properties.setPassword("Hallotest5@");
 
         client = new CouchDbClient(properties); // de properties worden hier in het object client gestopt
     }
 
+    // Toegevoegd door Wendy, zodat dit niet in Main hoeft en pas als de verbinding nodig is
     public void openConnection() {
         try {
             this.setupConnection();

@@ -1,7 +1,5 @@
 package view;
 
-import database.couchdb.CouchDBaccess;
-import database.couchdb.QuizResultCouchDBDAO;
 import database.mysql.DBAccess;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -11,8 +9,6 @@ import model.User;
 
 public class Main extends Application {
 
-    private static CouchDBaccess couchDBaccess;
-    private static QuizResultCouchDBDAO quizResultCouchDBDAO;
     private static SceneManager sceneManager = null;
     private static Stage primaryStage = null;
     private static DBAccess db = null;
@@ -23,8 +19,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage)  {
-
+    public void start(Stage primaryStage) {
         Main.primaryStage = primaryStage;
         primaryStage.setTitle("Make IT Work - Project 1");
         getSceneManager().setWindowTool();
