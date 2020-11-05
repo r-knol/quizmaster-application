@@ -25,7 +25,7 @@ public class QuizResultCouchDBDAO {
         gson = new Gson();
     }
 
-    // Aangepast door Wendy, zodat het attribuut datum van QuizResult goed owrdt verwerkt
+    // Aangepast door Wendy, zodat het attribuut datum van QuizResult goed wordt verwerkt
     public String saveQuizResult(QuizResult quizResult) {
         // Om datum + tijd om te zetten in een Json-string
         GsonBuilder gsonBuilder = new GsonBuilder();

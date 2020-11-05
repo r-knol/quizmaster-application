@@ -15,7 +15,6 @@ public class LoginController extends AbstractController  {
     private TextField nameTextField;
     @FXML
     private TextField passwordField;
-  ;
 
     public void doLogin() {
         UserDAO userDAO = new UserDAO(Main.getDBaccess());
@@ -28,7 +27,6 @@ public class LoginController extends AbstractController  {
             showInformationAlert("Deze combinatie van gebruikersnaam en wachtwoord is onbekend");
         }
         else { // Indien juist: doorgaan naar het welkomstscherm
-
             Main.getSceneManager().showWelcomeScene();
         }
     }
