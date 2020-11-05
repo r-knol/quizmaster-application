@@ -108,10 +108,6 @@ public class Question {
         return antwoorden;
     }
 
-    public String toString() {
-        return vraagID + ". " + quizVraag;
-    }
-
     public String zetAntwoordenInString(List<String> antwoorden) {
         return quizVraag + "\n\n" +
                 "A. " + antwoorden.get(0) +
@@ -120,9 +116,8 @@ public class Question {
                 "\nD. " + antwoorden.get(3);
     }
 
-    @Override
     public String toString() {
-      return quizVraag;
+        return vraagID + ". " + quizVraag;
     }
 }
 
