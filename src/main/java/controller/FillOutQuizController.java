@@ -25,7 +25,7 @@ public class FillOutQuizController {
     List<Question> alleVragen;
     int huidigVraagnummer = 0;
     QuizResult quizResult;
-    ArrayList<QuestionAnswerPair> questionAnswerPairs = new ArrayList<QuestionAnswerPair>();
+    ArrayList<QuestionAnswerPair> questionAnswerPairs = new ArrayList<>();
     Quiz quiz;
     List<String> antwoordenHuidigeVraag;
 
@@ -36,12 +36,15 @@ public class FillOutQuizController {
 
     public void setup(Quiz quiz) {
         this.quiz = quiz;
+
         // Eén vraag laten zien, de eerste uit de lijst voor de desbetreffende quiz
         QuestionDAO questionDAO = new QuestionDAO(Main.getDBaccess()); // instantie van questiondao
         alleVragen = questionDAO.getAllByQuizId(quiz.getQuizID()); // lijst maken van alle vragen o.b.v. quizID
+
         // Nu wil ik de eerste vraag van dit lijstje tonen in questionArea (TextArea), met de mogelijke antwoorden
         antwoordenHuidigeVraag = alleVragen.get(huidigVraagnummer).shuffleAntwoorden();
         questionArea.setText(alleVragen.get(huidigVraagnummer).zetAntwoordenInString(antwoordenHuidigeVraag));
+
         // Titel veranderen met juiste vraagnummer
         titleLabel.setText("Vraag " + (huidigVraagnummer + 1));
 

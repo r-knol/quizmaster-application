@@ -19,6 +19,7 @@ public class QuizResult {
     private Boolean behaald;
 
     public QuizResult(User student, Quiz quiz, LocalDateTime datum, List<QuestionAnswerPair> vraagAntwoordParen) {
+        super();
         this.student = student;
         this.quiz = quiz;
         this.datum = datum;
@@ -27,7 +28,7 @@ public class QuizResult {
     }
 
     public QuizResult(User student, Quiz quiz, LocalDateTime datum) {
-        this(student, quiz, datum, new ArrayList<QuestionAnswerPair>());
+        this(student, quiz, datum, new ArrayList<>());
     }
 
     // De quiz is behaald als het aantal juist antwoorden minstens zo groot is als de succesdefinitie
