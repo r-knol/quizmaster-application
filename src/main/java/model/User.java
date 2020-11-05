@@ -106,6 +106,7 @@ public class User {
     public String getVoornaam() {
         return voornaam;
     }
+
     public void setVoornaam(String voornaam) {
         this.voornaam = voornaam;
     }
@@ -126,6 +127,6 @@ public class User {
 
     @Override
     public String toString() {
-        return gebruikersnaam; //todo: evt. mooiere toString voor ListView in manageUsers
+        return achternaam + ", " + voornaam + ", " + rol;
     }
 }

@@ -24,8 +24,8 @@ public class QuizDAOTest {
 //       assertEquals(actual.getQuizID(), 1);
 //       assertEquals(actual.getAantalVragen(), 20);
 //       assertEquals(actual.getSuccesDefinitie(), 10);
-       //assertEquals(actual.getQuizID(), 1);
-       //assertEquals(actual.getCourse().getCursusNaam(), "Geschiedenis");
+//       assertEquals(actual.getQuizID(), 1);
+//       assertEquals(actual.getCourse().getCursusNaam(), "Geschiedenis");
     }
 
     @Test

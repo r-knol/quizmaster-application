@@ -1,5 +1,8 @@
 package controller;
 
+/** Author Richard Knol, Olaf van der Kaaij
+ */
+
 import database.couchdb.CouchDBaccess;
 import database.couchdb.QuizResultCouchDBDAO;
 import javafx.fxml.FXML;
