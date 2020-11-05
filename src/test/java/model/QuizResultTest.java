@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class QuizResultTest {
 
     private User user = new User(0, "", "", "", "", "", "");
-    // Minstens 1 van de 2 vragen moet goed zijn
+    // Quiz waarvoor minstens 1 van de 2 vragen goed moet zijn
     private Quiz quiz = new Quiz(new Course(), "", 2,1);
     private Question question = new Question("", "1", "2", "3", "4");
     // Juist antwoord
@@ -25,23 +25,23 @@ class QuizResultTest {
     private QuestionAnswerPair questionAnswerPair2 = new QuestionAnswerPair(question, "2");
     List<QuestionAnswerPair> questionAnswerPairList = new ArrayList<>();
 
-    // Test methode QuizResult.bepaalBehaald()
+    // Tests voor methode bepaalBehaald
     @Test
-    void testBehaald() { // Twee juiste antwoorden
+    void testBehaald() { // Quiz met twee juiste antwoorden
         questionAnswerPairList.add(questionAnswerPair1);
         questionAnswerPairList.add(questionAnswerPair1);
         QuizResult quizResult = new QuizResult(user, quiz, LocalDateTime.now(), questionAnswerPairList);
         assertTrue(quizResult.getBehaald());
     }
     @Test
-    void testBehaald2() { // Een juist antwoord
+    void testBehaald2() { // Quiz met een juist antwoord
         questionAnswerPairList.add(questionAnswerPair1);
         questionAnswerPairList.add(questionAnswerPair2);
         QuizResult quizResult = new QuizResult(user, quiz, LocalDateTime.now(), questionAnswerPairList);
         assertTrue(quizResult.getBehaald());
     }
     @Test
-    void testBehaald3() { // Geen juiste antwoorden
+    void testBehaald3() { // Quiz zonder juiste antwoorden
         questionAnswerPairList.add(questionAnswerPair2);
         questionAnswerPairList.add(questionAnswerPair2);
         QuizResult quizResult = new QuizResult(user, quiz, LocalDateTime.now(), questionAnswerPairList);

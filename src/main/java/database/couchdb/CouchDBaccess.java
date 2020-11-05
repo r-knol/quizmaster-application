@@ -28,7 +28,7 @@ public class CouchDBaccess {
         client = new CouchDbClient(properties); // de properties worden hier in het object client gestopt
     }
 
-    // Toegevoegd door Wendy, zodat dit niet in Main hoeft en pas als de verbinding nodig is
+    // Toegevoegd door Wendy, zodat dit niet in Main hoeft en pas gebeurt als de verbinding nodig is
     public void openConnection() {
         try {
             this.setupConnection();

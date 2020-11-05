@@ -21,6 +21,7 @@ public class User {
 
     public User(int gebruikerID, String rol, String gebruikersnaam, String wachtwoord,
                 String voornaam, String tussenvoegsels, String achternaam) {
+        super();
         this.gebruikerID = gebruikerID;
         this.rol = rol;
         this.gebruikersnaam = gebruikersnaam;
@@ -32,9 +33,8 @@ public class User {
 
     // GebruikerID, gebruikersnaam en wachtwoord worden automatisch gegenereerd.
     public User(String rol, String voornaam, String tussenvoegsels, String achternaam) {
-        this(0, rol, "", "", voornaam, tussenvoegsels, achternaam);
-        gebruikersnaam = genereerGebruikersnaam(voornaam, achternaam);
-        wachtwoord = genereerWachtwoord(WACHTWOORD_LENGTE);
+        this(0, rol, genereerGebruikersnaam(voornaam, achternaam),
+                genereerWachtwoord(WACHTWOORD_LENGTE), voornaam, tussenvoegsels, achternaam);
     }
 
     public static String genereerGebruikersnaam(String voornaam, String achternaam) {
@@ -106,7 +106,6 @@ public class User {
     public String getVoornaam() {
         return voornaam;
     }
-
     public void setVoornaam(String voornaam) {
         this.voornaam = voornaam;
     }

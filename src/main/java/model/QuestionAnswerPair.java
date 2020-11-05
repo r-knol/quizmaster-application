@@ -2,7 +2,7 @@ package model;
 
 /**
  * @author Wendy Ellens
- * Om het nummer van het gekozen antwoord op te slaan bij het nummer van de vraag
+ * Om de vraag, de antwoorden en het gekozen antwoord op te slaan
  */
 
 public class QuestionAnswerPair {
@@ -10,6 +10,7 @@ public class QuestionAnswerPair {
     private String antwoord;
 
     public QuestionAnswerPair(Question vraag, String antwoord) {
+        super();
         this.vraag = vraag;
         this.antwoord = antwoord;
     }

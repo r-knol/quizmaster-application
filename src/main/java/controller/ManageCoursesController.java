@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * @author Wendy Ellens
+ * Regelt de functionaliteiten in het manageCourses scherm
  */
 
 public class ManageCoursesController extends AbstractController{

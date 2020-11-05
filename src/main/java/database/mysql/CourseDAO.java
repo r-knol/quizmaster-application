@@ -1,7 +1,6 @@
 package database.mysql;
 
 import model.Course;
-import model.User;
 import view.Main;
 
 import java.sql.ResultSet;

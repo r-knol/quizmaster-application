@@ -6,6 +6,9 @@ import javafx.stage.Stage;
 import model.User;
 
 
+/**
+ * @Author docenten MIW
+ */
 
 public class Main extends Application {
 
@@ -31,10 +34,6 @@ public class Main extends Application {
             sceneManager = new SceneManager(primaryStage);
         }
         return sceneManager;
-    }
-
-    public static Stage getPrimaryStage() {
-        return primaryStage;
     }
 
     // Toegevoegd door Wendy om de gegevens van de gebruiker die inlogt overal beschikbaar te hebben

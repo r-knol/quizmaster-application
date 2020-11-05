@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * @author Wendy Ellens
+ * Regelt de functionaliteiten in het createUpdateCourse scherm
  */
 
 public class CreateUpdateCourseController extends AbstractController {
@@ -31,6 +32,7 @@ public class CreateUpdateCourseController extends AbstractController {
     private Button submitButton;
 
     public void setup(Course course) {
+
         // Dropdownmenu maken met alle coördinatoren
         UserDAO userDAO = new UserDAO(Main.getDBaccess());
         List<User> allUsers = userDAO.getAllByRole("coordinator");
@@ -42,11 +44,13 @@ public class CreateUpdateCourseController extends AbstractController {
             });
             coordinatorTaskMenuButton.getItems().add(item);
         }
+
         // Scherm voor het aanmaken van een nieuwe cursus
         if (course == null) {
             titleLabel.setText("Nieuwe cursus");
             submitButton.setText("Maak");
         }
+
         // Scherm voor het wijzigen van een bestaande cursus
         else {
             this.course = course;
@@ -60,6 +64,7 @@ public class CreateUpdateCourseController extends AbstractController {
 
     public void doCreateUpdateCourse() {
         CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
+
         // Nieuwe cursus opslaan in de database
         if (course == null) {
             course = new Course(cursusnaam.getText(), coordinator);
@@ -67,6 +72,7 @@ public class CreateUpdateCourseController extends AbstractController {
             showInformationAlert(String.format("Cursus %s aangemaakt", course.getCursusID()));
             doMenu();
         }
+
         // Wijzigen van een bestaande cursus in de database
         else {
             course.setCursusNaam(cursusnaam.getText());

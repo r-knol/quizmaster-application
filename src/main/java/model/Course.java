@@ -12,6 +12,7 @@ public class Course {
     private User user;
 
     public Course(int cursusID, String cursusNaam, User user) {
+        super();
         this.cursusID = cursusID;
         this.cursusNaam = cursusNaam;
         this.user = user;

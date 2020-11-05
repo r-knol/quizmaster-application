@@ -21,7 +21,7 @@ class UserTest {
     int wachtwoordLengte = 5;
     User expected = new User("Student", "Menno", "de", "Bruin");
 
-    // Test methode User.genereerGebruikersnaam()
+    // Tests voor methode genereerGebruikersnaam
     @Test
     void genereerGebruikersnaam() { // Nieuwe gebruiker
         String gebruikersnaam = User.genereerGebruikersnaam(voornaam, achternaam);
@@ -45,20 +45,20 @@ class UserTest {
         userDAO.deleteOne(user2);
     }
 
-    // Test methode User.genereerWachtwoord()
+    // Tests voor methode genereerWachtwoord
     @Test
-    void genereerWachtwoord() { // Test lengte
+    void genereerWachtwoord() { // Test de lengte
         String wachtwoord = User.genereerWachtwoord(wachtwoordLengte);
         assertEquals(wachtwoordLengte, wachtwoord.length());
     }
     @Test
-    void genereerWachtwoord2() { // Test karakters
+    void genereerWachtwoord2() { // Test de karakters
         String tekens = "a2!";
         String wachtwoord = User.genereerWachtwoord(wachtwoordLengte, tekens);
         assertTrue(StringUtils.containsOnly(wachtwoord, tekens));
     }
     @Test
-    void genereerWachtwoord3() { // Test volgende wachtwoord verschillend
+    void genereerWachtwoord3() { // Test of het volgende wachtwoord verschillend is
         String wachtwoord1 = User.genereerWachtwoord(wachtwoordLengte);
         String wachtwoord2 = User.genereerWachtwoord(wachtwoordLengte);
         assertNotEquals(wachtwoord1, wachtwoord2);
