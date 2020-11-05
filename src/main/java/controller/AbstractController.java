@@ -8,7 +8,7 @@ import javafx.scene.control.Alert;
  * Centraliseert gedeelde controllermethodes
  */
 
-public abstract class AbstractController extends Application {
+public abstract class AbstractController {
 
 
 
