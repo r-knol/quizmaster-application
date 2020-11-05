@@ -38,7 +38,7 @@ public class CoordinatorDashboardController extends AbstractController{
         QuizDAO quizDAO = new QuizDAO(Main.getDBaccess());
         QuestionDAO questionDAO = new QuestionDAO(Main.getDBaccess());
 
-        List<Course> allCourses = courseDAO.getAll();
+        List<Course> allCourses = courseDAO.getAllByCoordinatorID(Main.getUser().getGebruikerID());
         for (Course course : allCourses) courseList.getItems().add( course );
         // Haalt op basis van de cursus alle bijbehorende quizzes op, bij nieuwe keuze wordt de lijst leegemaakt.
         courseList.getSelectionModel().selectedItemProperty().addListener(
@@ -65,7 +65,6 @@ public class CoordinatorDashboardController extends AbstractController{
                     }
                 });
     }
-
 
     // TODO : Afhankelijk van scherm van herkomst terug naar datzelfde scherm?
     public void doNewQuiz() {
