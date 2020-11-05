@@ -4,6 +4,7 @@ package controller;
  * @author Olaf van der Kaaij
  */
 
+import database.couchdb.CouchDBaccess;
 import database.mysql.CourseDAO;
 import database.mysql.QuizDAO;
 import javafx.fxml.FXML;
@@ -15,6 +16,9 @@ import view.Main;
 import java.util.List;
 
 public class SelectQuizForStudentController extends AbstractController {
+
+    private Quiz quiz;
+    private CouchDBaccess db;
 
     @FXML
     ListView<Quiz> quizList;

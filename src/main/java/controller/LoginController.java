@@ -2,7 +2,6 @@ package controller;
 
 import database.mysql.UserDAO;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import view.Main;
 
@@ -10,12 +9,13 @@ import view.Main;
  * @author Richard Knol, Wendy Ellens
  */
 
-public class LoginController extends AbstractController {
+public class LoginController extends AbstractController  {
 
     @FXML
     private TextField nameTextField;
     @FXML
     private TextField passwordField;
+  ;
 
     public void doLogin() {
         UserDAO userDAO = new UserDAO(Main.getDBaccess());
@@ -28,6 +28,7 @@ public class LoginController extends AbstractController {
             showInformationAlert("Deze combinatie van gebruikersnaam en wachtwoord is onbekend");
         }
         else { // Indien juist: doorgaan naar het welkomstscherm
+
             Main.getSceneManager().showWelcomeScene();
         }
     }

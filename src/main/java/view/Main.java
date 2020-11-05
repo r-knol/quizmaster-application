@@ -7,6 +7,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import model.User;
 
+
+
 public class Main extends Application {
 
     private static CouchDBaccess couchDBaccess;
@@ -16,25 +18,13 @@ public class Main extends Application {
     private static DBAccess db = null;
     private static User user;
 
-    // stukje code om couchDB te testen
-    // Constructor van main om couchdb access te regelen
-//    public Main() {
-//        super();
-//        couchDBaccess = new CouchDBaccess();
-//        quizResultCouchDBDAO = new QuizResultCouchDBDAO(couchDBaccess);
-//    }
-
     public static void main(String[] args) {
-        // stukje code om couchDB te testen
-//        Main main = new Main();
-//        main.setupCouchDBConnection();
-//        quizResultCouchDBDAO.runTest();
-        // code om Application klasse te launchen
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage)  {
+
         Main.primaryStage = primaryStage;
         primaryStage.setTitle("Make IT Work - Project 1");
         getSceneManager().setWindowTool();
@@ -51,17 +41,6 @@ public class Main extends Application {
     public static Stage getPrimaryStage() {
         return primaryStage;
     }
-
-    // setupconnection CouchDB
-//    public void setupCouchDBConnection() {
-//        try {
-//            couchDBaccess.setupConnection();
-//            System.out.println("Connection open");
-//        } catch (Exception e) {
-//            System.out.println("\nEr is iets fout gegaan");
-//            e.printStackTrace();
-//        }
-//    }
 
     // Toegevoegd door Wendy om de gegevens van de gebruiker die inlogt overal beschikbaar te hebben
     public static User getUser() {

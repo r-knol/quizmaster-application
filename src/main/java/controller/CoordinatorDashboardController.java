@@ -14,8 +14,6 @@ import model.Course;
 import model.Question;
 import model.Quiz;
 import view.Main;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class CoordinatorDashboardController extends AbstractController{
@@ -42,10 +40,6 @@ public class CoordinatorDashboardController extends AbstractController{
 
         List<Course> allCourses = courseDAO.getAll();
         for (Course course : allCourses) courseList.getItems().add( course );
-        /*if (quizList != null) {
-            quizList.getItems().clear();
-            questionList.getItems().clear();
-        }*/
         // Haalt op basis van de cursus alle bijbehorende quizzes op, bij nieuwe keuze wordt de lijst leegemaakt.
         courseList.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue, oldCourse, newCourse) -> {

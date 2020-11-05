@@ -109,7 +109,7 @@ public class Question {
     }
 
     public String toString() {
-        return quizVraag;
+        return vraagID + ". " + quizVraag;
     }
 
     public String zetAntwoordenInString(List<String> antwoorden) {

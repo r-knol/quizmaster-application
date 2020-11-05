@@ -39,7 +39,26 @@ public class QuizResultCouchDBDAO {
         return doc_Id;
     }
 
-    // Methode om het de resultaten van de quiz uit couchDB te halen @author Olaf van der Kaaij
+    public QuizResult getQuizResultSingle (User student, Quiz quiz) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer());
+        Gson gson = gsonBuilder.setPrettyPrinting().create();
+
+        QuizResult resultaat = null;
+        List<JsonObject> alleResults = db.getClient().view("_all_docs").includeDocs(true).query(JsonObject.class);
+        for (JsonObject json : alleResults) {
+            QuizResult quizResult = gson.fromJson(json, QuizResult.class);
+            //todo: check of er wel quiz en student is
+            if ((quizResult.getStudent().getGebruikerID() == student.getGebruikerID())
+                    && (quizResult.getQuiz().getQuizID() == quiz.getQuizID())) {
+                return resultaat;
+            }
+        }
+        return resultaat;
+
+    }
+
+    // Methode om de resultaten van de quiz uit couchDB te halen @author Olaf van der Kaaij
     public List<QuizResult> getQuizResult(User student, Quiz quiz) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer());

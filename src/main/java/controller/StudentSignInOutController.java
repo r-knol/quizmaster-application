@@ -7,7 +7,7 @@ import model.Course;
 import view.Main;
 import java.util.List;
 
-public class StudentSignInOutController extends  AbstractController{
+public class StudentSignInOutController extends AbstractController{
 
     @FXML
     private ListView<Course> signedOutCourseList;
@@ -22,10 +22,8 @@ public class StudentSignInOutController extends  AbstractController{
         }
         signedOutCourseList.getSelectionModel().getSelectedItems();
         List<Course> allCoursesByID = courseDAO.getAllByStudentID(Main.getUser().getGebruikerID());
-        System.out.println(Main.getUser().getGebruikerID());
         for(Course c : allCoursesByID) {
             signedInCourseList.getItems().add(c);
-            //System.out.println(c);
             for (int index = 0; index < signedOutCourseList.getItems().size(); index++) {
                   Course oldCourse = signedOutCourseList.getItems().get(index);
                   if (oldCourse.getCursusNaam().equals(c.getCursusNaam())) {
@@ -37,7 +35,6 @@ public class StudentSignInOutController extends  AbstractController{
         signedInCourseList.getSelectionModel().getSelectedItems();
     }
 
-
     public void doMenu() {
         Main.getSceneManager().showWelcomeScene();
     }
@@ -46,7 +43,6 @@ public class StudentSignInOutController extends  AbstractController{
         CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
         Course course = signedOutCourseList.getSelectionModel().getSelectedItem();
         courseDAO.storeOneInCourseRegistration(course);
-        //System.out.println(course);
         showInformationAlert( String.format( "Je bent ingeschreven voor cursus: ", course.getCursusID() + " " + course.getCursusNaam() ) );
         signedOutCourseList.getItems().clear();
         signedInCourseList.getItems().clear();
@@ -57,7 +53,6 @@ public class StudentSignInOutController extends  AbstractController{
         CourseDAO courseDAO = new CourseDAO(Main.getDBaccess());
         Course course = signedInCourseList.getSelectionModel().getSelectedItem();
         courseDAO.deleteOneFromCourseRegistration(course);
-        System.out.println(course);
         showInformationAlert( String.format( "Je bent uitgeschreven voor cursus: ", course.getCursusID() + " " + course.getCursusNaam() ) );
         signedOutCourseList.getItems().clear();
         signedInCourseList.getItems().clear();

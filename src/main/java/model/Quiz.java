@@ -72,5 +72,6 @@ public class Quiz {
     public String toString() {
         return quizNaam;
     }
+
 }
 
